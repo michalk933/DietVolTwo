@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="50px"
+    android:padding="40px">
+
+    <TextView
+        android:id="@+id/goalTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/goal_text_view" />
+
+    <RadioGroup
+        android:id="@+id/golFragmentRadioGrup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/reductionGoalRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reduction_goal_text_view" />
+
+        <RadioButton
+            android:id="@+id/stateGoalRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/stait_goal_text_view" />
+
+        <RadioButton
+            android:id="@+id/massGoalRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mass_goal_text_view" />
+
+    </RadioGroup>
+</LinearLayout>

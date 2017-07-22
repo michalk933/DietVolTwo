@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">DietVolTwo</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    //layout personal
+    <string name="name_text_view">Imie:</string>
+    <string name="pass_text_view">Hasło:</string>
+    <string name="re_pass_text_view">Powtórz hasło:</string>
+    <string name="email_text_view">E-mail:</string>
+
+    //layout goal
+    <string name="goal_text_view">Cel diety :</string>
+    <string name="reduction_goal_text_view">Redukcja masy ciała</string>
+    <string name="stait_goal_text_view">Utrzymanie masy ciała</string>
+    <string name="mass_goal_text_view">Zwiększanie masy ciała</string>
+
+    //layout health
+    <string name="state_of_the_body_health_text_view">Stan organizmu:</string>
+    <string name="health_health_text_view">Zdrowy</string>
+    <string name="ower_weath_health_text_view">Otyły</string>
+    <string name="diabets_health_text_view">Diabetyk</string>
+    <string name="typ_health_text_view">Typ cukrycy</string>
+    <string name="typ_one_diabets_health_text_view">Typ 1</string>
+    <string name="typ_two_diabets_health_text_view">Typ 2</string>
+    <string name="typ_diet_text_view">Rodzaj diety :</string>
+    <string name="carbo_diet_text_view">Wysoko węglowodanowa</string>
+    <string name="fat_diet_text_view">Wysoko tłuszczowa</string>
+    <string name="protein_diet_text_view">Wysoko białkowa</string>
+    <string name="stabile_diet_text_view">Zrównoważona</string>
+
+    //layout parameters
+    <string name="age_text_view">Wiek :</string>
+    <string name="weight_text_view">Waga :</string>
+    <string name="height_text_view">Wzrost :</string>
+    <string name="sex_text_view">Płeć :</string>
+    <string name="famle_text_view">Kobieta</string>
+    <string name="male_text_view">Mężczyzna</string>
+    <string name="lvl_activity_text_view">Poziom aktywności fizycznej :</string>
+    <string name="low_lvl_text_view">Niska aktywność</string>
+    <string name="midium_lvl_text_view">Średnia  aktywność</string>
+    <string name="height_lvl_text_view">Wysoka aktywność</string>
+
+
+
+</resources>

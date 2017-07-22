@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.michal.dietvoltwo.slajder.GolFragment;
-import com.example.michal.dietvoltwo.slajder.HealthFragment;
 import com.example.michal.dietvoltwo.slajder.ParametersFragment;
 import com.example.michal.dietvoltwo.slajder.PersonFragment;
 import com.example.michal.dietvoltwo.slajder.SectionPageAdapter;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         SectionPageAdapter sectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
         sectionPageAdapter.addFragment(new PersonFragment(),"Dane identyfikacyjne");
         sectionPageAdapter.addFragment(new GolFragment(),"Cel diety");
-        sectionPageAdapter.addFragment(new HealthFragment(),"Stan zdrowia");
         sectionPageAdapter.addFragment(new ParametersFragment(),"Kondycja organizmu");
         viewPager.setAdapter(sectionPageAdapter);
     }

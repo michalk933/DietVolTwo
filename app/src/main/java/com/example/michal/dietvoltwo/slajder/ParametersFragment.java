@@ -1,10 +1,12 @@
 package com.example.michal.dietvoltwo.slajder;
 
 
+import android.content.pm.ProviderInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
+import com.example.michal.dietvoltwo.dto.UserDto;
+import com.example.michal.dietvoltwo.dto.UserGoalDto;
+import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
 
 import static android.widget.SeekBar.OnSeekBarChangeListener;
@@ -28,11 +33,13 @@ public class ParametersFragment extends Fragment {
     private RadioButton famleRadioButton, maleRadioButton, lowLvlActivityRadioButton, mediumLvlActivityRadioButton, heightLvlActivityRadioButton;
     private TextView ageTextView, weightTextView, heightTextView;
     private Button buttonNext;
+
     private int age = 25;
     private int weight = 75;
     private int height = 178;
 
-    private PersonFragment personFragment;
+    private UserParametrsDto userParametrsDto;
+    private UserDto userDto;
 
     @Nullable
     @Override
@@ -56,7 +63,7 @@ public class ParametersFragment extends Fragment {
         mediumLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvlMediumRadioButton);
         heightLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvlHeightRadioButton);
 
-        buttonNext = (Button)view.findViewById(R.id.buttonNext);
+        buttonNext = (Button) view.findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(onClickListener);
 
         sexFragmentRadioGrup.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -73,13 +80,21 @@ public class ParametersFragment extends Fragment {
         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
 
+        userParametrsDto = UserParametrsDto.getUserParametrsDto();
+
         return view;
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-//            Toast.makeText(getActivity(), "CLICK!!", Toast.LENGTH_SHORT).show();
+            UserPersonalDto userPersonalDto = PersonFragment.getUserPersonalDto();
+            UserGoalDto userGoalDto = GolFragment.getUserGoalDto();
+//            userDto.setUserPersonalDto(userPersonalDto);
+//            userDto.setUserGoalDto(userGoalDto);
+//            userDto.setUserParametrsDto(userParametrsDto);
+
+            Log.d("MAMYTO", userPersonalDto.toString());
 
 
         }
@@ -90,21 +105,21 @@ public class ParametersFragment extends Fragment {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.famleRadioButton:
-                    Toast.makeText(getActivity(), "kobieta", Toast.LENGTH_SHORT).show();
+                    userParametrsDto.setSex('K');
                     break;
                 case R.id.maleRadioButton:
-                    Toast.makeText(getActivity(), "meżczyzna", Toast.LENGTH_SHORT).show();
+                    userParametrsDto.setSex('M');
                     break;
 
 
                 case R.id.lvlLowActivityRadioButton:
-                    Toast.makeText(getActivity(), "niska aktywnosc", Toast.LENGTH_SHORT).show();
+                    userParametrsDto.setLvlActivity("NISKA");
                     break;
                 case R.id.lvlMediumRadioButton:
-                    Toast.makeText(getActivity(), "srednia aktywnośc", Toast.LENGTH_SHORT).show();
+                    userParametrsDto.setLvlActivity("SREDNIA");
                     break;
                 case R.id.lvlHeightRadioButton:
-                    Toast.makeText(getActivity(), "wyskowa aktywnośc", Toast.LENGTH_SHORT).show();
+                    userParametrsDto.setLvlActivity("WYSKOWA");
                     break;
             }
         }
@@ -118,23 +133,28 @@ public class ParametersFragment extends Fragment {
                     if (b) {
                         age = ageSeekBar.getProgress();
                         ageTextView.setText(getResources().getString(R.string.age_text_view) + " " + age + " lat");
+                        userParametrsDto.setAge(age);
+
                     }
                     break;
                 case R.id.heightSeekBar:
                     if (b) {
                         height = heightSeekBar.getProgress();
                         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
+                        userParametrsDto.setHeight(height);
+
                     }
                     break;
                 case R.id.weightSeekBar:
                     if (b) {
                         weight = weightSeekbar.getProgress();
                         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
+                        userParametrsDto.setWeight(weight);
+
                     }
                     break;
             }
         }
-
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
         }
@@ -143,6 +163,4 @@ public class ParametersFragment extends Fragment {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
-
-
 }

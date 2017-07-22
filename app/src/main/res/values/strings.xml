@@ -41,6 +41,9 @@
     <string name="midium_lvl_text_view">Średnia  aktywność</string>
     <string name="height_lvl_text_view">Wysoka aktywność</string>
 
+    //PersonFragment
+    <string name="person_fragment_message_password">Hasła są rózne !</string>
+    <string name="person_fragment_message_email">"Podany adres email jest nie poprawny !"</string>
 
 
 </resources>

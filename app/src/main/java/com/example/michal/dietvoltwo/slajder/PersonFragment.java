@@ -42,11 +42,6 @@ public class PersonFragment extends Fragment {
         return view;
     }
 
-    public static UserPersonalDto getUserPersonalDto() {
-        return userPersonalDto;
-    }
-
-
     private class GenericTextWatcher implements TextWatcher {
         private View view;
 

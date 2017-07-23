@@ -80,6 +80,8 @@ public class ParametersFragment extends Fragment {
         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
 
+
+        userDto = new UserDto();
         userParametrsDto = UserParametrsDto.getUserParametrsDto();
 
         return view;
@@ -88,13 +90,15 @@ public class ParametersFragment extends Fragment {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            UserPersonalDto userPersonalDto = PersonFragment.getUserPersonalDto();
-            UserGoalDto userGoalDto = GolFragment.getUserGoalDto();
-//            userDto.setUserPersonalDto(userPersonalDto);
-//            userDto.setUserGoalDto(userGoalDto);
-//            userDto.setUserParametrsDto(userParametrsDto);
-
-            Log.d("MAMYTO", userPersonalDto.toString());
+            UserPersonalDto userPersonalDto = UserPersonalDto.createUserPersonalDto();
+            UserGoalDto userGoalDto = UserGoalDto.getUserPersonalDto();
+            try {
+                userDto.setUserPersonalDto(userPersonalDto);
+                userDto.setUserGoalDto(userGoalDto);
+                userDto.setUserParametrsDto(userParametrsDto);
+            } catch (NullPointerException e) {
+                Log.d("NULL", e.getLocalizedMessage());
+            }
 
 
         }
@@ -155,6 +159,7 @@ public class ParametersFragment extends Fragment {
                     break;
             }
         }
+
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
         }

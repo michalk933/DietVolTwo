@@ -63,7 +63,6 @@ public class GolFragment extends Fragment {
         userGoalDto.setTypeDiet("ZROWNOWAZONA");
 
 
-
         changeIsDiabetOrHealth(false);
 
         return view;
@@ -129,10 +128,4 @@ public class GolFragment extends Fragment {
         proteinDietRadioButton.setEnabled(!isDiabetsOrHealth);
         fatDietRadioButton.setEnabled(!isDiabetsOrHealth);
     }
-
-
-    public static UserGoalDto getUserGoalDto() {
-        return userGoalDto;
-    }
-
 }

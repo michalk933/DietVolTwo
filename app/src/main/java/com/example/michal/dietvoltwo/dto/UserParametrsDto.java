@@ -16,7 +16,7 @@ public class UserParametrsDto {
     private int height;
     private int weight;
     private char sex;
-    private String lvlActivity;
+    private int lvlActivity;
 
     private UserParametrsDto(){}
 

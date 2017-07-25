@@ -117,13 +117,13 @@ public class ParametersFragment extends Fragment {
 
 
                 case R.id.lvlLowActivityRadioButton:
-                    userParametrsDto.setLvlActivity("NISKA");
+                    userParametrsDto.setLvlActivity(30);
                     break;
                 case R.id.lvlMediumRadioButton:
-                    userParametrsDto.setLvlActivity("SREDNIA");
+                    userParametrsDto.setLvlActivity(35);
                     break;
                 case R.id.lvlHeightRadioButton:
-                    userParametrsDto.setLvlActivity("WYSKOWA");
+                    userParametrsDto.setLvlActivity(40);
                     break;
             }
         }

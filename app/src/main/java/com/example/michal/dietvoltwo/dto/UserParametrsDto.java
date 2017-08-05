@@ -1,24 +1,25 @@
 package com.example.michal.dietvoltwo.dto;
 
 
+import io.realm.RealmObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor(suppressConstructorProperties = true)
-public class UserParametrsDto {
+//@AllArgsConstructor(suppressConstructorProperties = true)
+public class UserParametrsDto extends RealmObject {
 
-    private static UserParametrsDto userParametrsDto;
+    public static UserParametrsDto userParametrsDto;
 
     private int age;
     private int height;
     private int weight;
-    private char sex;
+    private String sex;
     private int lvlActivity;
 
-    private UserParametrsDto(){}
+    public UserParametrsDto(){}
 
     public static UserParametrsDto getUserParametrsDto(){
         if(userParametrsDto == null)

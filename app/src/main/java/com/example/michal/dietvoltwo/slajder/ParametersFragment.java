@@ -2,6 +2,7 @@ package com.example.michal.dietvoltwo.slajder;
 
 
 import android.content.pm.ProviderInfo;
+import android.icu.lang.UScript;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -24,6 +25,9 @@ import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 import static android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class ParametersFragment extends Fragment {
@@ -40,6 +44,8 @@ public class ParametersFragment extends Fragment {
 
     private UserParametrsDto userParametrsDto;
     private UserDto userDto;
+
+    private Realm realm;
 
     @Nullable
     @Override
@@ -84,6 +90,8 @@ public class ParametersFragment extends Fragment {
         userDto = new UserDto();
         userParametrsDto = UserParametrsDto.getUserParametrsDto();
 
+        realm = Realm.getDefaultInstance();
+
         return view;
     }
 
@@ -100,6 +108,8 @@ public class ParametersFragment extends Fragment {
                 Log.d("NULL", e.getLocalizedMessage());
             }
 
+            saveInDataBaseTest(userPersonalDto);
+            refreshView();
 
         }
     };
@@ -109,10 +119,10 @@ public class ParametersFragment extends Fragment {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.famleRadioButton:
-                    userParametrsDto.setSex('K');
+                    userParametrsDto.setSex("K");
                     break;
                 case R.id.maleRadioButton:
-                    userParametrsDto.setSex('M');
+                    userParametrsDto.setSex("M");
                     break;
 
 
@@ -138,7 +148,6 @@ public class ParametersFragment extends Fragment {
                         age = ageSeekBar.getProgress();
                         ageTextView.setText(getResources().getString(R.string.age_text_view) + " " + age + " lat");
                         userParametrsDto.setAge(age);
-
                     }
                     break;
                 case R.id.heightSeekBar:
@@ -146,7 +155,6 @@ public class ParametersFragment extends Fragment {
                         height = heightSeekBar.getProgress();
                         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
                         userParametrsDto.setHeight(height);
-
                     }
                     break;
                 case R.id.weightSeekBar:
@@ -154,7 +162,6 @@ public class ParametersFragment extends Fragment {
                         weight = weightSeekbar.getProgress();
                         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
                         userParametrsDto.setWeight(weight);
-
                     }
                     break;
             }
@@ -168,4 +175,99 @@ public class ParametersFragment extends Fragment {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
+
+
+
+
+
+
+    private void saveInDataBaseTest(final UserPersonalDto userPersonal) {
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                UserPersonalDto userPersonalDto = bgRealm.createObject(UserPersonalDto.class);
+                userPersonalDto.setLogin(userPersonal.getLogin());
+                userPersonalDto.setPassword(userPersonal.getPassword());
+                userPersonalDto.setRePassword(userPersonal.getRePassword());
+                userPersonalDto.setEMail(userPersonal.getEMail());
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                // Transaction was a success.
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Transaction failed and was automatically canceled.
+            }
+        });
+
+    }
+
+
+
+    private void saveInDataBase(final UserPersonalDto userPersonal,
+                                final UserGoalDto userGoal, final UserParametrsDto userParametrs,
+                                final UserDto user) {
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                UserPersonalDto userPersonalDto = bgRealm.createObject(UserPersonalDto.class);
+                userPersonalDto.setLogin(userPersonal.getLogin());
+                userPersonalDto.setPassword(userPersonal.getPassword());
+                userPersonalDto.setRePassword(userPersonal.getRePassword());
+                userPersonalDto.setEMail(userPersonal.getEMail());
+
+                UserParametrsDto userParametrsDto1 = bgRealm.createObject(UserParametrsDto.class);
+                userParametrsDto1.setHeight(userParametrs.getHeight());
+                userParametrsDto1.setWeight(userParametrs.getWeight());
+                userParametrsDto1.setAge(userParametrs.getAge());
+                userParametrsDto1.setSex(userParametrs.getSex());
+                userParametrsDto1.setLvlActivity(userParametrs.getLvlActivity());
+
+                UserGoalDto userGoalDto = bgRealm.createObject(UserGoalDto.class);
+                userGoalDto.setDiabetsType(userGoal.getDiabetsType());
+                userGoalDto.setTypeDiet(userGoal.getDiabetsType());
+                userGoalDto.setHealth(userGoal.getHealth());
+                userGoalDto.setGoal(userGoal.getGoal());
+
+                UserDto userDto = bgRealm.createObject(UserDto.class);
+                userDto.setUserParametrsDto(user.getUserParametrsDto());
+                userDto.setUserGoalDto(user.getUserGoalDto());
+                userDto.setUserPersonalDto(user.getUserPersonalDto());
+
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                // Transaction was a success.
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Transaction failed and was automatically canceled.
+            }
+        });
+
+    }
+
+    private void refreshView() {
+
+        RealmResults<UserPersonalDto> r = realm.where(UserPersonalDto.class).findAll();
+        for (UserPersonalDto dto : r) {
+            Toast.makeText(getContext(), dto.toString(), Toast.LENGTH_LONG).show();
+
+        }
+//        Toast.makeText(getContext(), test, Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }

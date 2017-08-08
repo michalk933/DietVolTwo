@@ -3,13 +3,15 @@ package com.example.michal.dietvoltwo.dto;
 
 import io.realm.RealmObject;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 //@AllArgsConstructor(suppressConstructorProperties = true)
-public class UserGoalDto extends RealmObject {
+public class UserGoalDto {
 
     public static UserGoalDto userPersonalDto;
 

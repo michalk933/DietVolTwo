@@ -108,7 +108,7 @@ public class ParametersFragment extends Fragment {
                 Log.d("NULL", e.getLocalizedMessage());
             }
 
-            saveInDataBaseTest(userPersonalDto);
+            saveInDataBase(userDto);
             refreshView();
 
         }
@@ -176,68 +176,31 @@ public class ParametersFragment extends Fragment {
         }
     };
 
+    private void saveInDataBase(final UserDto userDto) {
 
-
-
-
-
-    private void saveInDataBaseTest(final UserPersonalDto userPersonal) {
-
+//        realm.delete(UserDto.class);
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm bgRealm) {
+
                 UserPersonalDto userPersonalDto = bgRealm.createObject(UserPersonalDto.class);
-                userPersonalDto.setLogin(userPersonal.getLogin());
-                userPersonalDto.setPassword(userPersonal.getPassword());
-                userPersonalDto.setRePassword(userPersonal.getRePassword());
-                userPersonalDto.setEMail(userPersonal.getEMail());
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                // Transaction was a success.
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                // Transaction failed and was automatically canceled.
-            }
-        });
+                userPersonalDto.setLogin(userDto.getUserPersonalDto().getLogin());
+                userPersonalDto.setPassword(userDto.getUserPersonalDto().getPassword());
+                userPersonalDto.setRePassword(userDto.getUserPersonalDto().getRePassword());
+                userPersonalDto.setEMail(userDto.getUserPersonalDto().getEMail());
 
-    }
-
-
-
-    private void saveInDataBase(final UserPersonalDto userPersonal,
-                                final UserGoalDto userGoal, final UserParametrsDto userParametrs,
-                                final UserDto user) {
-
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                UserPersonalDto userPersonalDto = bgRealm.createObject(UserPersonalDto.class);
-                userPersonalDto.setLogin(userPersonal.getLogin());
-                userPersonalDto.setPassword(userPersonal.getPassword());
-                userPersonalDto.setRePassword(userPersonal.getRePassword());
-                userPersonalDto.setEMail(userPersonal.getEMail());
-
-                UserParametrsDto userParametrsDto1 = bgRealm.createObject(UserParametrsDto.class);
-                userParametrsDto1.setHeight(userParametrs.getHeight());
-                userParametrsDto1.setWeight(userParametrs.getWeight());
-                userParametrsDto1.setAge(userParametrs.getAge());
-                userParametrsDto1.setSex(userParametrs.getSex());
-                userParametrsDto1.setLvlActivity(userParametrs.getLvlActivity());
+                UserParametrsDto userParametrsDto = bgRealm.createObject(UserParametrsDto.class);
+                userParametrsDto.setLvlActivity(userDto.getUserParametrsDto().getLvlActivity());
+                userParametrsDto.setAge(userDto.getUserParametrsDto().getAge());
+                userParametrsDto.setWeight(userDto.getUserParametrsDto().getWeight());
+                userParametrsDto.setHeight(userDto.getUserParametrsDto().getHeight());
+                userParametrsDto.setSex(userDto.getUserParametrsDto().getSex());
 
                 UserGoalDto userGoalDto = bgRealm.createObject(UserGoalDto.class);
-                userGoalDto.setDiabetsType(userGoal.getDiabetsType());
-                userGoalDto.setTypeDiet(userGoal.getDiabetsType());
-                userGoalDto.setHealth(userGoal.getHealth());
-                userGoalDto.setGoal(userGoal.getGoal());
-
-                UserDto userDto = bgRealm.createObject(UserDto.class);
-                userDto.setUserParametrsDto(user.getUserParametrsDto());
-                userDto.setUserGoalDto(user.getUserGoalDto());
-                userDto.setUserPersonalDto(user.getUserPersonalDto());
+                userGoalDto.setDiabetsType(userDto.getUserGoalDto().getDiabetsType());
+                userGoalDto.setGoal(userDto.getUserGoalDto().getGoal());
+                userGoalDto.setHealth(userDto.getUserGoalDto().getHealth());
+                userGoalDto.setTypeDiet(userDto.getUserGoalDto().getTypeDiet());
 
             }
         }, new Realm.Transaction.OnSuccess() {
@@ -254,14 +217,18 @@ public class ParametersFragment extends Fragment {
 
     }
 
+
     private void refreshView() {
+//        UserDto first = realm.where(UserDto.class).findFirst();
+//        Toast.makeText(getContext(), first.toString(), Toast.LENGTH_LONG).show();
 
-        RealmResults<UserPersonalDto> r = realm.where(UserPersonalDto.class).findAll();
-        for (UserPersonalDto dto : r) {
-            Toast.makeText(getContext(), dto.toString(), Toast.LENGTH_LONG).show();
-
+        RealmResults<UserDto> all = realm.where(UserDto.class).findAll();
+        for (UserDto dto : all) {
+            Log.d("KURWA", dto.getUserGoalDto().toString());
+            Log.d("KURWA", dto.getUserPersonalDto().toString());
+            Log.d("KURWA", dto.getUserParametrsDto().toString());
         }
-//        Toast.makeText(getContext(), test, Toast.LENGTH_LONG).show();
+
     }
 
 

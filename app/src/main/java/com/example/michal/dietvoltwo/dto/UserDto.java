@@ -23,4 +23,13 @@ public class UserDto extends RealmObject {
         this.userParametrsDto = userParametrsDto;
         this.userPersonalDto = userPersonalDto;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userGoalDto=" + userGoalDto +
+                ", userParametrsDto=" + userParametrsDto +
+                ", userPersonalDto=" + userPersonalDto +
+                '}';
+    }
 }

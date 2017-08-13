@@ -78,6 +78,7 @@ public class UserPersonalServiceImpl implements UserPersonalService {
 
     @Override
     public UserPersonalDto save(UserPersonalDto userPersonalDto) {
+        realm.beginTransaction();
         UserPersonalDto newUserPersonalDto = realm.createObject(UserPersonalDto.class);
 
         newUserPersonalDto.setId(userPersonalDto.getId());
@@ -86,7 +87,6 @@ public class UserPersonalServiceImpl implements UserPersonalService {
         newUserPersonalDto.setPassword(userPersonalDto.getPassword());
         newUserPersonalDto.setLogin(userPersonalDto.getLogin());
 
-        realm.beginTransaction();
         realm.copyToRealm(newUserPersonalDto);
         realm.commitTransaction();
 
@@ -95,13 +95,14 @@ public class UserPersonalServiceImpl implements UserPersonalService {
 
     @Override
     public UserPersonalDto edit(UserPersonalDto editUserPersonalDto, int id) {
+        realm.beginTransaction();
+
         UserPersonalDto userParametrs = findOne(id);
         userParametrs.setLogin(editUserPersonalDto.getLogin());
         userParametrs.seteMail(editUserPersonalDto.geteMail());
         userParametrs.setRePassword(editUserPersonalDto.getRePassword());
         userParametrs.setPassword(editUserPersonalDto.getPassword());
 
-        realm.beginTransaction();
         realm.copyToRealmOrUpdate(userParametrs);
         realm.commitTransaction();
 

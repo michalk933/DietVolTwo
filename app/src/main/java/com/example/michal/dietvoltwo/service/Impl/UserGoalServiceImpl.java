@@ -75,6 +75,7 @@ public class UserGoalServiceImpl implements UserGoalService {
 
     @Override
     public UserGoalDto save(UserGoalDto addUserGoal) {
+        realm.beginTransaction();
         UserGoalDto newUserGoal = realm.createObject(UserGoalDto.class);
 
         newUserGoal.setId(addUserGoal.getId());
@@ -82,7 +83,6 @@ public class UserGoalServiceImpl implements UserGoalService {
         newUserGoal.setGoal(addUserGoal.getGoal());
         newUserGoal.setHealth(addUserGoal.getHealth());
 
-        realm.beginTransaction();
         realm.copyToRealm(newUserGoal);
         realm.commitTransaction();
 
@@ -91,6 +91,7 @@ public class UserGoalServiceImpl implements UserGoalService {
 
     @Override
     public UserGoalDto edit(UserGoalDto editUserGoal, int id) {
+        realm.beginTransaction();
 
         UserGoalDto userGoal = findOne(id);
         userGoal.setId(editUserGoal.getId());
@@ -99,7 +100,6 @@ public class UserGoalServiceImpl implements UserGoalService {
         userGoal.setHealth(editUserGoal.getHealth());
         userGoal.setGoal(editUserGoal.getGoal());
 
-        realm.beginTransaction();
         realm.copyToRealmOrUpdate(userGoal);
         realm.commitTransaction();
 

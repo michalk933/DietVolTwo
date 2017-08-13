@@ -78,6 +78,7 @@ public class UserParametersServiceImpl implements UserParametersService {
 
     @Override
     public UserParametrsDto save(UserParametrsDto userParametrsDto) {
+        realm.beginTransaction();
         UserParametrsDto newUserParametrsDto = realm.createObject(UserParametrsDto.class);
 
         newUserParametrsDto.setId(userParametrsDto.getId());
@@ -87,7 +88,7 @@ public class UserParametersServiceImpl implements UserParametersService {
         newUserParametrsDto.setLvlActivity(userParametrsDto.getLvlActivity());
         newUserParametrsDto.setSex(userParametrsDto.getSex());
 
-        realm.beginTransaction();
+
         realm.copyToRealm(newUserParametrsDto);
         realm.commitTransaction();
 

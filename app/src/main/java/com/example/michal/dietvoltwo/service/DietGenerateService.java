@@ -16,7 +16,7 @@ public class DietGenerateService {
             kcal = diabetsDietGenerateService.kcal();
         } else {
             HealthDietGenerateService healthDietGenerateService = new HealthDietGenerateService(userDto);
-
+            kcal = healthDietGenerateService.kcal();
         }
         return kcal;
     }

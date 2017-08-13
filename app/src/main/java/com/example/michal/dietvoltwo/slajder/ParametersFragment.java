@@ -27,6 +27,7 @@ import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
+import com.example.michal.dietvoltwo.service.DietGenerateService;
 import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
 
 
@@ -121,7 +122,15 @@ public class ParametersFragment extends Fragment {
 
             userParametrsDto.setId((int) System.currentTimeMillis());
             UserParametersServiceImpl.getInstance().save(userParametrsDto);
-            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getAge()).toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getAge()).toString(), Toast.LENGTH_SHORT).show();
+
+
+            DietGenerateService dietGenerateService = new DietGenerateService();
+            int dietForUser = dietGenerateService.createDietForUser(userDto);
+
+            Toast.makeText(getContext(), "Kaloryczność diety : " + dietForUser, Toast.LENGTH_SHORT).show();
+
+
         }
     };
 

@@ -3,6 +3,10 @@ package com.example.michal.dietvoltwo.service.Impl;
 
 
 
+import android.app.Activity;
+import android.app.Application;
+import android.support.v4.app.Fragment;
+
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.service.UserParametersService;
 
@@ -13,13 +17,41 @@ import io.realm.Realm;
 
 public class UserParametersServiceImpl implements UserParametersService {
 
+    private static UserParametersServiceImpl instance;
     private Realm realm;
 
-    public UserParametersServiceImpl(Realm realm) {
-        this.realm = realm;
+    public UserParametersServiceImpl(Application application) {
+        realm = Realm.getDefaultInstance();
     }
 
+    public static UserParametersServiceImpl with(Fragment fragment) {
 
+        if (instance == null) {
+            instance = new UserParametersServiceImpl(fragment.getActivity().getApplication());
+        }
+        return instance;
+    }
+
+    public static UserParametersServiceImpl with(Activity activity) {
+
+        if (instance == null) {
+            instance = new UserParametersServiceImpl(activity.getApplication());
+        }
+        return instance;
+    }
+
+    public static UserParametersServiceImpl with(Application application) {
+
+        if (instance == null) {
+            instance = new UserParametersServiceImpl(application);
+        }
+        return instance;
+    }
+
+    public static UserParametersServiceImpl getInstance() {
+
+        return instance;
+    }
 
     public Realm getRealm() {
         return this.realm;
@@ -66,17 +98,16 @@ public class UserParametersServiceImpl implements UserParametersService {
     @Override
     public UserParametrsDto edit(UserParametrsDto userParametrsDtoEdit) {
 
-////        UserParametrsDto userParametrsDto = findOne(Long.valueOf(userParametrsDtoEdit.getId()));
-//        UserParametrsDto userParametrsDto = findOne(Long.valueOf(userParametrsDtoEdit.getId()));
-//        userParametrsDto.setAge(userParametrsDtoEdit.getAge());
-//        userParametrsDto.setHeight(userParametrsDtoEdit.getHeight());
-//        userParametrsDto.setWeight(userParametrsDtoEdit.getWeight());
-//        userParametrsDto.setLvlActivity(userParametrsDtoEdit.getLvlActivity());
-//        userParametrsDto.setSex(userParametrsDtoEdit.getSex());
-//
-//        realm.beginTransaction();
-//        realm.copyToRealmOrUpdate(userParametrsDto);
-//        realm.commitTransaction();
+        UserParametrsDto userParametrsDto = findOne(userParametrsDtoEdit.getId());
+        userParametrsDto.setAge(userParametrsDtoEdit.getAge());
+        userParametrsDto.setHeight(userParametrsDtoEdit.getHeight());
+        userParametrsDto.setWeight(userParametrsDtoEdit.getWeight());
+        userParametrsDto.setLvlActivity(userParametrsDtoEdit.getLvlActivity());
+        userParametrsDto.setSex(userParametrsDtoEdit.getSex());
+
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(userParametrsDto);
+        realm.commitTransaction();
 
         return null;
     }

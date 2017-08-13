@@ -51,25 +51,13 @@ public class ParametersFragment extends Fragment {
     private UserDto userDto;
 
     private Realm realm;
-    private UserParametersServiceImpl userParametersService;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-        realm = Realm.getDefaultInstance();
-        userParametersService = new UserParametersServiceImpl(realm);
-//        UserParametrsDto userPar = new UserParametrsDto();
-//        userPar.setSex("M");
-//        userPar.setLvlActivity(2);
-//        userPar.setAge(23);
-//        userPar.setHeight(324);
-//        userPar.setWeight(54);
-//
-//        userParametersService.save(userPar);
-
-
+        this.realm = UserParametersServiceImpl.with(this).getRealm();
+        UserParametersServiceImpl.with(this).refresh();
     }
 
     @Nullable
@@ -111,10 +99,8 @@ public class ParametersFragment extends Fragment {
         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
 
-
         userDto = new UserDto();
         userParametrsDto = UserParametrsDto.getUserParametrsDto();
-
 
         return view;
     }
@@ -131,12 +117,8 @@ public class ParametersFragment extends Fragment {
             } catch (NullPointerException e) {
                 Log.d("NULL", e.getLocalizedMessage());
             }
-
-            userParametersService.save(userParametrsDto);
-            UserParametrsDto one = userParametersService.findOne(userParametrsDto.getAge());
-            Toast.makeText(getContext(), one.toString(), Toast.LENGTH_SHORT).show();
-
-
+            UserParametersServiceImpl.getInstance().save(userParametrsDto);
+            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getAge()).toString(), Toast.LENGTH_SHORT).show();
         }
     };
 

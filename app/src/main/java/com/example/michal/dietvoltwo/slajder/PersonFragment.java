@@ -80,7 +80,7 @@ public class PersonFragment extends Fragment {
 
                 case R.id.mailEditText:
                     if (isValidEmailAddress(editable.toString()))
-                        userPersonalDto.setEMail(editable.toString());
+                        userPersonalDto.seteMail(editable.toString());
                     else {
                         Toast.makeText(getContext(), getResources().getString(R.string.person_fragment_message_email), Toast.LENGTH_SHORT).show();
 //                        view.setBackgroundColor(0xFFFFFFFF);

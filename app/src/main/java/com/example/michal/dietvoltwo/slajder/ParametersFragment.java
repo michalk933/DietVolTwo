@@ -1,9 +1,11 @@
 package com.example.michal.dietvoltwo.slajder;
 
 
+import android.app.Activity;
 import android.content.pm.ProviderInfo;
 import android.icu.lang.UScript;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,11 +21,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
+import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
+
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -46,6 +51,26 @@ public class ParametersFragment extends Fragment {
     private UserDto userDto;
 
     private Realm realm;
+    private UserParametersServiceImpl userParametersService;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+        realm = Realm.getDefaultInstance();
+        userParametersService = new UserParametersServiceImpl(realm);
+//        UserParametrsDto userPar = new UserParametrsDto();
+//        userPar.setSex("M");
+//        userPar.setLvlActivity(2);
+//        userPar.setAge(23);
+//        userPar.setHeight(324);
+//        userPar.setWeight(54);
+//
+//        userParametersService.save(userPar);
+
+
+    }
 
     @Nullable
     @Override
@@ -90,7 +115,6 @@ public class ParametersFragment extends Fragment {
         userDto = new UserDto();
         userParametrsDto = UserParametrsDto.getUserParametrsDto();
 
-        realm = Realm.getDefaultInstance();
 
         return view;
     }
@@ -108,8 +132,10 @@ public class ParametersFragment extends Fragment {
                 Log.d("NULL", e.getLocalizedMessage());
             }
 
-            saveInDataBase(userDto);
-            refreshView();
+            userParametersService.save(userParametrsDto);
+            UserParametrsDto one = userParametersService.findOne(userParametrsDto.getAge());
+            Toast.makeText(getContext(), one.toString(), Toast.LENGTH_SHORT).show();
+
 
         }
     };
@@ -175,62 +201,6 @@ public class ParametersFragment extends Fragment {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
-
-    private void saveInDataBase(final UserDto userDto) {
-
-//        realm.delete(UserDto.class);
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-
-                UserPersonalDto userPersonalDto = bgRealm.createObject(UserPersonalDto.class);
-                userPersonalDto.setLogin(userDto.getUserPersonalDto().getLogin());
-                userPersonalDto.setPassword(userDto.getUserPersonalDto().getPassword());
-                userPersonalDto.setRePassword(userDto.getUserPersonalDto().getRePassword());
-                userPersonalDto.setEMail(userDto.getUserPersonalDto().getEMail());
-
-                UserParametrsDto userParametrsDto = bgRealm.createObject(UserParametrsDto.class);
-                userParametrsDto.setLvlActivity(userDto.getUserParametrsDto().getLvlActivity());
-                userParametrsDto.setAge(userDto.getUserParametrsDto().getAge());
-                userParametrsDto.setWeight(userDto.getUserParametrsDto().getWeight());
-                userParametrsDto.setHeight(userDto.getUserParametrsDto().getHeight());
-                userParametrsDto.setSex(userDto.getUserParametrsDto().getSex());
-
-                UserGoalDto userGoalDto = bgRealm.createObject(UserGoalDto.class);
-                userGoalDto.setDiabetsType(userDto.getUserGoalDto().getDiabetsType());
-                userGoalDto.setGoal(userDto.getUserGoalDto().getGoal());
-                userGoalDto.setHealth(userDto.getUserGoalDto().getHealth());
-                userGoalDto.setTypeDiet(userDto.getUserGoalDto().getTypeDiet());
-
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                // Transaction was a success.
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                // Transaction failed and was automatically canceled.
-            }
-        });
-
-    }
-
-
-    private void refreshView() {
-//        UserDto first = realm.where(UserDto.class).findFirst();
-//        Toast.makeText(getContext(), first.toString(), Toast.LENGTH_LONG).show();
-
-        RealmResults<UserDto> all = realm.where(UserDto.class).findAll();
-        for (UserDto dto : all) {
-            Log.d("KURWA", dto.getUserGoalDto().toString());
-            Log.d("KURWA", dto.getUserPersonalDto().toString());
-            Log.d("KURWA", dto.getUserParametrsDto().toString());
-        }
-
-    }
-
 
     @Override
     public void onDestroy() {

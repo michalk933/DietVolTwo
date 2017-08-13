@@ -11,10 +11,10 @@ public class RealmConfig extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().build();
-        Realm.setDefaultConfiguration(config);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
+                .name("paramert.reaml")
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
 
     }
 }

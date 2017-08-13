@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserParametersService {
 
-    UserParametrsDto findOne(Long id);
+    UserParametrsDto findOne(int age);
 
     List<UserParametrsDto> findAll();
 

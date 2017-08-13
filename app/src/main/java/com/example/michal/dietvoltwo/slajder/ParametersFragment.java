@@ -117,6 +117,9 @@ public class ParametersFragment extends Fragment {
             } catch (NullPointerException e) {
                 Log.d("NULL", e.getLocalizedMessage());
             }
+
+
+            userParametrsDto.setId((int) System.currentTimeMillis());
             UserParametersServiceImpl.getInstance().save(userParametrsDto);
             Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getAge()).toString(), Toast.LENGTH_SHORT).show();
         }

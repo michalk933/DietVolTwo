@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface UserGoalService {
 
-    UserGoalDto findOne();
+    UserGoalDto findOne(int id);
 
     List<UserGoalDto> findAll();
 
     UserGoalDto save(UserGoalDto userGoalDto);
 
-    UserGoalDto edit(UserGoalDto userGoalDto);
+    UserGoalDto edit(UserGoalDto userGoalDto,int id);
 
     void delete(UserGoalDto userGoalDto);
 }

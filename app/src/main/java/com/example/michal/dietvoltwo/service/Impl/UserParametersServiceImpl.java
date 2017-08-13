@@ -1,8 +1,6 @@
 package com.example.michal.dietvoltwo.service.Impl;
 
 
-
-
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
@@ -69,8 +67,8 @@ public class UserParametersServiceImpl implements UserParametersService {
 
 
     @Override
-    public UserParametrsDto findOne(int age) {
-        return realm.where(UserParametrsDto.class).equalTo("age", age).findFirst();
+    public UserParametrsDto findOne(int id) {
+        return realm.where(UserParametrsDto.class).equalTo("id", id).findFirst();
     }
 
     @Override
@@ -80,36 +78,37 @@ public class UserParametersServiceImpl implements UserParametersService {
 
     @Override
     public UserParametrsDto save(UserParametrsDto userParametrsDto) {
-        this.realm.beginTransaction();
+        UserParametrsDto newUserParametrsDto = realm.createObject(UserParametrsDto.class);
 
-        UserParametrsDto newUserParametrsDto = this.realm.createObject(UserParametrsDto.class);
-
-        newUserParametrsDto.setId((int)System.currentTimeMillis());
+        newUserParametrsDto.setId(userParametrsDto.getId());
         newUserParametrsDto.setWeight(userParametrsDto.getWeight());
         newUserParametrsDto.setHeight(userParametrsDto.getHeight());
         newUserParametrsDto.setAge(userParametrsDto.getAge());
         newUserParametrsDto.setLvlActivity(userParametrsDto.getLvlActivity());
         newUserParametrsDto.setSex(userParametrsDto.getSex());
 
-        this.realm.commitTransaction();
+        realm.beginTransaction();
+        realm.copyToRealm(newUserParametrsDto);
+        realm.commitTransaction();
+
         return userParametrsDto;
     }
 
     @Override
-    public UserParametrsDto edit(UserParametrsDto userParametrsDtoEdit) {
+    public UserParametrsDto edit(UserParametrsDto editUserParametrsDto, int id) {
 
-        UserParametrsDto userParametrsDto = findOne(userParametrsDtoEdit.getId());
-        userParametrsDto.setAge(userParametrsDtoEdit.getAge());
-        userParametrsDto.setHeight(userParametrsDtoEdit.getHeight());
-        userParametrsDto.setWeight(userParametrsDtoEdit.getWeight());
-        userParametrsDto.setLvlActivity(userParametrsDtoEdit.getLvlActivity());
-        userParametrsDto.setSex(userParametrsDtoEdit.getSex());
+        UserParametrsDto userParametrsDto = findOne(id);
+        userParametrsDto.setAge(editUserParametrsDto.getAge());
+        userParametrsDto.setHeight(editUserParametrsDto.getHeight());
+        userParametrsDto.setWeight(editUserParametrsDto.getWeight());
+        userParametrsDto.setLvlActivity(editUserParametrsDto.getLvlActivity());
+        userParametrsDto.setSex(editUserParametrsDto.getSex());
 
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(userParametrsDto);
         realm.commitTransaction();
 
-        return null;
+        return userParametrsDto;
     }
 
     @Override
@@ -118,4 +117,5 @@ public class UserParametersServiceImpl implements UserParametersService {
         userParametrsDto.removeFromRealm();
         realm.commitTransaction();
     }
+
 }

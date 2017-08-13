@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface UserParametersService {
 
-    UserParametrsDto findOne(int age);
+    UserParametrsDto findOne(int id);
 
     List<UserParametrsDto> findAll();
 
     UserParametrsDto save(UserParametrsDto userParametrsDto);
 
-    UserParametrsDto edit(UserParametrsDto userParametrsDto);
+    UserParametrsDto edit(UserParametrsDto userParametrsDto,int id);
 
     void delete(UserParametrsDto userParametrsDto);
 

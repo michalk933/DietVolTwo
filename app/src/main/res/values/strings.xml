@@ -44,6 +44,7 @@
     //PersonFragment
     <string name="person_fragment_message_password">Hasła są rózne !</string>
     <string name="person_fragment_message_email">"Podany adres email jest nie poprawny !"</string>
+    <string name="title_activity_meal">MealActivity</string>
 
 
 </resources>

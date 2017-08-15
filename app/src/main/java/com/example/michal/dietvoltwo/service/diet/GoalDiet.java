@@ -1,8 +1,5 @@
-package com.example.michal.dietvoltwo.service;
+package com.example.michal.dietvoltwo.service.diet;
 
-
-import com.example.michal.dietvoltwo.service.MasRatio;
-import com.example.michal.dietvoltwo.service.ReductionRatio;
 
 public class GoalDiet {
 

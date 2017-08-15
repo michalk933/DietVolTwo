@@ -1,10 +1,11 @@
-package com.example.michal.dietvoltwo;
+package com.example.michal.dietvoltwo.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.slajder.GolFragment;
 import com.example.michal.dietvoltwo.slajder.ParametersFragment;
 import com.example.michal.dietvoltwo.slajder.PersonFragment;

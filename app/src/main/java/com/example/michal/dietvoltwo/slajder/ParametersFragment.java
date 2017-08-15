@@ -1,11 +1,7 @@
 package com.example.michal.dietvoltwo.slajder;
 
 
-import android.app.Activity;
-import android.content.pm.ProviderInfo;
-import android.icu.lang.UScript;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,12 +23,11 @@ import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
-import com.example.michal.dietvoltwo.service.DietGenerateService;
+import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
 
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 import static android.widget.SeekBar.OnSeekBarChangeListener;
 

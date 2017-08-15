@@ -2,7 +2,7 @@ package com.example.michal.dietvoltwo.service.diatetsService;
 
 
 import com.example.michal.dietvoltwo.dto.UserDto;
-import com.example.michal.dietvoltwo.service.GoalDiet;
+import com.example.michal.dietvoltwo.service.diet.GoalDiet;
 
 public class DiabetsDietGenerateService {
 

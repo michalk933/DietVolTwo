@@ -1,4 +1,4 @@
-package com.example.michal.dietvoltwo.service;
+package com.example.michal.dietvoltwo.service.diet;
 
 
 public class MasRatio {

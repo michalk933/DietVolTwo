@@ -8,4 +8,12 @@
     tools:context="com.example.michal.dietvoltwo.activity.MealActivity"
     tools:showIn="@layout/activity_meal">
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view_meal_activity"
+        android:scrollbars="vertical"
+        />
+    
+    
 </android.support.constraint.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.michal.dietvoltwo.adapter;
 
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,10 +64,12 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
 
+        public CardView card;
         private TextView numberMeal, kcalMeal, proteinMeal, fatMeal, carbohydrateMeal, changeCarboMeal;
 
         public CardViewHolder(View itemView) {
             super(itemView);
+            card = (CardView) itemView.findViewById(R.id.card_meal);
             numberMeal = (TextView) itemView.findViewById(R.id.number_meal_text_view);
             kcalMeal = (TextView) itemView.findViewById(R.id.kcal_meal_text_view);
             proteinMeal = (TextView) itemView.findViewById(R.id.protein_meal_text_view);

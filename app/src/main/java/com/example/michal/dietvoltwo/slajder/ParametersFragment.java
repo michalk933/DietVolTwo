@@ -23,6 +23,8 @@ import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
+import com.example.michal.dietvoltwo.service.Impl.UserGoalServiceImpl;
+import com.example.michal.dietvoltwo.service.Impl.UserPersonalServiceImpl;
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
 
@@ -46,14 +48,23 @@ public class ParametersFragment extends Fragment {
     private UserParametrsDto userParametrsDto;
     private UserDto userDto;
 
-    private Realm realm;
+    private Realm realmUserParametrs;
+//    private Realm realmUserGoal;
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.realm = UserParametersServiceImpl.with(this).getRealm();
+        this.realmUserParametrs = UserParametersServiceImpl.with(this).getRealm();
         UserParametersServiceImpl.with(this).refresh();
+
+//        this.realm = UserPersonalServiceImpl.with(this).getRealm();
+//        UserPersonalServiceImpl.with(this).refresh();
+
+//        this.realmUserGoal = UserGoalServiceImpl.with(this).getRealm();
+//        UserGoalServiceImpl.with(this).refresh();
+
     }
 
     @Nullable
@@ -115,15 +126,19 @@ public class ParametersFragment extends Fragment {
             }
 
 
-            userParametrsDto.setId((int) System.currentTimeMillis());
-            UserParametersServiceImpl.getInstance().save(userParametrsDto);
-//            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getAge()).toString(), Toast.LENGTH_SHORT).show();
+//            userParametrsDto.setId((int) System.currentTimeMillis());
+//            UserParametersServiceImpl.getInstance().save(userParametrsDto);
+//
+//
+//            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getId()).getSex().toString() , Toast.LENGTH_SHORT).show();
 
 
-            DietGenerateService dietGenerateService = new DietGenerateService();
-            int dietForUser = dietGenerateService.createDietForUser(userDto);
 
-            Toast.makeText(getContext(), "Kaloryczność diety : " + dietForUser, Toast.LENGTH_SHORT).show();
+
+//            DietGenerateService dietGenerateService = new DietGenerateService();
+//            int dietForUser = dietGenerateService.createDietForUser(userDto);
+//
+//            Toast.makeText(getContext(), "Kaloryczność diety : " + dietForUser, Toast.LENGTH_SHORT).show();
 
 
         }
@@ -194,6 +209,7 @@ public class ParametersFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        realm.close();
+        realmUserParametrs.close();
+//        realmUserGoal.close();
     }
 }

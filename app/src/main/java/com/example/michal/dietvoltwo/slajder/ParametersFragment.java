@@ -2,6 +2,7 @@ package com.example.michal.dietvoltwo.slajder;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,17 +20,21 @@ import android.widget.Toast;
 
 
 import com.example.michal.dietvoltwo.R;
+import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
+import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
 import com.example.michal.dietvoltwo.service.Impl.UserGoalServiceImpl;
 import com.example.michal.dietvoltwo.service.Impl.UserPersonalServiceImpl;
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
+import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
 
 import io.realm.Realm;
+import io.realm.RealmBaseAdapter;
 
 import static android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -44,26 +49,37 @@ public class ParametersFragment extends Fragment {
     private int age = 25;
     private int weight = 75;
     private int height = 178;
+    private String sex = "K";
+    private int lvlActivity = 35;
 
     private UserParametrsDto userParametrsDto;
     private UserDto userDto;
 
-    private Realm realmUserParametrs;
-//    private Realm realmUserGoal;
+    private Realm realm;
+    private Realm realmUserGoal;
+    private Realm realmUserPersonal;
+    private Realm realmBtw;
+
+    private BtwDto btwDto;
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.realmUserParametrs = UserParametersServiceImpl.with(this).getRealm();
+        this.realm = UserParametersServiceImpl.with(this).getRealm();
         UserParametersServiceImpl.with(this).refresh();
 
-//        this.realm = UserPersonalServiceImpl.with(this).getRealm();
-//        UserPersonalServiceImpl.with(this).refresh();
+        this.realmUserPersonal = UserPersonalServiceImpl.with(this).getRealm();
+        UserPersonalServiceImpl.with(this).refresh();
 
-//        this.realmUserGoal = UserGoalServiceImpl.with(this).getRealm();
-//        UserGoalServiceImpl.with(this).refresh();
+        this.realmUserGoal = UserGoalServiceImpl.with(this).getRealm();
+        UserGoalServiceImpl.with(this).refresh();
+
+        realmBtw = BtwServiceImpl.with(getActivity()).getRealm();
+        BtwServiceImpl.with(getActivity()).refresh();
+
+        btwDto = new BtwDto();
 
     }
 
@@ -106,8 +122,14 @@ public class ParametersFragment extends Fragment {
         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
 
-        userDto = new UserDto();
         userParametrsDto = UserParametrsDto.getUserParametrsDto();
+        userParametrsDto.setLvlActivity(lvlActivity);
+        userParametrsDto.setSex(sex);
+        userParametrsDto.setWeight(weight);
+        userParametrsDto.setHeight(height);
+        userParametrsDto.setAge(age);
+
+        userDto = new UserDto();
 
         return view;
     }
@@ -116,7 +138,7 @@ public class ParametersFragment extends Fragment {
         @Override
         public void onClick(View view) {
             UserPersonalDto userPersonalDto = UserPersonalDto.createUserPersonalDto();
-            UserGoalDto userGoalDto = UserGoalDto.getUserPersonalDto();
+            final UserGoalDto userGoalDto = UserGoalDto.getUserPersonalDto();
             try {
                 userDto.setUserPersonalDto(userPersonalDto);
                 userDto.setUserGoalDto(userGoalDto);
@@ -126,19 +148,44 @@ public class ParametersFragment extends Fragment {
             }
 
 
-//            userParametrsDto.setId((int) System.currentTimeMillis());
-//            UserParametersServiceImpl.getInstance().save(userParametrsDto);
-//
-//
-//            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getId()).getSex().toString() , Toast.LENGTH_SHORT).show();
+            userParametrsDto.setId((int) System.currentTimeMillis());
+            UserParametersServiceImpl.getInstance().save(userParametrsDto);
+
+            userGoalDto.setId((int) System.currentTimeMillis());
+            UserGoalServiceImpl.getInstance().save(userGoalDto);
+
+            userPersonalDto.setId((int) System.currentTimeMillis());
+            UserPersonalServiceImpl.getInstance().save(userPersonalDto);
 
 
+            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getId()).getHeight() + " / " +
+                    UserGoalServiceImpl.getInstance().findOne(userGoalDto.getId()).getDiabetsType() + " / " +
+                    UserPersonalServiceImpl.getInstance().findOne(userPersonalDto.getId()).getLogin(), Toast.LENGTH_SHORT).show();
 
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        DietGenerateService dietGenerateService = new DietGenerateService();
+                        int dietForUser = dietGenerateService.createDietForUser(userDto);
+                        GenerateBTW generateBTW = new GenerateBTW(userDto);
+                        BtwDto btw = generateBTW.createBtw(dietForUser);
 
-//            DietGenerateService dietGenerateService = new DietGenerateService();
-//            int dietForUser = dietGenerateService.createDietForUser(userDto);
-//
-//            Toast.makeText(getContext(), "Kaloryczność diety : " + dietForUser, Toast.LENGTH_SHORT).show();
+                        btwDto.setKcal(dietForUser);
+                        btwDto.setB(btw.getB());
+                        btwDto.setT(btw.getT());
+                        btwDto.setW(btw.getW());
+                        btwDto.setId((int) System.currentTimeMillis());
+
+                        BtwServiceImpl.getInstance().save(btwDto);
+
+                    } finally {
+                        if (realm != null) {
+                            realm.close();
+                        }
+                    }
+                }
+            });
 
 
         }
@@ -149,21 +196,26 @@ public class ParametersFragment extends Fragment {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.famleRadioButton:
-                    userParametrsDto.setSex("K");
+                    sex = "K";
+                    userParametrsDto.setSex(sex);
                     break;
                 case R.id.maleRadioButton:
-                    userParametrsDto.setSex("M");
+                    sex = "M";
+                    userParametrsDto.setSex(sex);
                     break;
 
 
                 case R.id.lvlLowActivityRadioButton:
-                    userParametrsDto.setLvlActivity(30);
+                    lvlActivity = 30;
+                    userParametrsDto.setLvlActivity(lvlActivity);
                     break;
                 case R.id.lvlMediumRadioButton:
-                    userParametrsDto.setLvlActivity(35);
+                    lvlActivity = 35;
+                    userParametrsDto.setLvlActivity(lvlActivity);
                     break;
                 case R.id.lvlHeightRadioButton:
-                    userParametrsDto.setLvlActivity(40);
+                    lvlActivity = 40;
+                    userParametrsDto.setLvlActivity(lvlActivity);
                     break;
             }
         }
@@ -209,7 +261,9 @@ public class ParametersFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        realmUserParametrs.close();
-//        realmUserGoal.close();
+        realm.close();
+        realmUserGoal.close();
+        realmUserPersonal.close();
+        realmBtw.close();
     }
 }

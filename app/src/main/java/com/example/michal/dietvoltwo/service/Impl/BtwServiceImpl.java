@@ -76,6 +76,7 @@ public class BtwServiceImpl {
         btwDto.setB(addBtwDto.getB());
         btwDto.setT(addBtwDto.getT());
         btwDto.setW(addBtwDto.getW());
+        btwDto.setKcal(addBtwDto.getKcal());
 
         realm.copyToRealm(btwDto);
         realm.commitTransaction();
@@ -87,6 +88,7 @@ public class BtwServiceImpl {
         realm.beginTransaction();
 
         BtwDto btwDto = findOne(id);
+        btwDto.setKcal(editBtwDto.getKcal());
         btwDto.setB(editBtwDto.getB());
         btwDto.setT(editBtwDto.getT());
         btwDto.setW(editBtwDto.getW());

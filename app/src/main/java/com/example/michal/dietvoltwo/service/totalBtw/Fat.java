@@ -7,9 +7,9 @@ public class Fat {
 
     public static BtwDto createBtwFat(int kcal) {
         BtwDto btwDto = new BtwDto();
-        btwDto.setB(ComponentBtw.component(0.20, kcal) * 4);
-        btwDto.setT(ComponentBtw.component(0.70, kcal) * 9);
-        btwDto.setW(ComponentBtw.component(0.10, kcal) * 4);
+        btwDto.setB(ComponentBtw.component(0.20, kcal) / 4);
+        btwDto.setT(ComponentBtw.component(0.70, kcal) / 9);
+        btwDto.setW(ComponentBtw.component(0.10, kcal) / 4);
 
         return btwDto;
     }

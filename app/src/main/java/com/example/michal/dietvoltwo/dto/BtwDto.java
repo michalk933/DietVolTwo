@@ -6,9 +6,19 @@ import io.realm.RealmObject;
 
 public class BtwDto extends RealmObject{
 
+    private int id;
     private int b;
     private int w;
     private int t;
+    private int kcal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getB() {
         return b;
@@ -33,4 +43,13 @@ public class BtwDto extends RealmObject{
     public void setT(int t) {
         this.t = t;
     }
+
+    public int getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(int kcal) {
+        this.kcal = kcal;
+    }
+
 }

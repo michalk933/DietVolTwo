@@ -9,6 +9,7 @@
     tools:context="com.example.michal.dietvoltwo.activity.MealActivity"
     tools:showIn="@layout/activity_meal">
 
+
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/recycler_view_meal_activity"
@@ -22,13 +23,15 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
 
+
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/navigation_menu"
-        app:headerLayout="@layout/navigation_header">
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu">
 
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>

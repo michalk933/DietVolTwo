@@ -50,6 +50,8 @@
     <string name="navigation_main_menu">Menu główne</string>
     <string name="navigation_list_product">Lista produktów</string>
     <string name="navigation_me_data">Dane użytkownika</string>
+    <string name="navigation_open">Otwórz</string>
+    <string name="navigation_close">Zamknij</string>
 
 
 

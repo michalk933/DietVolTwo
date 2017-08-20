@@ -5,11 +5,14 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.michal.dietvoltwo.R;
@@ -35,6 +38,9 @@ public class MealActivity extends AppCompatActivity {
     private Realm realm;
     private MealAdapter adapter;
 
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,22 +48,25 @@ public class MealActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //View to list meal
         recycleListView = (RecyclerView) findViewById(R.id.recycler_view_meal_activity);
+
+        //Realm data base
         this.realm = MealServideImpl.with(this).getRealm();
         setupRecycler();
         MealServideImpl.with(this).refresh();
-
-
-
         RealmResults<MealDto> all = MealServideImpl.with(this).findAll();
-        for (MealDto mealDto : all) {
-            Log.d("ACTIVITY MEAL ==== ", String.valueOf(mealDto.getNumberMeal()));
-        }
         setRealmAdapter(MealServideImpl.with(this).findAll());
 
+        //Menu
+        drawerLayout = (DrawerLayout) findViewById(R.id.drow_layout_meal_activity);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_open, R.string.navigation_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
+        //Float button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,5 +94,11 @@ public class MealActivity extends AppCompatActivity {
         recycleListView.setAdapter(adapter);
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

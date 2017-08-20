@@ -38,7 +38,7 @@
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
                 android:text="Kcal :"
-                android:textSize="10dp"/>
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/change_carbo_meal_text_view"
@@ -47,7 +47,7 @@
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
                 android:text="Wymiennik węglowodanowy :"
-                android:textSize="10dp"/>
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/carbohydrate_meal_text_view"
@@ -56,7 +56,7 @@
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
                 android:text="Węglowodany :"
-                android:textSize="10dp"/>
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/protein_meal_text_view"
@@ -65,7 +65,7 @@
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
                 android:text="Białko :"
-                android:textSize="10dp"/>
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/fat_meal_text_view"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="2dp"
                 android:text="Tłuszcze :"
-                android:textSize="10dp"/>
+                android:textSize="10dp" />
 
         </LinearLayout>
     </LinearLayout>

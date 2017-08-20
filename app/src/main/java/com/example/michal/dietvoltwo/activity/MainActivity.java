@@ -23,20 +23,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager)findViewById(R.id.container);
+        viewPager = (ViewPager) findViewById(R.id.container);
         setViewPager(viewPager);
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
 
     }
 
-    private void setViewPager(ViewPager viewPager){
+    private void setViewPager(ViewPager viewPager) {
         SectionPageAdapter sectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
-        sectionPageAdapter.addFragment(new PersonFragment(),"Dane identyfikacyjne");
-        sectionPageAdapter.addFragment(new GolFragment(),"Cel diety");
-        sectionPageAdapter.addFragment(new ParametersFragment(),"Kondycja organizmu");
+        sectionPageAdapter.addFragment(new PersonFragment(), "Dane identyfikacyjne");
+        sectionPageAdapter.addFragment(new GolFragment(), "Cel diety");
+        sectionPageAdapter.addFragment(new ParametersFragment(), "Kondycja organizmu");
         viewPager.setAdapter(sectionPageAdapter);
     }
 

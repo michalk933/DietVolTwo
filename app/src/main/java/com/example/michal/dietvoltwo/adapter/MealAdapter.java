@@ -39,14 +39,13 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
         realm = MealServideImpl.getInstance().getRealm();
 
         final MealDto mealDto = getItem(position);
-        Log.d("ADAPTER ==== ", String.valueOf(mealDto.getNumberMeal()));
         final CardViewHolder holder = (CardViewHolder) viewHolder;
 
         holder.numberMeal.setText(String.valueOf(mealDto.getNumberMeal() + 1));
         holder.proteinMeal.setText("Białka: " + mealDto.getB());
         holder.fatMeal.setText("Tłuszczu: " + mealDto.getT());
         holder.carbohydrateMeal.setText("Węglowodanów: " + mealDto.getW());
-        holder.kcalMeal.setText("Kcal: " +  mealDto.getKcalForMeal());
+        holder.kcalMeal.setText("Kcal: " + mealDto.getKcalForMeal());
         holder.changeCarboMeal.setText("Wymienników węglowodanowych: " + changeCarbohydratoToChangeCarbo(mealDto.getW()));
     }
 

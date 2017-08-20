@@ -104,7 +104,7 @@ public class MealActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -115,26 +115,26 @@ public class MealActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.navigation_main_menu:
                         Toast.makeText(MealActivity.this, "Meanu główne", Toast.LENGTH_SHORT).show();
-                        Log.d("MOJE LOGI","Meanu główne");
+                        Log.d("MOJE LOGI", "Meanu główne");
                         break;
                     case R.id.navigation_list_product:
                         Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();
-                        Log.d("MOJE LOGI","Lista produktów");
+                        Log.d("MOJE LOGI", "Lista produktów");
                         break;
                     case R.id.navigation_me_data:
                         Toast.makeText(MealActivity.this, "Moje dane", Toast.LENGTH_SHORT).show();
-                        Log.d("MOJE LOGI","Moje dane");
+                        Log.d("MOJE LOGI", "Moje dane");
                         break;
                     case R.id.navigation_about:
                         Toast.makeText(MealActivity.this, "O aplikacji", Toast.LENGTH_SHORT).show();
-                        Log.d("MOJE LOGI","O aplikacji");
+                        Log.d("MOJE LOGI", "O aplikacji");
                         break;
                     case R.id.navigation_nothing:
                         Toast.makeText(MealActivity.this, "NIC !", Toast.LENGTH_SHORT).show();
-                        Log.d("MOJE LOGI","NIC !");
+                        Log.d("MOJE LOGI", "NIC !");
                         break;
                 }
 
@@ -148,8 +148,6 @@ public class MealActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
 
 
     }

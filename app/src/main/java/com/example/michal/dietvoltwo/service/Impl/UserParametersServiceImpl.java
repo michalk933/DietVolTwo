@@ -88,7 +88,6 @@ public class UserParametersServiceImpl implements UserParametersService {
         newUserParametrsDto.setLvlActivity(userParametrsDto.getLvlActivity());
         newUserParametrsDto.setSex(userParametrsDto.getSex());
 
-
         realm.copyToRealm(newUserParametrsDto);
         realm.commitTransaction();
 

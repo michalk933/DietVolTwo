@@ -1,6 +1,7 @@
 package com.example.michal.dietvoltwo.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
@@ -10,8 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.michal.dietvoltwo.R;
-
-
+import com.example.michal.dietvoltwo.dto.BtwDto;
+import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
+import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
+import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
 
 public class MealActivity extends AppCompatActivity {
@@ -30,6 +33,23 @@ public class MealActivity extends AppCompatActivity {
         recycleListView = (RecyclerView)findViewById(R.id.recycler_view_meal_activity);
 
 //        recycleListView.setAdapter();
+
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+
+                    // DOWNLOAD REALM DATA !!!
+
+                } finally {
+                    if (realm != null) {
+                        realm.close();
+                    }
+                }
+            }
+        });
 
 
 

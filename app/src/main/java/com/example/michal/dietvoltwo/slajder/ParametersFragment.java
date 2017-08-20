@@ -1,6 +1,7 @@
 package com.example.michal.dietvoltwo.slajder;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -16,10 +17,11 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import com.example.michal.dietvoltwo.R;
+import com.example.michal.dietvoltwo.activity.MealActivity;
 import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
@@ -34,7 +36,7 @@ import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
 
 import io.realm.Realm;
-import io.realm.RealmBaseAdapter;
+
 
 import static android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -158,10 +160,6 @@ public class ParametersFragment extends Fragment {
             UserPersonalServiceImpl.getInstance().save(userPersonalDto);
 
 
-            Toast.makeText(getContext(), UserParametersServiceImpl.getInstance().findOne(userParametrsDto.getId()).getHeight() + " / " +
-                    UserGoalServiceImpl.getInstance().findOne(userGoalDto.getId()).getDiabetsType() + " / " +
-                    UserPersonalServiceImpl.getInstance().findOne(userPersonalDto.getId()).getLogin(), Toast.LENGTH_SHORT).show();
-
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -186,6 +184,12 @@ public class ParametersFragment extends Fragment {
                     }
                 }
             });
+
+
+            Intent intent = new Intent(getActivity(),MealActivity.class);
+            startActivity(intent);
+
+
 
 
         }

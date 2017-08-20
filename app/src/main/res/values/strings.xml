@@ -46,5 +46,12 @@
     <string name="person_fragment_message_email">"Podany adres email jest nie poprawny !"</string>
     <string name="title_activity_meal">MealActivity</string>
 
+    //Menu
+    <string name="navigation_main_menu">Menu główne</string>
+    <string name="navigation_list_product">Lista produktów</string>
+    <string name="navigation_me_data">Dane użytkownika</string>
+
+
+
 
 </resources>

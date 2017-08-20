@@ -4,6 +4,7 @@ package com.example.michal.dietvoltwo.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import io.realm.Realm;
 
 public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
 
-    private Context context;
+    final Context context;
     private Realm realm;
     private LayoutInflater layoutInflater;
 
@@ -38,14 +39,15 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
         realm = MealServideImpl.getInstance().getRealm();
 
         final MealDto mealDto = getItem(position);
+        Log.d("ADAPTER ==== ", String.valueOf(mealDto.getNumberMeal()));
         final CardViewHolder holder = (CardViewHolder) viewHolder;
 
-        holder.numberMeal.setText(mealDto.getNumberMeal());
-        holder.proteinMeal.setText(mealDto.getB());
-        holder.fatMeal.setText(mealDto.getT());
-        holder.carbohydrateMeal.setText(mealDto.getW());
-        holder.kcalMeal.setText(mealDto.getKcalForMeal());
-        holder.changeCarboMeal.setText(changeCarbohydratoToChangeCarbo(mealDto.getW()));
+        holder.numberMeal.setText(String.valueOf(mealDto.getNumberMeal() + 1));
+        holder.proteinMeal.setText("Białka: " + mealDto.getB());
+        holder.fatMeal.setText("Tłuszczu: " + mealDto.getT());
+        holder.carbohydrateMeal.setText("Węglowodanów: " + mealDto.getW());
+        holder.kcalMeal.setText("Kcal: " +  mealDto.getKcalForMeal());
+        holder.changeCarboMeal.setText("Wymienników węglowodanowych: " + changeCarbohydratoToChangeCarbo(mealDto.getW()));
     }
 
     @Override
@@ -65,12 +67,12 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
     public static class CardViewHolder extends RecyclerView.ViewHolder {
 
         public CardView card;
-        private TextView numberMeal, kcalMeal, proteinMeal, fatMeal, carbohydrateMeal, changeCarboMeal;
+        public TextView numberMeal, kcalMeal, proteinMeal, fatMeal, carbohydrateMeal, changeCarboMeal;
 
         public CardViewHolder(View itemView) {
             super(itemView);
             card = (CardView) itemView.findViewById(R.id.card_meal);
-            numberMeal = (TextView) itemView.findViewById(R.id.number_meal_text_view);
+            numberMeal = (TextView) itemView.findViewById(R.id.number_meal_tex);
             kcalMeal = (TextView) itemView.findViewById(R.id.kcal_meal_text_view);
             proteinMeal = (TextView) itemView.findViewById(R.id.protein_meal_text_view);
             fatMeal = (TextView) itemView.findViewById(R.id.fat_meal_text_view);

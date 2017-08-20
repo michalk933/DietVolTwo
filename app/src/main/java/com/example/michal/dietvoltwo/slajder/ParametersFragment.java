@@ -23,17 +23,23 @@ import android.widget.TextView;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.activity.MealActivity;
 import com.example.michal.dietvoltwo.dto.BtwDto;
+import com.example.michal.dietvoltwo.dto.MealDto;
+import com.example.michal.dietvoltwo.dto.MealsDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
 import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
+import com.example.michal.dietvoltwo.service.Impl.MealServideImpl;
 import com.example.michal.dietvoltwo.service.Impl.UserGoalServiceImpl;
 import com.example.michal.dietvoltwo.service.Impl.UserPersonalServiceImpl;
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
+import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
+
+import java.util.List;
 
 import io.realm.Realm;
 
@@ -48,22 +54,22 @@ public class ParametersFragment extends Fragment {
     private TextView ageTextView, weightTextView, heightTextView;
     private Button buttonNext;
 
-    private int age = 25;
-    private int weight = 75;
-    private int height = 178;
-    private String sex = "K";
-    private int lvlActivity = 35;
-
     private UserParametrsDto userParametrsDto;
     private UserDto userDto;
+    private BtwDto btwDto;
+    private MealsDto mealsDto;
 
     private Realm realm;
     private Realm realmUserGoal;
     private Realm realmUserPersonal;
     private Realm realmBtw;
+    private Realm realmMeal;
 
-    private BtwDto btwDto;
-
+    private int age = 25;
+    private int weight = 75;
+    private int height = 178;
+    private String sex = "K";
+    private int lvlActivity = 35;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -78,8 +84,11 @@ public class ParametersFragment extends Fragment {
         this.realmUserGoal = UserGoalServiceImpl.with(this).getRealm();
         UserGoalServiceImpl.with(this).refresh();
 
-        realmBtw = BtwServiceImpl.with(getActivity()).getRealm();
+        this.realmBtw = BtwServiceImpl.with(getActivity()).getRealm();
         BtwServiceImpl.with(getActivity()).refresh();
+
+        this.realmMeal = MealServideImpl.with(this).getRealm();
+        MealServideImpl.with(this).refresh();
 
         btwDto = new BtwDto();
 
@@ -177,21 +186,21 @@ public class ParametersFragment extends Fragment {
 
                         BtwServiceImpl.getInstance().save(btwDto);
 
+                        GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
+                        mealsDto = generateBtwMeal.createMeal(userDto,btwDto);
+                        MealServideImpl.getInstance().save(mealsDto);
+
                     } finally {
-                        if (realm != null) {
-                            realm.close();
+                        if (realmBtw != null && realmMeal != null) {
+                            realmBtw.close();
+                            realmMeal.close();
                         }
                     }
                 }
             });
 
-
             Intent intent = new Intent(getActivity(),MealActivity.class);
             startActivity(intent);
-
-
-
-
         }
     };
 
@@ -268,6 +277,5 @@ public class ParametersFragment extends Fragment {
         realm.close();
         realmUserGoal.close();
         realmUserPersonal.close();
-        realmBtw.close();
     }
 }

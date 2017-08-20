@@ -4,12 +4,15 @@ package com.example.michal.dietvoltwo.service.Impl;
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.example.michal.dietvoltwo.dto.MealDto;
+import com.example.michal.dietvoltwo.dto.MealsDto;
 
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MealServideImpl {
 
@@ -64,24 +67,29 @@ public class MealServideImpl {
         return realm.where(MealDto.class).equalTo("id", id).findFirst();
     }
 
-    public List<MealDto> findAll() {
+    public RealmResults<MealDto> findAll() {
         return realm.where(MealDto.class).findAll();
     }
 
-    public MealDto save(MealDto addMealDto) {
-        realm.beginTransaction();
-        MealDto mealDto = realm.createObject(MealDto.class);
+    public MealsDto save(MealsDto addMealDto) {
+        clearAll();
+        for (MealDto addMeals : addMealDto.getMealDtos()) {
 
-        mealDto.setKcalForMeal(addMealDto.getKcalForMeal());
-        mealDto.setNumberMeal(addMealDto.getNumberMeal());
-        mealDto.setB(addMealDto.getB());
-        mealDto.setT(addMealDto.getT());
-        mealDto.setW(addMealDto.getW());
+            Log.d("SERWIS ====== ",addMeals.getKcalForMeal() + " / " + addMeals.getNumberMeal());
+            realm.beginTransaction();
+            MealDto mealDto = realm.createObject(MealDto.class);
 
-        realm.copyToRealm(mealDto);
-        realm.commitTransaction();
+            mealDto.setKcalForMeal(addMeals.getKcalForMeal());
+            mealDto.setNumberMeal(addMeals.getNumberMeal());
+            mealDto.setB(addMeals.getB());
+            mealDto.setT(addMeals.getT());
+            mealDto.setW(addMeals.getW());
 
-        return mealDto;
+            realm.copyToRealm(mealDto);
+            realm.commitTransaction();
+        }
+
+        return addMealDto;
     }
 
     public MealDto edit(MealDto editMealDto, int id) {

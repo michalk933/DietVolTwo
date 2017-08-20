@@ -9,6 +9,10 @@
     tools:showIn="@layout/activity_meal">
 
     <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recycler_view_meal_activity"

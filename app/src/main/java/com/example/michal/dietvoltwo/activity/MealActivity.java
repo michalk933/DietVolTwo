@@ -2,10 +2,13 @@ package com.example.michal.dietvoltwo.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.MealAdapter;
@@ -40,6 +44,7 @@ public class MealActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,10 @@ public class MealActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view_menu);
 
+
+        setUpNavigationView();
 
         //Float button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -101,4 +109,49 @@ public class MealActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void setUpNavigationView() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_main_menu:
+                        Toast.makeText(MealActivity.this, "Meanu główne", Toast.LENGTH_SHORT).show();
+                        Log.d("MOJE LOGI","Meanu główne");
+                        break;
+                    case R.id.navigation_list_product:
+                        Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();
+                        Log.d("MOJE LOGI","Lista produktów");
+                        break;
+                    case R.id.navigation_me_data:
+                        Toast.makeText(MealActivity.this, "Moje dane", Toast.LENGTH_SHORT).show();
+                        Log.d("MOJE LOGI","Moje dane");
+                        break;
+                    case R.id.navigation_about:
+                        Toast.makeText(MealActivity.this, "O aplikacji", Toast.LENGTH_SHORT).show();
+                        Log.d("MOJE LOGI","O aplikacji");
+                        break;
+                    case R.id.navigation_nothing:
+                        Toast.makeText(MealActivity.this, "NIC !", Toast.LENGTH_SHORT).show();
+                        Log.d("MOJE LOGI","NIC !");
+                        break;
+                }
+
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                } else {
+                    item.setChecked(true);
+                }
+                item.setChecked(true);
+
+                return true;
+            }
+        });
+
+
+
+
+    }
+
 }

@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/navigation_main_menu"
-        android:icon="@drawable/main_menu_image"
-        android:title="@string/navigation_main_menu"/>
+    <item android:title="Wybór karty">
+        <menu>
+            <item
+                android:id="@+id/navigation_main_menu"
+                android:icon="@drawable/main_menu_image"
+                android:title="@string/navigation_main_menu" />
 
-    <item
-        android:id="@+id/navigation_list_product"
-        android:icon="@drawable/list_product_image"
-        android:title="@string/navigation_list_product"/>
+            <item
+                android:id="@+id/navigation_list_product"
+                android:icon="@drawable/list_product_image"
+                android:title="@string/navigation_list_product" />
 
-    <item
-        android:id="@+id/navigation_me_data"
-        android:icon="@drawable/me_data_image"
-        android:title="@string/navigation_me_data"/>
+            <item
+                android:id="@+id/navigation_me_data"
+                android:icon="@drawable/me_data_image"
+                android:title="@string/navigation_me_data" />
+        </menu>
+    </item>
+
+    <item android:title="Inne">
+        <menu>
+            <item
+                android:id="@+id/navigation_about"
+                android:icon="@drawable/about_image"
+                android:title="@string/navigation_about" />
+
+            <item
+                android:id="@+id/navigation_nothing"
+                android:icon="@drawable/nothing_image"
+                android:title="@string/navigation_nothing" />
+
+        </menu>
+    </item>
 
 </menu>

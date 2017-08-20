@@ -52,6 +52,8 @@
     <string name="navigation_me_data">Dane użytkownika</string>
     <string name="navigation_open">Otwórz</string>
     <string name="navigation_close">Zamknij</string>
+    <string name="navigation_about">O aplikacji</string>
+    <string name="navigation_nothing">Narazie nic</string>
 
 
 

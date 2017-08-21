@@ -4,12 +4,14 @@ package com.example.michal.dietvoltwo.service.Impl;
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.example.michal.dietvoltwo.dto.ProductDto;
 
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ProductServiceImpl {
 
@@ -64,15 +66,16 @@ public class ProductServiceImpl {
         return realm.where(ProductDto.class).equalTo("id", id).findFirst();
     }
 
-    public List<ProductDto> findAll() {
+    public RealmResults<ProductDto> findAll() {
         return realm.where(ProductDto.class).findAll();
     }
 
     public ProductDto save(ProductDto addProductDto) {
+        Log.d("BAZA PRODUKT == ", addProductDto.getName());
         realm.beginTransaction();
         ProductDto productDto = realm.createObject(ProductDto.class);
-
-        productDto.setId(addProductDto.getId());
+//(int) (4 + System.currentTimeMillis())
+        productDto.setId((int) System.currentTimeMillis());
         productDto.setName(addProductDto.getName());
         productDto.setProducent(addProductDto.getProducent());
         productDto.setProductTyp(addProductDto.getProductTyp());

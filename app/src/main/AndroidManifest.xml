@@ -23,7 +23,16 @@
         <activity
             android:name=".activity.MealActivity"
             android:label="@string/title_activity_meal"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ProductActivity"
+            android:label="@string/title_activity_product"
+            android:parentActivityName=".activity.MealActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.michal.dietvoltwo.activity.MealActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -2,8 +2,13 @@ package com.example.michal.dietvoltwo.adapter;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,8 @@ import android.widget.Toast;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.service.Impl.ProductServiceImpl;
+
+import java.io.ByteArrayOutputStream;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -36,19 +43,20 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+        Log.d("MOJE LOGI ==== ", " Adapter");
         realm = ProductServiceImpl.getInstance().getRealm();
 
         final ProductDto productDto = getItem(position);
         final CardViewHolder holder = (CardViewHolder)viewHolder;
 
         //TODO
-//        holder.image.setImageBitmap();
-        holder.bProduct.setText(productDto.getB());
-        holder.igProduct.setText(productDto.getIg());
-        holder.kcalProduct.setText(productDto.getKcal());
-        holder.nameProduct.setText(productDto.getName());
-        holder.tProduct.setText(productDto.getT());
-        holder.wProduct.setText(productDto.getW());
+        holder.image.setImageBitmap(getImage(productDto.getImage()));
+        holder.bProduct.setText("Białko: " + productDto.getB());
+        holder.igProduct.setText("Index glikemiczny: " + productDto.getIg());
+        holder.kcalProduct.setText("Kcal: " + productDto.getKcal());
+        holder.nameProduct.setText("Nazwa: " + productDto.getName());
+        holder.tProduct.setText("Tłuszcze: " + productDto.getT());
+        holder.wProduct.setText("Węglowodanów: " + productDto.getW());
 
 
         holder.card.setOnLongClickListener(new View.OnLongClickListener() {
@@ -69,8 +77,6 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
                 return false;
             }
         });
-
-
     }
 
     @Override
@@ -81,6 +87,18 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
         return 0;
     }
 
+    private Bitmap getImage(int image){
+        Drawable drawable = context.getDrawable(image);
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,0,stream);
+        byte[] imageByte = stream.toByteArray();
+        return BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
+    }
+
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
 

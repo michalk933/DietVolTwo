@@ -54,6 +54,7 @@
     <string name="navigation_close">Zamknij</string>
     <string name="navigation_about">O aplikacji</string>
     <string name="navigation_nothing">Narazie nic</string>
+    <string name="title_activity_product">ProductActivity</string>
 
 
 </resources>

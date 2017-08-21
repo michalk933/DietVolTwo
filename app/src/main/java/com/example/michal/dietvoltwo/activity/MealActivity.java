@@ -1,5 +1,6 @@
 package com.example.michal.dietvoltwo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -60,7 +61,7 @@ public class MealActivity extends AppCompatActivity {
         this.realm = MealServideImpl.with(this).getRealm();
         setupRecycler();
         MealServideImpl.with(this).refresh();
-        RealmResults<MealDto> all = MealServideImpl.with(this).findAll();
+//        RealmResults<MealDto> all = MealServideImpl.with(this).findAll();
         setRealmAdapter(MealServideImpl.with(this).findAll());
 
         //Menu
@@ -123,6 +124,8 @@ public class MealActivity extends AppCompatActivity {
                     case R.id.navigation_list_product:
                         Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();
                         Log.d("MOJE LOGI", "Lista produktów");
+                        Intent intent = new Intent(getApplicationContext(),ProductActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.navigation_me_data:
                         Toast.makeText(MealActivity.this, "Moje dane", Toast.LENGTH_SHORT).show();

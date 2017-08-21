@@ -22,7 +22,7 @@ public class ProductDto extends RealmObject {
     private int ig;
     private int forDiabets;
     private Date create;
-    private String image;
+    private int image;
 
     public int getId() {
         return id;
@@ -128,11 +128,11 @@ public class ProductDto extends RealmObject {
         this.create = create;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 }

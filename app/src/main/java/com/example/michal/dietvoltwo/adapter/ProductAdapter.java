@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
+public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
 
     private Context context;
     private Realm realm;
@@ -37,7 +37,7 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new CardViewHolder(view);
     }
 
@@ -47,10 +47,9 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
         realm = ProductServiceImpl.getInstance().getRealm();
 
         final ProductDto productDto = getItem(position);
-        final CardViewHolder holder = (CardViewHolder)viewHolder;
+        final CardViewHolder holder = (CardViewHolder) viewHolder;
 
-        //TODO
-        holder.image.setImageBitmap(getImage(productDto.getImage()));
+        holder.image.setImageResource(productDto.getImage());
         holder.bProduct.setText("Białko: " + productDto.getB());
         holder.igProduct.setText("Index glikemiczny: " + productDto.getIg());
         holder.kcalProduct.setText("Kcal: " + productDto.getKcal());
@@ -81,19 +80,10 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
 
     @Override
     public int getItemCount() {
-        if(getRealmBaseAdapter() !=null){
+        if (getRealmBaseAdapter() != null) {
             return getRealmBaseAdapter().getCount();
         }
         return 0;
-    }
-
-    private Bitmap getImage(int image){
-        Drawable drawable = context.getDrawable(image);
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,0,stream);
-        byte[] imageByte = stream.toByteArray();
-        return BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
     }
 
     public static Bitmap getImage(byte[] image) {
@@ -104,19 +94,19 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto>{
 
         public CardView card;
         private ImageView image;
-        private TextView nameProduct,kcalProduct,bProduct,tProduct,wProduct,igProduct;
+        private TextView nameProduct, kcalProduct, bProduct, tProduct, wProduct, igProduct;
 
 
         public CardViewHolder(View itemView) {
             super(itemView);
             card = (CardView) itemView.findViewById(R.id.card_product);
-            image = (ImageView)itemView.findViewById(R.id.image_view_product);
-            nameProduct = (TextView)itemView.findViewById(R.id.name_product_text_view);
-            kcalProduct = (TextView)itemView.findViewById(R.id.kcal_oroduct_text_view);
-            bProduct = (TextView)itemView.findViewById(R.id.protein_product_text_view);
-            tProduct = (TextView)itemView.findViewById(R.id.fat_product_text_view);
-            wProduct = (TextView)itemView.findViewById(R.id.carbohydrate_product_text_view);
-            igProduct = (TextView)itemView.findViewById(R.id.ig_product_text_view);
+            image = (ImageView) itemView.findViewById(R.id.image_view_product);
+            nameProduct = (TextView) itemView.findViewById(R.id.name_product_text_view);
+            kcalProduct = (TextView) itemView.findViewById(R.id.kcal_oroduct_text_view);
+            bProduct = (TextView) itemView.findViewById(R.id.protein_product_text_view);
+            tProduct = (TextView) itemView.findViewById(R.id.fat_product_text_view);
+            wProduct = (TextView) itemView.findViewById(R.id.carbohydrate_product_text_view);
+            igProduct = (TextView) itemView.findViewById(R.id.ig_product_text_view);
         }
     }
 }

@@ -43,7 +43,6 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        Log.d("MOJE LOGI ==== ", " Adapter");
         realm = ProductServiceImpl.getInstance().getRealm();
 
         final ProductDto productDto = getItem(position);

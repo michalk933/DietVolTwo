@@ -45,13 +45,8 @@ public class ProductActivity extends AppCompatActivity {
 
         setupRecycler();
         ProductServiceImpl.with(this).refresh();
-        RealmResults<ProductDto> all = ProductServiceImpl.with(this).findAll();
-        for (ProductDto productDto : all) {
-            Log.d("PRZD ADAP == ",productDto.getName() );
-        }
 
         setRealmAdapter(ProductServiceImpl.with(this).findAll());
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +79,6 @@ public class ProductActivity extends AppCompatActivity {
         ArrayList<ProductDto> products = new ArrayList<>();
 
         ProductDto product = new ProductDto();
-//        product.setId((int) (1 + System.currentTimeMillis()));
         product.setName("test1");
         product.setProducent("test1");
         product.setProductTyp("test1");
@@ -101,7 +95,6 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product);
 
         ProductDto product1 = new ProductDto();
-//        product1.setId((int) (2 + System.currentTimeMillis()));
         product1.setName("test2");
         product1.setProducent("test2");
         product1.setProductTyp("test2");
@@ -118,7 +111,6 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product1);
 
         ProductDto product2 = new ProductDto();
-//        product2.setId((int) (3 + System.currentTimeMillis()));
         product2.setName("test3");
         product2.setProducent("test3");
         product2.setProductTyp("test3");
@@ -135,7 +127,6 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product2);
 
         ProductDto product3 = new ProductDto();
-//        product3.setId((int) (4 + System.currentTimeMillis()));
         product3.setName("test4");
         product3.setProducent("test4");
         product3.setProductTyp("test4");
@@ -152,9 +143,7 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product3);
 
         for (ProductDto productDto : products) {
-            Log.d("MOJE LOG Activity === ", productDto.getName());
             ProductServiceImpl.getInstance().save(productDto);
-            //MealServideImpl.getInstance().save(mealsDto);
         }
     }
 

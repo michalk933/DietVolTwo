@@ -85,10 +85,6 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
         return 0;
     }
 
-    public static Bitmap getImage(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
-
     public static class CardViewHolder extends RecyclerView.ViewHolder {
 
         public CardView card;

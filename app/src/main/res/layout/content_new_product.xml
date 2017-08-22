@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.michal.dietvoltwo.activity.NewProductActivity"
+    tools:showIn="@layout/activity_new_product">
+
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/add_product"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:layout_column="2"
+        android:layout_row="10"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:id="@+id/name_product_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:text="@string/add_new_product_name_product" />
+
+        <EditText
+            android:id="@+id/name_product_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/producent_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="@string/add_new_product_producent" />
+
+        <EditText
+            android:id="@+id/producent_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2" />
+
+
+        <TextView
+            android:id="@+id/kcal_product_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="3"
+            android:text="@string/add_new_product_kcal" />
+
+        <EditText
+            android:id="@+id/kcal_product_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/ig_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="4"
+            android:text="@string/add_new_product_ig" />
+
+        <EditText
+            android:id="@+id/ig_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="4"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/ww_product_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="5"
+            android:text="@string/add_new_product_ww" />
+
+        <EditText
+            android:id="@+id/w_product_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="5"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/b_product_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="6"
+            android:text="@string/add_new_product_b" />
+
+        <EditText
+            android:id="@+id/b_product_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="6"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/t_product_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="7"
+            android:text="@string/add_new_product_t" />
+
+        <EditText
+            android:id="@+id/t_product_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="7"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/for_diabets_product_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="8"
+            android:text="@string/add_new_product_for_diabets" />
+
+        <EditText
+            android:id="@+id/for_diabets_product_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="8"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/type_macro_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="9"
+            android:text="@string/add_new_type_macro" />
+
+        <EditText
+            android:id="@+id/type_macro_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="9"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/time_day_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="10"
+            android:text="@string/add_new_time_day" />
+
+        <EditText
+            android:id="@+id/time_day_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="10"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+
+        <Button
+            android:id="@+id/take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="11"
+            android:onClick="takePhoto"
+            android:text="@string/add_new_product_photo" />
+
+
+    </GridLayout>
+
+
+</android.support.constraint.ConstraintLayout>

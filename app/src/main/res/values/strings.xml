@@ -55,6 +55,22 @@
     <string name="navigation_about">O aplikacji</string>
     <string name="navigation_nothing">Narazie nic</string>
     <string name="title_activity_product">ProductActivity</string>
+    <string name="title_activity_new_product">NewProductActivity</string>
+
+
+    //AddNewProduct
+    <string name="add_new_product_name_product">Nazwa</string>
+    <string name="add_new_product_producent">Producent</string>
+    <string name="add_new_product_kcal">Kcal/100g</string>
+    <string name="add_new_product_ig">Ig</string>
+    <string name="add_new_product_ww">Węglowodanów/100g</string>
+    <string name="add_new_product_b">Białka/100g</string>
+    <string name="add_new_product_t">Tłuszczy/100g</string>
+    <string name="add_new_product_for_diabets">Dla diabetyków</string>
+    <string name="add_new_product_photo">Zdjęcie</string>
+    <string name="add_new_type_macro">Typ makroskładnika</string>
+    <string name="add_new_time_day">Pora produktu</string>
+
 
 
 </resources>

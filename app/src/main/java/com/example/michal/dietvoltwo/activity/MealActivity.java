@@ -61,7 +61,6 @@ public class MealActivity extends AppCompatActivity {
         this.realm = MealServideImpl.with(this).getRealm();
         setupRecycler();
         MealServideImpl.with(this).refresh();
-//        RealmResults<MealDto> all = MealServideImpl.with(this).findAll();
         setRealmAdapter(MealServideImpl.with(this).findAll());
 
         //Menu
@@ -123,7 +122,6 @@ public class MealActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_list_product:
                         Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();
-                        Log.d("MOJE LOGI", "Lista produktów");
                         Intent intent = new Intent(getApplicationContext(),ProductActivity.class);
                         startActivity(intent);
                         break;

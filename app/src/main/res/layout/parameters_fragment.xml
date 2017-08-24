@@ -1,116 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="40px"
-    android:weightSum="1">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/test"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:useDefaultMargins="true"
+    card_view:cardBackgroundColor="#E8F5F9"
+    card_view:cardCornerRadius="8dp"
+    card_view:contentPadding="5dp">
 
-    <TextView
-        android:id="@+id/ageTextView"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="35px"
-        android:text="@string/age_text_view" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <SeekBar
-        android:id="@+id/ageSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="110"/>
-
-    <TextView
-        android:id="@+id/weightTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="15px"
-        android:text="@string/weight_text_view" />
-
-    <SeekBar
-        android:id="@+id/weightSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="220"/>
-
-    <TextView
-        android:id="@+id/heightTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="15px"
-        android:text="@string/height_text_view" />
-
-    <SeekBar
-        android:id="@+id/heightSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="250"/>
-
-    <TextView
-        android:id="@+id/sexTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="35px"
-        android:text="@string/sex_text_view" />
-
-    <RadioGroup
-        android:id="@+id/sexFragmentRadioGrup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/famleRadioButton"
+        <TextView
+            android:id="@+id/ageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/famle_text_view" />
+            android:paddingTop="35px"
+            android:text="@string/age_text_view" />
 
-        <RadioButton
-            android:id="@+id/maleRadioButton"
+        <SeekBar
+            android:id="@+id/ageSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/male_text_view" />
+            android:max="110" />
 
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/lvlActivityTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="35px"
-        android:text="@string/lvl_activity_text_view" />
-
-    <RadioGroup
-        android:id="@+id/lvlActivityFragmentRadioGrup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/lvlLowActivityRadioButton"
+        <TextView
+            android:id="@+id/weightTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/low_lvl_text_view" />
+            android:paddingTop="15px"
+            android:text="@string/weight_text_view" />
 
-        <RadioButton
-            android:id="@+id/lvlMediumRadioButton"
+        <SeekBar
+            android:id="@+id/weightSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/midium_lvl_text_view" />
+            android:max="220" />
 
-        <RadioButton
-            android:id="@+id/lvlHeightRadioButton"
+        <TextView
+            android:id="@+id/heightTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/height_lvl_text_view" />
-    </RadioGroup>
+            android:paddingTop="15px"
+            android:text="@string/height_text_view" />
 
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=">"
-        android:textSize="60px"
-        android:background="@color/colorAccent"
-        android:layout_gravity="end|right"
-        />
-</LinearLayout>
+        <SeekBar
+            android:id="@+id/heightSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="250" />
+
+        <TextView
+            android:id="@+id/sexTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="35px"
+            android:text="@string/sex_text_view" />
+
+        <RadioGroup
+            android:id="@+id/sexFragmentRadioGrup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/famleRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/famle_text_view" />
+
+            <RadioButton
+                android:id="@+id/maleRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/male_text_view" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/lvlActivityTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="35px"
+            android:text="@string/lvl_activity_text_view" />
+
+        <RadioGroup
+            android:id="@+id/lvlActivityFragmentRadioGrup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/lvlLowActivityRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/low_lvl_text_view" />
+
+            <RadioButton
+                android:id="@+id/lvlMediumRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/midium_lvl_text_view" />
+
+            <RadioButton
+                android:id="@+id/lvlHeightRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/height_lvl_text_view" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|right"
+            android:background="@color/colorAccent"
+            android:text=">"
+            android:textSize="60px"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

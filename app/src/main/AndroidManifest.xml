@@ -3,6 +3,7 @@
     package="com.example.michal.dietvoltwo">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -45,6 +46,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.michal.dietvoltwo.activity.ProductActivity" />
+        </activity>
+        <activity
+            android:name=".activity.DataUserActivity"
+            android:label="@string/title_activity_data_user"
+            android:parentActivityName=".activity.MealActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.michal.dietvoltwo.activity.MealActivity" />
         </activity>
     </application>
 

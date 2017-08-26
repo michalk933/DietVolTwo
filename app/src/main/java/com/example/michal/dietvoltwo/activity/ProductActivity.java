@@ -1,17 +1,25 @@
 package com.example.michal.dietvoltwo.activity;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.ListPopupWindow;
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.ProductAdapter;
@@ -19,12 +27,20 @@ import com.example.michal.dietvoltwo.adapter.RealmProductAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.service.Impl.ProductServiceImpl;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+
+import static android.R.attr.bitmap;
+import static java.security.AccessController.getContext;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -54,7 +70,7 @@ public class ProductActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),NewProductActivity.class);
+                Intent intent = new Intent(getBaseContext(), NewProductActivity.class);
                 startActivity(intent);
             }
         });
@@ -148,6 +164,5 @@ public class ProductActivity extends AppCompatActivity {
             ProductServiceImpl.getInstance().save(productDto);
         }
     }
-
 
 }

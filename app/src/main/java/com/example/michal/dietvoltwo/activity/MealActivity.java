@@ -119,6 +119,8 @@ public class MealActivity extends AppCompatActivity {
                     case R.id.navigation_main_menu:
                         Toast.makeText(MealActivity.this, "Meanu główne", Toast.LENGTH_SHORT).show();
                         Log.d("MOJE LOGI", "Meanu główne");
+                        finish();
+                        startActivity(getIntent());
                         break;
                     case R.id.navigation_list_product:
                         Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();

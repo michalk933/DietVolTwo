@@ -6,42 +6,54 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.service.Impl.ProductServiceImpl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
 import io.realm.Realm;
 
 public class NewProductActivity extends AppCompatActivity {
+    private static final int TAKE_PHOTO_CODE = 0;
+    private static final int CAMERA_REQUEST = 1888;
+    private int PICK_IMAGE_REQUEST = 1;
 
     private EditText nameEditText, producentEditText, kcalEditText, carboEditText, proteinEditText,
             fatEditText, igEditText, forDiabedtEditText, typeMacroEditText, timeDayEditText;
-    private Button photoButton;
+    private Button photoButton, choiceButton;
     private Spinner spinner;
     private String[] elementy = {"Węglowodanowy", "Białkowy", "Tłuszczowy"};
     private String typProduct = "Węglowodanowy";
+    private String picturePath = "";
 
-    private static final int TAKE_PHOTO_CODE = 0;
-    private static final int CAMERA_REQUEST = 1888;
     private Realm realm;
+    private byte[] bytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +84,11 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setIg(Integer.parseInt(igEditText.getText().toString()));
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());
-                newProduct.setImage(R.drawable.ziemniaki);
+                newProduct.setImage(R.drawable.losos);
 
                 ProductServiceImpl.getInstance().save(newProduct);
 
+                Log.d("ZAPISANIE DO BAZY !!","dfsf");
 
             }
         });
@@ -94,6 +107,7 @@ public class NewProductActivity extends AppCompatActivity {
         typeMacroEditText = (EditText) findViewById(R.id.type_macro_edit_text);
         timeDayEditText = (EditText) findViewById(R.id.time_day_edit_text);
         photoButton = (Button) findViewById(R.id.take_photo);
+        choiceButton = (Button) findViewById(R.id.choice_photo);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +136,17 @@ public class NewProductActivity extends AppCompatActivity {
             }
         });
 
+        choiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+            }
+        });
+
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, elementy);
         spinner.setAdapter(adapter1);
@@ -140,12 +165,10 @@ public class NewProductActivity extends AppCompatActivity {
                         typProduct = "Tłuszczowy";
                         break;
                 }
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -154,20 +177,39 @@ public class NewProductActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST) {
-            ContentValues values = new ContentValues();
-            String path = String.valueOf(System.currentTimeMillis());
-            values.put(MediaStore.Images.Media.TITLE, new File(this.getFilesDir(), path).toString());
-            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-            values.put(MediaStore.Images.Media.DATA, path);
-            getContentResolver().insert( MediaStore.Images.Media.EXTERNAL_CONTENT_URI , values);
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File file = new File(extStorageDirectory, nameEditText.getText().toString() + ".PNG");
+            FileOutputStream outStream = null;
+            try {
+                outStream = new FileOutputStream(file);
+                photo.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+                outStream.flush();
+                outStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+
+            Uri uri = data.getData();
+            String[] projection = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(projection[0]);
+            picturePath = cursor.getString(columnIndex); // returns null
+            cursor.close();
         }
 
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         realm.close();
     }
+
+
 }

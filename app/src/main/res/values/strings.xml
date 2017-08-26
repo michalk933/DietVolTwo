@@ -68,8 +68,10 @@
     <string name="add_new_product_t">Tłuszczy/100g</string>
     <string name="add_new_product_for_diabets">Dla diabetyków</string>
     <string name="add_new_product_photo">Zdjęcie</string>
+    <string name="add_new_product_choice">Znajdź</string>
     <string name="add_new_type_macro">Typ makroskładnika</string>
     <string name="add_new_time_day">Pora produktu</string>
+    <string name="add_new_kind_product">Rodzaj produktu</string>
 
 
 

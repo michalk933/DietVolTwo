@@ -64,39 +64,39 @@ public class DataUserActivity extends AppCompatActivity {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i){
                 case R.id.reduction_data_user_goal_radio_button:
-                    log.trace("Check radioButton reduction_data_user_goal_radio_button");
+
                     break;
                 case R.id.state_data_user_goal_radio_button:
-                    log.trace("Check radioButton state_data_user_goal_radio_button");
+
                     break;
                 case R.id.mass_data_user_goal_radio_button:
-                    log.trace("Check radioButton mass_data_user_goal_radio_button");
+
                     break;
 
 
 
                 case R.id.lvl_low_activity_data_user_radio_button:
-                    log.trace("Check radioButton lvl_low_activity_data_user_radio_button");
+
                     break;
                 case R.id.lvl_medium_data_user_radio_button:
-                    log.trace("Check radioButton lvl_medium_data_user_radio_button");
+
                     break;
                 case R.id.lvl_height_data_user_radio_button:
-                    log.trace("Check radioButton lvl_height_data_user_radio_button");
+
                     break;
 
 
                 case R.id.carbo_diet_data_user_radio_button:
-                    log.trace("Check radioButton carbo_diet_data_user_radio_button");
+
                     break;
                 case R.id.stabile_diet_data_user_radio_button:
-                    log.trace("Check radioButton stabile_diet_data_user_radio_button");
+
                     break;
                 case R.id.protein_diet_data_user_radio_button:
-                    log.trace("Check radioButton protein_diet_data_user_radio_button");
+
                     break;
                 case R.id.fat_diet_data_user_radio_button:
-                    log.trace("Check radioButton fat_diet_data_user_radio_button");
+
                     break;
             }
         }

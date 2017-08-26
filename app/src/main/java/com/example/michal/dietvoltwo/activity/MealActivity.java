@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
@@ -47,6 +48,9 @@ public class MealActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
 
+    //HEADER VIEW
+    private TextView kcalHeaderTextView, carbohydrateHeaderTextView, proteinHeaderTextView, fatHeaderTextView, changeCarboHeaderTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +75,14 @@ public class MealActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = (NavigationView) findViewById(R.id.navigation_view_menu);
 
-
         setUpNavigationView();
+
+        //Header
+        kcalHeaderTextView = (TextView)findViewById(R.id.head_data_diet_kcal);
+        carbohydrateHeaderTextView = (TextView)findViewById(R.id.head_data_diet_carbohydrate);
+        proteinHeaderTextView = (TextView)findViewById(R.id.head_data_diet_protein);
+        fatHeaderTextView = (TextView)findViewById(R.id.head_data_diet_fat);
+        changeCarboHeaderTextView = (TextView)findViewById(R.id.head_data_diet_change_carbo);
 
         //Float button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -120,8 +130,8 @@ public class MealActivity extends AppCompatActivity {
                     case R.id.navigation_main_menu:
                         Toast.makeText(MealActivity.this, "Meanu główne", Toast.LENGTH_SHORT).show();
                         Log.d("MOJE LOGI", "Meanu główne");
-                        finish();
-                        startActivity(getIntent());
+//                        finish();
+//                        startActivity(getIntent());
                         break;
                     case R.id.navigation_list_product:
                         Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();

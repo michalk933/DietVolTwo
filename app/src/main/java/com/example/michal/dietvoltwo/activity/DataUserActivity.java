@@ -22,7 +22,6 @@ import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
 import io.realm.Realm;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
 public class DataUserActivity extends AppCompatActivity {
 
     //Component view
@@ -65,24 +64,35 @@ public class DataUserActivity extends AppCompatActivity {
         userGoalDto = UserGoalServiceImpl.getInstance().findAll().get(0);
         userParametrsDto = UserParametersServiceImpl.getInstance().findAll().get(0);
 
+        //get currency value
         age = userParametrsDto.getAge();
         lvlActivity = userParametrsDto.getLvlActivity();
         weight = userParametrsDto.getWeight();
         height = userParametrsDto.getHeight();
         goal = userGoalDto.getGoal();
         typeDiet = userGoalDto.getTypeDiet();
-        Log.e("FINISH TEST",age + " / "+ lvlActivity + " / " + weight + " / " + height + " / " + goal + " / " + typeDiet );
 
         //Create view
         createView();
-
 
         //floatButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("FINISH TEST", age + " / " + lvlActivity + " / " + weight + " / " + height + " / " + goal + " / " + typeDiet);
 
+                userGoalRealm.beginTransaction();
+                userGoalDto.setTypeDiet(typeDiet);
+                userGoalDto.setGoal(goal);
+                userParametrsDto.setAge(age);
+                userParametrsDto.setLvlActivity(lvlActivity);
+                userParametrsDto.setHeight(height);
+                userParametrsDto.setWeight(weight);
+                userGoalRealm.commitTransaction();
+
+                //TODO
+                //add new calculate diety and refresh data
 
             }
         });
@@ -106,6 +116,14 @@ public class DataUserActivity extends AppCompatActivity {
         checkGoal();
         checkTypeDiet();
         setSeekBar();
+
+        ageSeekBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
+        weightSeekbar.setOnSeekBarChangeListener(onSeekBarChangeListener);
+        heightSeekBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
+
+        lvlActivityFragmentRadioGrup.setOnCheckedChangeListener(onCheckedChangeListener);
+        golRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
+        dietTypeFragmentRadioGrup.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
     private void setSeekBar() {
@@ -195,7 +213,7 @@ public class DataUserActivity extends AppCompatActivity {
     private SeekBar.OnSeekBarChangeListener onSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            switch (i) {
+            switch (seekBar.getId()) {
                 case R.id.age_data_user_seek_bar:
                     if (b) {
                         age = ageSeekBar.getProgress();
@@ -226,12 +244,10 @@ public class DataUserActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         userGoalRealm.close();
         userParametrsRealm.close();
     }
-
 }

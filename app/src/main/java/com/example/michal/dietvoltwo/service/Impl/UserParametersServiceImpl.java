@@ -108,6 +108,7 @@ public class UserParametersServiceImpl implements RealmBasisService<UserParametr
     @Override
     public UserParametrsDto edit(UserParametrsDto editUserParametrsDto, int id) {
         Log.e("UserParametersService"," : edit(UserParametrsDto editUserParametrsDto, int id) : edit object" + editUserParametrsDto);
+        realm.beginTransaction();
         UserParametrsDto userParametrsDto = findOne(id);
         userParametrsDto.setAge(editUserParametrsDto.getAge());
         userParametrsDto.setHeight(editUserParametrsDto.getHeight());
@@ -115,7 +116,7 @@ public class UserParametersServiceImpl implements RealmBasisService<UserParametr
         userParametrsDto.setLvlActivity(editUserParametrsDto.getLvlActivity());
         userParametrsDto.setSex(editUserParametrsDto.getSex());
 
-        realm.beginTransaction();
+
         realm.copyToRealmOrUpdate(userParametrsDto);
         realm.commitTransaction();
 

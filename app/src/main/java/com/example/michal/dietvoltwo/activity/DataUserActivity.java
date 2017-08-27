@@ -6,8 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.widget.RadioButton;
+
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class DataUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        createView();
+
 
         //Get realm instance
         userGoalRealm = UserGoalServiceImpl.with(this).getRealm();
@@ -64,16 +65,25 @@ public class DataUserActivity extends AppCompatActivity {
         userGoalDto = UserGoalServiceImpl.getInstance().findAll().get(0);
         userParametrsDto = UserParametersServiceImpl.getInstance().findAll().get(0);
 
+        age = userParametrsDto.getAge();
+        lvlActivity = userParametrsDto.getLvlActivity();
+        weight = userParametrsDto.getWeight();
+        height = userParametrsDto.getHeight();
+        goal = userGoalDto.getGoal();
+        typeDiet = userGoalDto.getTypeDiet();
+        Log.e("FINISH TEST",age + " / "+ lvlActivity + " / " + weight + " / " + height + " / " + goal + " / " + typeDiet );
+
         //Create view
         createView();
+
 
         //floatButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -99,17 +109,20 @@ public class DataUserActivity extends AppCompatActivity {
     }
 
     private void setSeekBar() {
-        ageSeekBar.setProgress(userParametrsDto.getAge());
-        weightSeekbar.setProgress(userParametrsDto.getWeight());
-        heightSeekBar.setProgress(userParametrsDto.getHeight());
+        ageTextView.setText(getResources().getString(R.string.age_text_view) + " " + age + " lat");
+        ageSeekBar.setProgress(age);
+        weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
+        weightSeekbar.setProgress(weight);
+        heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
+        heightSeekBar.setProgress(height);
     }
 
     private void checkTypeDiet() {
-        if (userGoalDto.getTypeDiet().equals("WEGLOWODANY")) {
+        if (typeDiet.equals("WEGLOWODANY")) {
             dietTypeFragmentRadioGrup.check(R.id.carbo_diet_data_user_radio_button);
-        } else if (userGoalDto.getTypeDiet().equals("ZROWNOWAZONA")) {
+        } else if (typeDiet.equals("ZROWNOWAZONA")) {
             dietTypeFragmentRadioGrup.check(R.id.stabile_diet_data_user_radio_button);
-        } else if (userGoalDto.getTypeDiet().equals("BIALKOWA")) {
+        } else if (typeDiet.equals("BIALKOWA")) {
             dietTypeFragmentRadioGrup.check(R.id.protein_diet_data_user_radio_button);
         } else {
             dietTypeFragmentRadioGrup.check(R.id.fat_diet_data_user_radio_button);
@@ -118,9 +131,9 @@ public class DataUserActivity extends AppCompatActivity {
     }
 
     private void checkGoal() {
-        if (userGoalDto.getGoal().equals("REDUKCJA")) {
+        if (goal.equals("REDUKCJA")) {
             golRadioGroup.check(R.id.reduction_data_user_goal_radio_button);
-        } else if (userGoalDto.getGoal().equals("TRZYMANIE")) {
+        } else if (goal.equals("TRZYMANIE")) {
             golRadioGroup.check(R.id.state_data_user_goal_radio_button);
         } else {
             golRadioGroup.check(R.id.mass_data_user_goal_radio_button);
@@ -128,9 +141,9 @@ public class DataUserActivity extends AppCompatActivity {
     }
 
     private void checkLvlActivity() {
-        if (userParametrsDto.getLvlActivity() == 30) {
+        if (lvlActivity == 30) {
             lvlActivityFragmentRadioGrup.check(R.id.lvl_low_activity_data_user_radio_button);
-        } else if (userParametrsDto.getLvlActivity() == 35) {
+        } else if (lvlActivity == 35) {
             lvlActivityFragmentRadioGrup.check(R.id.lvl_medium_data_user_radio_button);
         } else {
             lvlActivityFragmentRadioGrup.check(R.id.lvl_height_data_user_radio_button);
@@ -203,10 +216,14 @@ public class DataUserActivity extends AppCompatActivity {
                     break;
             }
         }
+
         @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {}
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        }
+
         @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {}
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
     };
 
 

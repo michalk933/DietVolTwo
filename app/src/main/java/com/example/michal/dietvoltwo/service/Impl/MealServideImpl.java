@@ -26,7 +26,7 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
     }
 
     public static MealServideImpl with(Fragment fragment) {
-        log.trace("MealServideImpl : with(Fragment fragment) : get instance");
+        log.error("MealServideImpl : with(Fragment fragment) : get instance");
         if (instance == null) {
             instance = new MealServideImpl(fragment.getActivity().getApplication());
         }
@@ -34,7 +34,7 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
     }
 
     public static MealServideImpl with(Activity activity) {
-        log.trace("MealServideImpl : with(Fragment fragment) : get instance");
+        log.error("MealServideImpl : with(Fragment fragment) : get instance");
         if (instance == null) {
             instance = new MealServideImpl(activity.getApplication());
         }
@@ -42,7 +42,7 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
     }
 
     public static MealServideImpl with(Application application) {
-        log.trace("MealServideImpl : with(Fragment fragment) : get instance");
+        log.error("MealServideImpl : with(Fragment fragment) : get instance");
         if (instance == null) {
             instance = new MealServideImpl(application);
         }
@@ -50,25 +50,25 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
     }
 
     public static MealServideImpl getInstance() {
-        log.trace("MealServideImpl : getInstance : get instance");
+        log.error("MealServideImpl : getInstance : get instance");
         return instance;
     }
 
     @Override
     public Realm getRealm() {
-        log.trace("MealServideImpl : getRealm() : get realm");
+        log.error("MealServideImpl : getRealm() : get realm");
         return this.realm;
     }
 
     @Override
     public void refresh() {
-        log.trace("MealServideImpl : refresh() : refresh");
+        log.error("MealServideImpl : refresh() : refresh");
         realm.refresh();
     }
 
     @Override
     public void clearAll() {
-        log.trace("MealServideImpl : clearAll() : clear");
+        log.error("MealServideImpl : clearAll() : clear");
         realm.beginTransaction();
         realm.clear(MealDto.class);
         realm.commitTransaction();
@@ -76,18 +76,18 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
 
     @Override
     public MealDto findOne(int id) {
-        log.trace("MealServideImpl : findOne(int id) : find record in data base");
+        log.error("MealServideImpl : findOne(int id) : find record in data base");
         return realm.where(MealDto.class).equalTo("id", id).findFirst();
     }
 
     @Override
     public RealmResults<MealDto> findAll() {
-        log.trace("MealServideImpl : findAll() : find all records in data base");
+        log.error("MealServideImpl : findAll() : find all records in data base");
         return realm.where(MealDto.class).findAll();
     }
 
     public MealsDto save(MealsDto addMealDto) {
-        log.trace("MealServideImpl : save(MealsDto addMealDto) : save new object {}" + addMealDto);
+        log.error("MealServideImpl : save(MealsDto addMealDto) : save new object {}" + addMealDto);
         clearAll();
         for (MealDto addMeals : addMealDto.getMealDtos()) {
             realm.beginTransaction();
@@ -107,7 +107,7 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
 
     @Override
     public MealDto edit(MealDto editMealDto, int id) {
-        log.trace("MealServideImpl : edit(MealDto editMealDto, int id) : edit object {}" + editMealDto);
+        log.error("MealServideImpl : edit(MealDto editMealDto, int id) : edit object {}" + editMealDto);
         realm.beginTransaction();
 
         MealDto mealDto = findOne(id);
@@ -130,7 +130,7 @@ public class MealServideImpl implements RealmBasisService<MealDto> {
 
     @Override
     public void delete(MealDto mealDto) {
-        log.trace("MealServideImpl : delete(MealDto mealDto) : delete object {}" + mealDto);
+        log.error("MealServideImpl : delete(MealDto mealDto) : delete object {}" + mealDto);
         realm.beginTransaction();
         mealDto.removeFromRealm();
         realm.commitTransaction();

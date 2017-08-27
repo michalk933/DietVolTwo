@@ -208,25 +208,25 @@ public class ParametersFragment extends Fragment {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
-                case R.id.famleRadioButton:
+                case R.id.famle_radio_button:
                     sex = "K";
                     userParametrsDto.setSex(sex);
                     break;
-                case R.id.maleRadioButton:
+                case R.id.male_radio_button:
                     sex = "M";
                     userParametrsDto.setSex(sex);
                     break;
 
 
-                case R.id.lvlLowActivityRadioButton:
+                case R.id.lvl_low_activity_radio_button:
                     lvlActivity = 30;
                     userParametrsDto.setLvlActivity(lvlActivity);
                     break;
-                case R.id.lvlMediumRadioButton:
+                case R.id.lvl_medium_radio_button:
                     lvlActivity = 35;
                     userParametrsDto.setLvlActivity(lvlActivity);
                     break;
-                case R.id.lvlHeightRadioButton:
+                case R.id.lvl_height_radio_button:
                     lvlActivity = 40;
                     userParametrsDto.setLvlActivity(lvlActivity);
                     break;
@@ -238,21 +238,21 @@ public class ParametersFragment extends Fragment {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
             switch (seekBar.getId()) {
-                case R.id.ageSeekBar:
+                case R.id.age_seek_bar:
                     if (b) {
                         age = ageSeekBar.getProgress();
                         ageTextView.setText(getResources().getString(R.string.age_text_view) + " " + age + " lat");
                         userParametrsDto.setAge(age);
                     }
                     break;
-                case R.id.heightSeekBar:
+                case R.id.height_seek_bar:
                     if (b) {
                         height = heightSeekBar.getProgress();
                         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
                         userParametrsDto.setHeight(height);
                     }
                     break;
-                case R.id.weightSeekBar:
+                case R.id.weight_seek_bar:
                     if (b) {
                         weight = weightSeekbar.getProgress();
                         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");

@@ -1,6 +1,8 @@
 package com.example.michal.dietvoltwo.service.diet;
 
 
+import android.util.Log;
+
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.service.diatetsService.DiabetsDietGenerateService;
 import com.example.michal.dietvoltwo.service.healthService.HealthDietGenerateService;
@@ -18,6 +20,7 @@ public class DietGenerateService {
             HealthDietGenerateService healthDietGenerateService = new HealthDietGenerateService(userDto);
             kcal = healthDietGenerateService.kcal();
         }
+        Log.e("SPR === ", String.valueOf(kcal));
         return kcal;
     }
 

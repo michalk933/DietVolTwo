@@ -1,6 +1,7 @@
 package com.example.michal.dietvoltwo.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,10 +15,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.michal.dietvoltwo.R;
+import com.example.michal.dietvoltwo.dto.BtwDto;
+import com.example.michal.dietvoltwo.dto.MealsDto;
+import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
+import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
+import com.example.michal.dietvoltwo.service.Impl.MealServideImpl;
 import com.example.michal.dietvoltwo.service.Impl.UserGoalServiceImpl;
 import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
+import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
+import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
+import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
 import io.realm.Realm;
 import lombok.extern.log4j.Log4j;
@@ -45,6 +54,12 @@ public class DataUserActivity extends AppCompatActivity {
     private UserGoalDto userGoalDto;
     private UserParametrsDto userParametrsDto;
 
+    private BtwDto btwDto;
+    private UserDto userDto;
+    private MealsDto mealsDto;
+    private Realm realmBtw;
+    private Realm realmMeal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +74,11 @@ public class DataUserActivity extends AppCompatActivity {
         UserGoalServiceImpl.with(this).refresh();
         userParametrsRealm = UserParametersServiceImpl.with(this).getRealm();
         UserParametersServiceImpl.with(this).refresh();
+
+        realmBtw = BtwServiceImpl.with(this).getRealm();
+        BtwServiceImpl.with(this).refresh();
+        realmMeal = MealServideImpl.with(this).getRealm();
+        MealServideImpl.with(this).refresh();
 
         //inicialize object
         userGoalDto = UserGoalServiceImpl.getInstance().findAll().get(0);
@@ -75,6 +95,8 @@ public class DataUserActivity extends AppCompatActivity {
         //Create view
         createView();
 
+        btwDto = new BtwDto();
+
         //floatButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +112,41 @@ public class DataUserActivity extends AppCompatActivity {
                 userParametrsDto.setHeight(height);
                 userParametrsDto.setWeight(weight);
                 userGoalRealm.commitTransaction();
+                userDto = new UserDto();
+                userDto.setUserGoalDto(userGoalDto);
+                userDto.setUserParametrsDto(userParametrsDto);
 
                 //TODO
                 //add new calculate diety and refresh data
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            DietGenerateService dietGenerateService = new DietGenerateService();
+                            int dietForUser = dietGenerateService.createDietForUser(userDto);
+                            GenerateBTW generateBTW = new GenerateBTW(userDto);
+                            BtwDto btw = generateBTW.createBtw(dietForUser);
+
+                            btwDto.setKcal(dietForUser);
+                            btwDto.setB(btw.getB());
+                            btwDto.setT(btw.getT());
+                            btwDto.setW(btw.getW());
+                            btwDto.setId((int) System.currentTimeMillis());
+
+                            BtwServiceImpl.getInstance().save(btwDto);
+
+                            GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
+                            mealsDto = generateBtwMeal.createMeal(userDto,btwDto);
+                            MealServideImpl.getInstance().save(mealsDto);
+
+                        } finally {
+                            if (realmBtw != null && realmMeal != null) {
+                                realmBtw.close();
+                                realmMeal.close();
+                            }
+                        }
+                    }
+                });
 
             }
         });

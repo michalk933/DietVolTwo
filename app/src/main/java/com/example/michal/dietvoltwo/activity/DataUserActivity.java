@@ -66,9 +66,6 @@ public class DataUserActivity extends AppCompatActivity {
 
         //Create view
         createView();
-        checkLvlActivity();
-        checkGoal();
-        checkTypeDiet();
 
         //floatButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -95,26 +92,26 @@ public class DataUserActivity extends AppCompatActivity {
         weightTextView = (TextView) findViewById(R.id.weight_data_user_text_view);
         heightTextView = (TextView) findViewById(R.id.height_data_user_text_view);
 
+        checkLvlActivity();
+        checkGoal();
+        checkTypeDiet();
+        setSeekBar();
+    }
+
+    private void setSeekBar() {
         ageSeekBar.setProgress(userParametrsDto.getAge());
         weightSeekbar.setProgress(userParametrsDto.getWeight());
         heightSeekBar.setProgress(userParametrsDto.getHeight());
-
-        RadioButton radioButton = (RadioButton) findViewById(R.id.reduction_data_user_goal_radio_button);
-        radioButton.getText().toString();
-
-//        lvlActivityFragmentRadioGrup.check();
-
-
     }
 
-    private void checkTypeDiet(){
-        if(userGoalDto.getTypeDiet().equals("WEGLOWODANY")){
+    private void checkTypeDiet() {
+        if (userGoalDto.getTypeDiet().equals("WEGLOWODANY")) {
             dietTypeFragmentRadioGrup.check(R.id.carbo_diet_data_user_radio_button);
-        }else if(userGoalDto.getTypeDiet().equals("ZROWNOWAZONA")){
+        } else if (userGoalDto.getTypeDiet().equals("ZROWNOWAZONA")) {
             dietTypeFragmentRadioGrup.check(R.id.stabile_diet_data_user_radio_button);
-        }else if(userGoalDto.getTypeDiet().equals("BIALKOWA")){
+        } else if (userGoalDto.getTypeDiet().equals("BIALKOWA")) {
             dietTypeFragmentRadioGrup.check(R.id.protein_diet_data_user_radio_button);
-        }else {
+        } else {
             dietTypeFragmentRadioGrup.check(R.id.fat_diet_data_user_radio_button);
         }
 
@@ -145,38 +142,38 @@ public class DataUserActivity extends AppCompatActivity {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.reduction_data_user_goal_radio_button:
-
+                    goal = "REDUKCJA";
                     break;
                 case R.id.state_data_user_goal_radio_button:
-
+                    goal = "TRZYMANIE";
                     break;
                 case R.id.mass_data_user_goal_radio_button:
-
+                    goal = "MASSA";
                     break;
 
 
                 case R.id.lvl_low_activity_data_user_radio_button:
-
+                    lvlActivity = 30;
                     break;
                 case R.id.lvl_medium_data_user_radio_button:
-
+                    lvlActivity = 35;
                     break;
                 case R.id.lvl_height_data_user_radio_button:
-
+                    lvlActivity = 40;
                     break;
 
 
                 case R.id.carbo_diet_data_user_radio_button:
-
+                    typeDiet = "WEGLOWODANY";
                     break;
                 case R.id.stabile_diet_data_user_radio_button:
-
+                    typeDiet = "ZROWNOWAZONA";
                     break;
                 case R.id.protein_diet_data_user_radio_button:
-
+                    typeDiet = "BIALKOWA";
                     break;
                 case R.id.fat_diet_data_user_radio_button:
-
+                    typeDiet = "TLUSZCZOWA";
                     break;
             }
         }
@@ -190,41 +187,34 @@ public class DataUserActivity extends AppCompatActivity {
                     if (b) {
                         age = ageSeekBar.getProgress();
                         ageTextView.setText(getResources().getString(R.string.age_text_view) + " " + age + " lat");
-                        //
                     }
                     break;
                 case R.id.weight_data_user_seek_bar:
                     if (b) {
                         weight = weightSeekbar.getProgress();
                         weightTextView.setText(getResources().getString(R.string.weight_text_view) + " " + weight + " kg");
-                        //
                     }
                     break;
                 case R.id.height_data_user_seek_bar:
                     if (b) {
                         height = heightSeekBar.getProgress();
                         heightTextView.setText(getResources().getString(R.string.height_text_view) + " " + height + " cm");
-                        //
                     }
                     break;
             }
         }
-
         @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-        }
-
+        public void onStartTrackingTouch(SeekBar seekBar) {}
         @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-        }
+        public void onStopTrackingTouch(SeekBar seekBar) {}
     };
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //realm delete
-
+        userGoalRealm.close();
+        userParametrsRealm.close();
     }
 
 }

@@ -19,65 +19,65 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/ageTextView"
+            android:id="@+id/age_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="35px"
             android:text="@string/age_text_view" />
 
         <SeekBar
-            android:id="@+id/ageSeekBar"
+            android:id="@+id/age_seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="110" />
 
         <TextView
-            android:id="@+id/weightTextView"
+            android:id="@+id/weight_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15px"
             android:text="@string/weight_text_view" />
 
         <SeekBar
-            android:id="@+id/weightSeekBar"
+            android:id="@+id/weight_seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="220" />
 
         <TextView
-            android:id="@+id/heightTextView"
+            android:id="@+id/height_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15px"
             android:text="@string/height_text_view" />
 
         <SeekBar
-            android:id="@+id/heightSeekBar"
+            android:id="@+id/height_seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="250" />
 
         <TextView
-            android:id="@+id/sexTextView"
+            android:id="@+id/sex_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="35px"
             android:text="@string/sex_text_view" />
 
         <RadioGroup
-            android:id="@+id/sexFragmentRadioGrup"
+            android:id="@+id/sex_fragment_radio_grup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/famleRadioButton"
+                android:id="@+id/famle_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/famle_text_view" />
 
             <RadioButton
-                android:id="@+id/maleRadioButton"
+                android:id="@+id/male_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/male_text_view" />
@@ -85,39 +85,39 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/lvlActivityTextView"
+            android:id="@+id/lvl_activity_Text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="35px"
             android:text="@string/lvl_activity_text_view" />
 
         <RadioGroup
-            android:id="@+id/lvlActivityFragmentRadioGrup"
+            android:id="@+id/lvl_activity_fragment_radioGrup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/lvlLowActivityRadioButton"
+                android:id="@+id/lvl_low_activity_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/low_lvl_text_view" />
 
             <RadioButton
-                android:id="@+id/lvlMediumRadioButton"
+                android:id="@+id/lvl_medium_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/midium_lvl_text_view" />
 
             <RadioButton
-                android:id="@+id/lvlHeightRadioButton"
+                android:id="@+id/lvl_height_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/height_lvl_text_view" />
         </RadioGroup>
 
         <Button
-            android:id="@+id/buttonNext"
+            android:id="@+id/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|right"

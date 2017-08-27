@@ -99,24 +99,24 @@ public class ParametersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.parameters_fragment, container, false);
 
-        sexFragmentRadioGrup = (RadioGroup) view.findViewById(R.id.sexFragmentRadioGrup);
-        lvlActivityFragmentRadioGrup = (RadioGroup) view.findViewById(R.id.lvlActivityFragmentRadioGrup);
+        sexFragmentRadioGrup = (RadioGroup) view.findViewById(R.id.sex_fragment_radio_grup);
+        lvlActivityFragmentRadioGrup = (RadioGroup) view.findViewById(R.id.lvl_activity_fragment_radioGrup);
 
-        ageTextView = (TextView) view.findViewById(R.id.ageTextView);
-        weightTextView = (TextView) view.findViewById(R.id.weightTextView);
-        heightTextView = (TextView) view.findViewById(R.id.heightTextView);
+        ageTextView = (TextView) view.findViewById(R.id.age_text_view);
+        weightTextView = (TextView) view.findViewById(R.id.weight_text_view);
+        heightTextView = (TextView) view.findViewById(R.id.height_text_view);
 
-        ageSeekBar = (SeekBar) view.findViewById(R.id.ageSeekBar);
-        weightSeekbar = (SeekBar) view.findViewById(R.id.weightSeekBar);
-        heightSeekBar = (SeekBar) view.findViewById(R.id.heightSeekBar);
+        ageSeekBar = (SeekBar) view.findViewById(R.id.age_seek_bar);
+        weightSeekbar = (SeekBar) view.findViewById(R.id.weight_seek_bar);
+        heightSeekBar = (SeekBar) view.findViewById(R.id.height_seek_bar);
 
-        famleRadioButton = (RadioButton) view.findViewById(R.id.famleRadioButton);
-        maleRadioButton = (RadioButton) view.findViewById(R.id.maleRadioButton);
-        lowLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvlLowActivityRadioButton);
-        mediumLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvlMediumRadioButton);
-        heightLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvlHeightRadioButton);
+        famleRadioButton = (RadioButton) view.findViewById(R.id.famle_radio_button);
+        maleRadioButton = (RadioButton) view.findViewById(R.id.male_radio_button);
+        lowLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvl_low_activity_radio_button);
+        mediumLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvl_medium_radio_button);
+        heightLvlActivityRadioButton = (RadioButton) view.findViewById(R.id.lvl_height_radio_button);
 
-        buttonNext = (Button) view.findViewById(R.id.buttonNext);
+        buttonNext = (Button) view.findViewById(R.id.button_next);
         buttonNext.setOnClickListener(onClickListener);
 
         sexFragmentRadioGrup.setOnCheckedChangeListener(onCheckedChangeListener);

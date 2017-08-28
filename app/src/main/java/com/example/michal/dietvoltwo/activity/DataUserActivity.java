@@ -116,8 +116,7 @@ public class DataUserActivity extends AppCompatActivity {
                 userDto.setUserGoalDto(userGoalDto);
                 userDto.setUserParametrsDto(userParametrsDto);
 
-                //TODO
-                //add new calculate diety and refresh data
+
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {

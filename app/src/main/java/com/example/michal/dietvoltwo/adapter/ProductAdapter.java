@@ -51,7 +51,7 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
 
 
         Log.d("LOGI ADAPTER == ",productDto.getImage() );
-        File f = new File(productDto.getImage(), "profile.jpg");
+        File f = new File(productDto.getImage(), "2130837603.jpg");
         try {
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.image.setImageBitmap(b);

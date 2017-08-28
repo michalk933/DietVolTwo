@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
@@ -82,11 +83,10 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());
                 newProduct.setImage(picturePath);
-
                 ProductServiceImpl.getInstance().save(newProduct);
 
-                Log.d("ZAPISANIE DO BAZY !!","dfsf");
-
+                ProductServiceImpl.getInstance().refresh();
+                Toast.makeText(NewProductActivity.this, "DODANO NOWY PRODUKT", Toast.LENGTH_SHORT).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -186,8 +186,15 @@ public class NewProductActivity extends AppCompatActivity {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            }finally {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             picturePath = file.getAbsolutePath();
+            Log.d("NEW IMAGE == ", picturePath);
         }
 
     }

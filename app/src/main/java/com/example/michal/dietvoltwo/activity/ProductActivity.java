@@ -17,6 +17,8 @@ import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmProductAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
+import com.example.michal.dietvoltwo.util.ConvertDrawableToStore;
+import com.example.michal.dietvoltwo.util.Prefs;
 
 
 import java.util.ArrayList;
@@ -43,7 +45,9 @@ public class ProductActivity extends AppCompatActivity {
 
         this.realm = ProductServiceImpl.with(this).getRealm();
 
-        setRealmData();
+        if (!Prefs.with(this).getPreLoad()) {
+            setRealmData();
+        }
 
         setupRecycler();
         ProductServiceImpl.with(this).refresh();
@@ -93,7 +97,7 @@ public class ProductActivity extends AppCompatActivity {
         product.setIg(1);
         product.setForDiabets(1);
         product.setCreate(new Date());
-        product.setImage(String.valueOf(R.drawable.ziemniaki));
+        product.setImage(ConvertDrawableToStore.convetrBitmapToStorage(R.drawable.ziemniaki,getApplicationContext()));
         products.add(product);
 
         ProductDto product1 = new ProductDto();
@@ -109,7 +113,7 @@ public class ProductActivity extends AppCompatActivity {
         product1.setIg(12);
         product1.setForDiabets(12);
         product1.setCreate(new Date());
-        product1.setImage(String.valueOf(R.drawable.losos));
+        product1.setImage(ConvertDrawableToStore.convetrBitmapToStorage(R.drawable.losos,getApplicationContext()));
         products.add(product1);
 
         ProductDto product2 = new ProductDto();
@@ -125,7 +129,7 @@ public class ProductActivity extends AppCompatActivity {
         product2.setIg(123);
         product2.setForDiabets(123);
         product2.setCreate(new Date());
-        product2.setImage(String.valueOf(R.drawable.jaglak));
+        product2.setImage(ConvertDrawableToStore.convetrBitmapToStorage(R.drawable.dzem,getApplicationContext()));
         products.add(product2);
 
         ProductDto product3 = new ProductDto();
@@ -141,12 +145,16 @@ public class ProductActivity extends AppCompatActivity {
         product3.setIg(1234);
         product3.setForDiabets(1234);
         product3.setCreate(new Date());
-        product3.setImage(String.valueOf(R.drawable.dzem));
+        product3.setImage(ConvertDrawableToStore.convetrBitmapToStorage(R.drawable.jaglak,getApplicationContext()));
         products.add(product3);
+
+
+//        ConvertDrawableToStore.convetrBitmapToStorage(R.drawable.jaglak,getApplicationContext());
 
         for (ProductDto productDto : products) {
             ProductServiceImpl.getInstance().save(productDto);
         }
+        Prefs.with(this).setPreLoad(true);
     }
 
 }

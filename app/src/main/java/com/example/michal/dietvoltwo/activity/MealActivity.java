@@ -2,14 +2,12 @@ package com.example.michal.dietvoltwo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,15 +22,8 @@ import android.widget.Toast;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.MealAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmMealAdapter;
-import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.MealDto;
-import com.example.michal.dietvoltwo.dto.MealsDto;
-import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
-import com.example.michal.dietvoltwo.service.Impl.MealServideImpl;
-import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
-import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
-
-import java.util.List;
+import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

@@ -1,14 +1,7 @@
 package com.example.michal.dietvoltwo.activity;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,31 +9,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmProductAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
-import com.example.michal.dietvoltwo.service.Impl.ProductServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-
-import static android.R.attr.bitmap;
-import static java.security.AccessController.getContext;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -109,7 +93,7 @@ public class ProductActivity extends AppCompatActivity {
         product.setIg(1);
         product.setForDiabets(1);
         product.setCreate(new Date());
-        product.setImage(R.drawable.ziemniaki);
+        product.setImage(String.valueOf(R.drawable.ziemniaki));
         products.add(product);
 
         ProductDto product1 = new ProductDto();
@@ -125,7 +109,7 @@ public class ProductActivity extends AppCompatActivity {
         product1.setIg(12);
         product1.setForDiabets(12);
         product1.setCreate(new Date());
-        product1.setImage(R.drawable.losos);
+        product1.setImage(String.valueOf(R.drawable.losos));
         products.add(product1);
 
         ProductDto product2 = new ProductDto();
@@ -141,7 +125,7 @@ public class ProductActivity extends AppCompatActivity {
         product2.setIg(123);
         product2.setForDiabets(123);
         product2.setCreate(new Date());
-        product2.setImage(R.drawable.jaglak);
+        product2.setImage(String.valueOf(R.drawable.jaglak));
         products.add(product2);
 
         ProductDto product3 = new ProductDto();
@@ -157,7 +141,7 @@ public class ProductActivity extends AppCompatActivity {
         product3.setIg(1234);
         product3.setForDiabets(1234);
         product3.setCreate(new Date());
-        product3.setImage(R.drawable.dzem);
+        product3.setImage(String.valueOf(R.drawable.dzem));
         products.add(product3);
 
         for (ProductDto productDto : products) {

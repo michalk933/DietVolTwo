@@ -4,8 +4,7 @@ package com.example.michal.dietvoltwo.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,9 +17,11 @@ import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
-import com.example.michal.dietvoltwo.service.Impl.ProductServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -48,7 +49,17 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
         final ProductDto productDto = getItem(position);
         final CardViewHolder holder = (CardViewHolder) viewHolder;
 
-        holder.image.setImageResource(productDto.getImage());
+
+        Log.d("LOGI ADAPTER == ",productDto.getImage() );
+        File f = new File(productDto.getImage(), "profile.jpg");
+        try {
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.image.setImageBitmap(b);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//        holder.image.setImageURI(u);
         holder.bProduct.setText("Białko: " + productDto.getB());
         holder.igProduct.setText("Index glikemiczny: " + productDto.getIg());
         holder.kcalProduct.setText("Kcal: " + productDto.getKcal());

@@ -1,15 +1,12 @@
-package com.example.michal.dietvoltwo.service.Impl;
+package com.example.michal.dietvoltwo.service.reamlService;
 
 
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.example.michal.dietvoltwo.dto.MealDto;
 import com.example.michal.dietvoltwo.dto.MealsDto;
-
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

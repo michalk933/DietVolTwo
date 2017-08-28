@@ -2,7 +2,8 @@ package com.example.michal.dietvoltwo.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ContentValues;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,9 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,13 +23,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
-import com.example.michal.dietvoltwo.service.Impl.ProductServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -84,7 +81,7 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setIg(Integer.parseInt(igEditText.getText().toString()));
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());
-                newProduct.setImage(R.drawable.losos);
+                newProduct.setImage(picturePath);
 
                 ProductServiceImpl.getInstance().save(newProduct);
 
@@ -179,28 +176,18 @@ public class NewProductActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            File file = new File(extStorageDirectory, nameEditText.getText().toString() + ".PNG");
-            FileOutputStream outStream = null;
+            ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+            File file = contextWrapper.getDir("image", Context.MODE_PRIVATE);
+            File myPath = new File(file,"profile.jpg");
+            FileOutputStream fileOutputStream = null;
             try {
-                outStream = new FileOutputStream(file);
-                photo.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-                outStream.flush();
-                outStream.close();
+                fileOutputStream = new FileOutputStream(myPath);
+                photo.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }else{
-
-            Uri uri = data.getData();
-            String[] projection = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(projection[0]);
-            picturePath = cursor.getString(columnIndex); // returns null
-            cursor.close();
+            picturePath = file.getAbsolutePath();
         }
 
     }

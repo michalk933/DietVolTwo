@@ -23,23 +23,20 @@ import android.widget.TextView;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.activity.MealActivity;
 import com.example.michal.dietvoltwo.dto.BtwDto;
-import com.example.michal.dietvoltwo.dto.MealDto;
 import com.example.michal.dietvoltwo.dto.MealsDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
-import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
-import com.example.michal.dietvoltwo.service.Impl.MealServideImpl;
-import com.example.michal.dietvoltwo.service.Impl.UserGoalServiceImpl;
-import com.example.michal.dietvoltwo.service.Impl.UserPersonalServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.BtwServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
+import com.example.michal.dietvoltwo.service.reamlService.UserGoalServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.UserPersonalServiceImpl;
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
-import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.UserParametersServiceImpl;
 import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
-
-import java.util.List;
 
 import io.realm.Realm;
 

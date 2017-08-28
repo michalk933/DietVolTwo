@@ -1,4 +1,4 @@
-package com.example.michal.dietvoltwo.service.Impl;
+package com.example.michal.dietvoltwo.service.reamlService;
 
 import android.app.Activity;
 import android.app.Application;

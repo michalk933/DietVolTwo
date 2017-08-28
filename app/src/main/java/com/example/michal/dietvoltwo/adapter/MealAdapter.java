@@ -4,7 +4,6 @@ package com.example.michal.dietvoltwo.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.MealDto;
-import com.example.michal.dietvoltwo.service.Impl.MealServideImpl;
+import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
 
 
 import io.realm.Realm;

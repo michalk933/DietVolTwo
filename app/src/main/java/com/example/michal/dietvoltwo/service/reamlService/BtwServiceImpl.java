@@ -1,4 +1,4 @@
-package com.example.michal.dietvoltwo.service.Impl;
+package com.example.michal.dietvoltwo.service.reamlService;
 
 
 import android.app.Activity;
@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.example.michal.dietvoltwo.dto.BtwDto;
-import com.example.michal.dietvoltwo.dto.MealDto;
 
 import java.util.List;
 

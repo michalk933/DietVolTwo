@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,16 +19,15 @@ import com.example.michal.dietvoltwo.dto.MealsDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
-import com.example.michal.dietvoltwo.service.Impl.BtwServiceImpl;
-import com.example.michal.dietvoltwo.service.Impl.MealServideImpl;
-import com.example.michal.dietvoltwo.service.Impl.UserGoalServiceImpl;
-import com.example.michal.dietvoltwo.service.Impl.UserParametersServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.BtwServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
+import com.example.michal.dietvoltwo.service.reamlService.UserGoalServiceImpl;
+import com.example.michal.dietvoltwo.service.reamlService.UserParametersServiceImpl;
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
 import io.realm.Realm;
-import lombok.extern.log4j.Log4j;
 
 public class DataUserActivity extends AppCompatActivity {
 

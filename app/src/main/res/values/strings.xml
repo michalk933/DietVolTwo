@@ -73,6 +73,7 @@
     <string name="add_new_time_day">Pora produktu</string>
     <string name="add_new_kind_product">Rodzaj produktu</string>
     <string name="title_activity_data_user">DataUserActivity</string>
+    <string name="title_activity_plan_diets_dto">PlanDietsDtoActivity</string>
 
 
 </resources>

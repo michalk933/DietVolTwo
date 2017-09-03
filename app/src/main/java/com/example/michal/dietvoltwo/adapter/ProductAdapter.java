@@ -45,28 +45,16 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         realm = ProductServiceImpl.getInstance().getRealm();
-
         final ProductDto productDto = getItem(position);
         final CardViewHolder holder = (CardViewHolder) viewHolder;
 
-
-        Log.d("LOGI ADAPTER == ",productDto.getImage() );
-        File f = new File(productDto.getImage(), "2130837603.jpg");
-        try {
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-            holder.image.setImageBitmap(b);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-//        holder.image.setImageURI(u);
+        holder.image.setImageBitmap(convertByteToBitmap(productDto.getImage()));
         holder.bProduct.setText("Białko: " + productDto.getB());
         holder.igProduct.setText("Index glikemiczny: " + productDto.getIg());
         holder.kcalProduct.setText("Kcal: " + productDto.getKcal());
         holder.nameProduct.setText("Nazwa: " + productDto.getName());
         holder.tProduct.setText("Tłuszcze: " + productDto.getT());
         holder.wProduct.setText("Węglowodanów: " + productDto.getW());
-
 
         holder.card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -86,6 +74,10 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
                 return false;
             }
         });
+    }
+
+    private Bitmap convertByteToBitmap(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 
     @Override

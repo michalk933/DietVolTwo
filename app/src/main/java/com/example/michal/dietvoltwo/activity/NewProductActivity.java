@@ -82,7 +82,7 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setIg(Integer.parseInt(igEditText.getText().toString()));
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());
-                newProduct.setImage(picturePath);
+//                newProduct.setImage(picturePath);
                 ProductServiceImpl.getInstance().save(newProduct);
 
                 ProductServiceImpl.getInstance().refresh();

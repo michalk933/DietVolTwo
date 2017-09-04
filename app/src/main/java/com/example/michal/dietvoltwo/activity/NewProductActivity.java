@@ -7,12 +7,8 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +25,7 @@ import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -37,21 +34,21 @@ import java.util.Date;
 
 import io.realm.Realm;
 
+import static com.example.michal.dietvoltwo.util.Constant.CAMERA_REQUEST;
+import static com.example.michal.dietvoltwo.util.Constant.PICK_IMAGE_REQUEST;
+import static com.example.michal.dietvoltwo.util.Constant.TAKE_PHOTO_CODE;
+
 public class NewProductActivity extends AppCompatActivity {
-    private static final int TAKE_PHOTO_CODE = 0;
-    private static final int CAMERA_REQUEST = 1888;
-    private int PICK_IMAGE_REQUEST = 1;
 
     private EditText nameEditText, producentEditText, kcalEditText, carboEditText, proteinEditText,
             fatEditText, igEditText, forDiabedtEditText, typeMacroEditText, timeDayEditText;
     private Button photoButton, choiceButton;
     private Spinner spinner;
+    //sniper element
     private String[] elementy = {"Węglowodanowy", "Białkowy", "Tłuszczowy"};
     private String typProduct = "Węglowodanowy";
-    private String picturePath = "";
-
     private Realm realm;
-    private byte[] bytes;
+    private byte[] image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +79,7 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setIg(Integer.parseInt(igEditText.getText().toString()));
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());
-//                newProduct.setImage(picturePath);
+                newProduct.setImage(image);
                 ProductServiceImpl.getInstance().save(newProduct);
 
                 ProductServiceImpl.getInstance().refresh();
@@ -168,35 +165,16 @@ public class NewProductActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-
-            ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-            File file = contextWrapper.getDir("image", Context.MODE_PRIVATE);
-            File myPath = new File(file,"profile.jpg");
-            FileOutputStream fileOutputStream = null;
-            try {
-                fileOutputStream = new FileOutputStream(myPath);
-                photo.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }finally {
-                try {
-                    fileOutputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            picturePath = file.getAbsolutePath();
-            Log.d("NEW IMAGE == ", picturePath);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            image = stream.toByteArray();
         }
-
     }
 
     @Override

@@ -47,7 +47,8 @@ public class NewProductActivity extends AppCompatActivity {
     //sniper element
     private String[] elementy = {"Węglowodanowy", "Białkowy", "Tłuszczowy"};
     private String typProduct = "Węglowodanowy";
-    private Realm realm;
+
+    private Realm realmProduct;
     private byte[] image;
 
     @Override
@@ -59,7 +60,7 @@ public class NewProductActivity extends AppCompatActivity {
 
         createView();
 
-        this.realm = ProductServiceImpl.with(this).getRealm();
+        this.realmProduct = ProductServiceImpl.with(this).getRealm();
         ProductServiceImpl.with(this).refresh();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -180,7 +181,7 @@ public class NewProductActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
+        realmProduct.close();
     }
 
 

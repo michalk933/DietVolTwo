@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
+import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -76,7 +77,7 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setB(Integer.parseInt(proteinEditText.getText().toString()));
                 newProduct.setT(Integer.parseInt(fatEditText.getText().toString()));
                 newProduct.setW(Integer.parseInt(carboEditText.getText().toString()));
-                newProduct.setwW((Integer.parseInt(carboEditText.getText().toString()) / 10));
+                newProduct.setwW(ConvertCarbohydratoToCarboChange.convert(Integer.parseInt(carboEditText.getText().toString())));
                 newProduct.setIg(Integer.parseInt(igEditText.getText().toString()));
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());

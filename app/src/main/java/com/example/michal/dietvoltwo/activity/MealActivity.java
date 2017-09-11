@@ -16,14 +16,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.MealAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmMealAdapter;
+import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.MealDto;
+import com.example.michal.dietvoltwo.service.reamlService.BtwServiceImpl;
 import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
+import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -33,7 +37,9 @@ public class MealActivity extends AppCompatActivity {
 
     private RecyclerView recycleListView;
     private Realm realm;
+    private Realm dataRealm;
     private MealAdapter adapter;
+
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -48,6 +54,25 @@ public class MealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        this.dataRealm = BtwServiceImpl.with(this).getRealm();
+        this.dataRealm = BtwServiceImpl.with(this).getRealm();
+        BtwDto btwDto = BtwServiceImpl.getInstance().findAll().get(0);
+
+        kcalHeaderTextView = (TextView) findViewById(R.id.head_data_diet_kcal);
+        carbohydrateHeaderTextView = (TextView) findViewById(R.id.head_data_diet_carbohydrate);
+        proteinHeaderTextView = (TextView) findViewById(R.id.head_data_diet_protein);
+        fatHeaderTextView = (TextView) findViewById(R.id.head_data_diet_fat);
+        changeCarboHeaderTextView = (TextView) findViewById(R.id.head_data_diet_change_carbo);
+
+
+        kcalHeaderTextView.setText(getResources().getString(R.string.meal_data_main_kcal) + " " + btwDto.getKcal());
+        carbohydrateHeaderTextView.setText(getResources().getString(R.string.meal_data_main_carbohydrate) + " " + btwDto.getW());
+        proteinHeaderTextView.setText(getResources().getString(R.string.meal_data_main_protein) + " " + btwDto.getB());
+        fatHeaderTextView.setText(getResources().getString(R.string.meal_data_main_fat) + " " + btwDto.getT());
+        changeCarboHeaderTextView.setText(getResources().getString(R.string.meal_data_main_changecarbo) + " " + ConvertCarbohydratoToCarboChange.convert(btwDto.getW()));
+
 
         //View to list meal
         recycleListView = (RecyclerView) findViewById(R.id.recycler_view_meal_activity);
@@ -69,11 +94,11 @@ public class MealActivity extends AppCompatActivity {
         setUpNavigationView();
 
         //Header
-        kcalHeaderTextView = (TextView)findViewById(R.id.head_data_diet_kcal);
-        carbohydrateHeaderTextView = (TextView)findViewById(R.id.head_data_diet_carbohydrate);
-        proteinHeaderTextView = (TextView)findViewById(R.id.head_data_diet_protein);
-        fatHeaderTextView = (TextView)findViewById(R.id.head_data_diet_fat);
-        changeCarboHeaderTextView = (TextView)findViewById(R.id.head_data_diet_change_carbo);
+        kcalHeaderTextView = (TextView) findViewById(R.id.head_data_diet_kcal);
+        carbohydrateHeaderTextView = (TextView) findViewById(R.id.head_data_diet_carbohydrate);
+        proteinHeaderTextView = (TextView) findViewById(R.id.head_data_diet_protein);
+        fatHeaderTextView = (TextView) findViewById(R.id.head_data_diet_fat);
+        changeCarboHeaderTextView = (TextView) findViewById(R.id.head_data_diet_change_carbo);
 
         //Float button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -132,7 +157,7 @@ public class MealActivity extends AppCompatActivity {
                     case R.id.navigation_me_data:
                         Toast.makeText(MealActivity.this, "Moje dane", Toast.LENGTH_SHORT).show();
                         Log.d("MOJE LOGI", "Moje dane");
-                        intent = new Intent(MealActivity.this,DataUserActivity.class);
+                        intent = new Intent(MealActivity.this, DataUserActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.navigation_about:

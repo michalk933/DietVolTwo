@@ -76,4 +76,13 @@
     <string name="title_activity_plan_diets_dto">PlanDietsDtoActivity</string>
 
 
+
+    <string name="meal_data_main_kcal">Kcal: </string>
+    <string name="meal_data_main_protein">Białka: </string>
+    <string name="meal_data_main_fat">Tłuszczu: </string>
+    <string name="meal_data_main_carbohydrate">Węglowodany: </string>
+    <string name="meal_data_main_changecarbo">Wymiennik węglowodanowy: </string>
+
+
+
 </resources>

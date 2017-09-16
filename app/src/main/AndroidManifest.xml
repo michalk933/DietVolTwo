@@ -65,6 +65,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.michal.dietvoltwo.activity.MealActivity" />
         </activity>
+        <activity
+            android:name=".activity.PlanDietActivity"
+            android:label="@string/title_activity_plan_diet"
+            android:parentActivityName=".activity.MealActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.michal.dietvoltwo.activity.MealActivity" />
+        </activity>
     </application>
 
 </manifest>

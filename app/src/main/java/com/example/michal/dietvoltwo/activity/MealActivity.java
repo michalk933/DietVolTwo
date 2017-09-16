@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +24,8 @@ import com.example.michal.dietvoltwo.adapter.MealAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmMealAdapter;
 import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.MealDto;
-import com.example.michal.dietvoltwo.service.reamlService.BtwServiceImpl;
-import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
+import com.example.michal.dietvoltwo.repository.BtwServiceImpl;
+import com.example.michal.dietvoltwo.repository.MealServideImpl;
 import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
 
 import io.realm.Realm;
@@ -55,8 +54,7 @@ public class MealActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        this.dataRealm = BtwServiceImpl.with(this).getRealm();
+        //HEAD DATA PLAN DIET
         this.dataRealm = BtwServiceImpl.with(this).getRealm();
         BtwDto btwDto = BtwServiceImpl.getInstance().findAll().get(0);
 

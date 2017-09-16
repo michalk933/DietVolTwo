@@ -16,7 +16,7 @@ import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmProductAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
-import com.example.michal.dietvoltwo.service.reamlService.ProductServiceImpl;
+import com.example.michal.dietvoltwo.repository.ProductServiceImpl;
 import com.example.michal.dietvoltwo.util.ConvertDrawableToByte;
 import com.example.michal.dietvoltwo.util.Prefs;
 

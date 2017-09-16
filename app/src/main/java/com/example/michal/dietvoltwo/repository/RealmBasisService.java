@@ -1,4 +1,4 @@
-package com.example.michal.dietvoltwo.service.reamlService;
+package com.example.michal.dietvoltwo.repository;
 
 
 import java.util.List;

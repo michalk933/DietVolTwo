@@ -2,6 +2,7 @@ package com.example.michal.dietvoltwo.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.michal.dietvoltwo.R;
+import com.example.michal.dietvoltwo.activity.PlanDietActivity;
 import com.example.michal.dietvoltwo.dto.MealDto;
-import com.example.michal.dietvoltwo.service.reamlService.MealServideImpl;
+import com.example.michal.dietvoltwo.repository.MealServideImpl;
 
 
 import io.realm.Realm;
@@ -46,6 +48,16 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
         holder.carbohydrateMeal.setText("Węglowodanów: " + mealDto.getW());
         holder.kcalMeal.setText("Kcal: " + mealDto.getKcalForMeal());
         holder.changeCarboMeal.setText("Wymienników węglowodanowych: " + changeCarbohydratoToChangeCarbo(mealDto.getW()));
+
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PlanDietActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

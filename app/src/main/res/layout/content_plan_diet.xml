@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.michal.dietvoltwo.activity.PlanDietsDtoActivity"
-    tools:showIn="@layout/activity_plan_diets_dto">
+    tools:context="com.example.michal.dietvoltwo.activity.PlanDietActivity"
+    tools:showIn="@layout/activity_plan_diet">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LISTA !!!!!"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="27dp" />
 </android.support.constraint.ConstraintLayout>

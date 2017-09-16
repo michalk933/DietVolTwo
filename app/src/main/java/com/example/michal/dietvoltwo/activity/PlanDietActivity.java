@@ -9,12 +9,12 @@ import android.view.View;
 
 import com.example.michal.dietvoltwo.R;
 
-public class PlanDietsDtoActivity extends AppCompatActivity {
+public class PlanDietActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_diets_dto);
+        setContentView(R.layout.activity_plan_diet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

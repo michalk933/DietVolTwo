@@ -12,9 +12,9 @@ import static com.example.michal.dietvoltwo.util.Constant.CARBOHYDRATE_TYPE;
 import static com.example.michal.dietvoltwo.util.Constant.FAT_TYPE;
 import static com.example.michal.dietvoltwo.util.Constant.PROTEIN_TYPE;
 
-public class CreatePlanDietWithProduct {
+public class createPlanDietWithProduct {
 
-    public ProductInMeal create(List<ProductDto> products, int numberMeal) {
+    public static ProductInMeal create(List<ProductDto> products, int numberMeal) {
         ProductInMeal productInMeal = new ProductInMeal();
         List<String> listProduct = new ArrayList<>();
         listProduct.add(findProdeinProduct(filterProduct(products, PROTEIN_TYPE)).getName());

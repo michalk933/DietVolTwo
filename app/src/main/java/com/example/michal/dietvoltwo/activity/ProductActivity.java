@@ -28,6 +28,10 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static com.example.michal.dietvoltwo.util.Constant.CARBOHYDRATE_TYPE;
+import static com.example.michal.dietvoltwo.util.Constant.FAT_TYPE;
+import static com.example.michal.dietvoltwo.util.Constant.PROTEIN_TYPE;
+
 public class ProductActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -87,7 +91,7 @@ public class ProductActivity extends AppCompatActivity {
         ProductDto product = new ProductDto();
         product.setName("test1");
         product.setProducent("test1");
-        product.setProductTyp("test1");
+        product.setProductTyp(PROTEIN_TYPE);
         product.setTimeOfDay("test1");
         product.setKcal(123);
         product.setB(1);
@@ -103,7 +107,7 @@ public class ProductActivity extends AppCompatActivity {
         ProductDto product1 = new ProductDto();
         product1.setName("test2");
         product1.setProducent("test2");
-        product1.setProductTyp("test2");
+        product1.setProductTyp(FAT_TYPE);
         product1.setTimeOfDay("test2");
         product1.setKcal(1234);
         product1.setB(12);
@@ -119,7 +123,7 @@ public class ProductActivity extends AppCompatActivity {
         ProductDto product2 = new ProductDto();
         product2.setName("test3");
         product2.setProducent("test3");
-        product2.setProductTyp("test3");
+        product2.setProductTyp(PROTEIN_TYPE);
         product2.setTimeOfDay("test3");
         product2.setKcal(12345);
         product2.setB(123);
@@ -135,7 +139,7 @@ public class ProductActivity extends AppCompatActivity {
         ProductDto product3 = new ProductDto();
         product3.setName("test4");
         product3.setProducent("test4");
-        product3.setProductTyp("test4");
+        product3.setProductTyp(CARBOHYDRATE_TYPE);
         product3.setTimeOfDay("test4");
         product3.setKcal(123456);
         product3.setB(1234);

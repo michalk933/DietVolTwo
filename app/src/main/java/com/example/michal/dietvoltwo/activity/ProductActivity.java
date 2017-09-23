@@ -17,7 +17,7 @@ import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmProductAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.repository.ProductServiceImpl;
-import com.example.michal.dietvoltwo.util.ConvertDrawableToByte;
+import com.example.michal.dietvoltwo.util.ConvertToByte;
 import com.example.michal.dietvoltwo.util.Prefs;
 
 
@@ -97,7 +97,7 @@ public class ProductActivity extends AppCompatActivity {
         product.setIg(1);
         product.setForDiabets(1);
         product.setCreate(new Date());
-        product.setImage(ConvertDrawableToByte.test(R.drawable.ziemniaki,getApplicationContext()));
+        product.setImage(ConvertToByte.convert(R.drawable.ziemniaki,getApplicationContext()));
         products.add(product);
 
         ProductDto product1 = new ProductDto();
@@ -113,7 +113,7 @@ public class ProductActivity extends AppCompatActivity {
         product1.setIg(12);
         product1.setForDiabets(12);
         product1.setCreate(new Date());
-        product1.setImage(ConvertDrawableToByte.test(R.drawable.losos,getApplicationContext()));
+        product1.setImage(ConvertToByte.convert(R.drawable.losos,getApplicationContext()));
         products.add(product1);
 
         ProductDto product2 = new ProductDto();
@@ -129,7 +129,7 @@ public class ProductActivity extends AppCompatActivity {
         product2.setIg(123);
         product2.setForDiabets(123);
         product2.setCreate(new Date());
-        product2.setImage(ConvertDrawableToByte.test(R.drawable.dzem,getApplicationContext()));
+        product2.setImage(ConvertToByte.convert(R.drawable.dzem,getApplicationContext()));
         products.add(product2);
 
         ProductDto product3 = new ProductDto();
@@ -145,7 +145,7 @@ public class ProductActivity extends AppCompatActivity {
         product3.setIg(1234);
         product3.setForDiabets(1234);
         product3.setCreate(new Date());
-        product3.setImage(ConvertDrawableToByte.test(R.drawable.jaglak,getApplicationContext()));
+        product3.setImage(ConvertToByte.convert(R.drawable.jaglak,getApplicationContext()));
         products.add(product3);
 
         for (ProductDto productDto : products) {

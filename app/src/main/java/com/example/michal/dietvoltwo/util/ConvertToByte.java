@@ -15,12 +15,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ConvertDrawableToByte {
+public class ConvertToByte {
 
-    public static byte[] test(int image, Context context) {
+    public static byte[] convert(int image, Context context) {
         Bitmap bitmap = ((BitmapDrawable) ContextCompat.getDrawable(context, image)).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
     }
+    //TODO
+    //INNE KONWERSJE | DODAWANIE NOWEGO PRODUKTU I ADAPTER
+
 }

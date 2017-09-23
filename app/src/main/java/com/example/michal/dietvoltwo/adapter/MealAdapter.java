@@ -14,6 +14,7 @@ import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.activity.PlanDietActivity;
 import com.example.michal.dietvoltwo.dto.MealDto;
 import com.example.michal.dietvoltwo.repository.MealServideImpl;
+import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
 
 
 import io.realm.Realm;
@@ -47,7 +48,7 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
         holder.fatMeal.setText("Tłuszczu: " + mealDto.getT());
         holder.carbohydrateMeal.setText("Węglowodanów: " + mealDto.getW());
         holder.kcalMeal.setText("Kcal: " + mealDto.getKcalForMeal());
-        holder.changeCarboMeal.setText("Wymienników węglowodanowych: " + changeCarbohydratoToChangeCarbo(mealDto.getW()));
+        holder.changeCarboMeal.setText("Wymienników węglowodanowych: " + ConvertCarbohydratoToCarboChange.convert(mealDto.getW()));
 
 
         holder.card.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +58,6 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -67,12 +67,6 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
         }
         return 0;
     }
-
-
-    private static int changeCarbohydratoToChangeCarbo(int carbohydrate) {
-        return (int) (carbohydrate / 10);
-    }
-
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
 

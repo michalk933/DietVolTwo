@@ -29,7 +29,10 @@ import java.util.Date;
 import io.realm.Realm;
 
 import static com.example.michal.dietvoltwo.util.Constant.CAMERA_REQUEST;
+import static com.example.michal.dietvoltwo.util.Constant.CARBOHYDRATE_TYPE;
+import static com.example.michal.dietvoltwo.util.Constant.FAT_TYPE;
 import static com.example.michal.dietvoltwo.util.Constant.PICK_IMAGE_REQUEST;
+import static com.example.michal.dietvoltwo.util.Constant.PROTEIN_TYPE;
 import static com.example.michal.dietvoltwo.util.Constant.TAKE_PHOTO_CODE;
 
 public class NewProductActivity extends AppCompatActivity {
@@ -39,8 +42,8 @@ public class NewProductActivity extends AppCompatActivity {
     private Button photoButton, choiceButton;
     private Spinner spinner;
     //sniper element
-    private String[] elementy = {"Węglowodanowy", "Białkowy", "Tłuszczowy"};
-    private String typProduct = "Węglowodanowy";
+    private String[] elementy = {CARBOHYDRATE_TYPE, PROTEIN_TYPE, FAT_TYPE};
+    private String typProduct = CARBOHYDRATE_TYPE;
 
     private Realm realmProduct;
     private byte[] image;
@@ -105,14 +108,13 @@ public class NewProductActivity extends AppCompatActivity {
 
                     if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                        builder.setMessage("Pozwolenie na użycie camry");
+                        builder.setMessage("Pozwolenie na użycie kamery");
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 requestPermissions(new String[]{Manifest.permission.CAMERA}, TAKE_PHOTO_CODE);
                             }
                         });
-
                         builder.create();
                     } else {
                         requestPermissions(new String[]{Manifest.permission.CAMERA}, TAKE_PHOTO_CODE);
@@ -121,7 +123,6 @@ public class NewProductActivity extends AppCompatActivity {
                     Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 }
-
             }
         });
 
@@ -132,7 +133,6 @@ public class NewProductActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-
             }
         });
 
@@ -144,14 +144,14 @@ public class NewProductActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        typProduct = "Węglowodanowy";
+                        typProduct = CARBOHYDRATE_TYPE;
                         break;
                     case 1:
-                        typProduct = "Białkowy";
+                        typProduct = PROTEIN_TYPE;
                         break;
 
                     case 2:
-                        typProduct = "Tłuszczowy";
+                        typProduct = FAT_TYPE;
                         break;
                 }
             }
@@ -177,6 +177,5 @@ public class NewProductActivity extends AppCompatActivity {
         super.onDestroy();
         realmProduct.close();
     }
-
 
 }

@@ -14,8 +14,21 @@ import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
+import com.example.michal.dietvoltwo.util.Constant;
 
 import static android.widget.RadioGroup.OnCheckedChangeListener;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_DIET_KEEP;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_DIET_MASS;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_DIET_REDUCTION;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_HEALTH_DIABETS;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_HEALTH_HEALTH;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_HEALTH_OWER_WEIGHT;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIABETS_ONE;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIABETS_TWO;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_CARBOHYDRATE;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_FAT;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_PROTEIN;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_STABILE;
 
 public class GolFragment extends Fragment {
     public static final String TAG = "Cel diety";
@@ -57,10 +70,10 @@ public class GolFragment extends Fragment {
         dietTypeFragmentRadioGrup.setOnCheckedChangeListener(onCheckedChangeListener);
 
         userGoalDto = UserGoalDto.getUserPersonalDto();
-        userGoalDto.setGoal("TRZYMANIE");
-        userGoalDto.setHealth("ZDROWY");
-        userGoalDto.setDiabetsType("ONE");
-        userGoalDto.setTypeDiet("ZROWNOWAZONA");
+        userGoalDto.setGoal(GOAL_DIET_KEEP);
+        userGoalDto.setHealth(GOAL_HEALTH_HEALTH);
+        userGoalDto.setDiabetsType(GOAL_TYPE_DIABETS_ONE);
+        userGoalDto.setTypeDiet(GOAL_TYPE_DIETS_STABILE);
 
 
         changeIsDiabetOrHealth(false);
@@ -73,49 +86,49 @@ public class GolFragment extends Fragment {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.reductionGoalRadioButton:
-                    userGoalDto.setGoal("REDUKCJA");
+                    userGoalDto.setGoal(GOAL_DIET_REDUCTION);
                     break;
                 case R.id.stateGoalRadioButton:
-                    userGoalDto.setGoal("TRZYMANIE");
+                    userGoalDto.setGoal(GOAL_DIET_KEEP);
                     break;
                 case R.id.massGoalRadioButton:
-                    userGoalDto.setGoal("MASSA");
+                    userGoalDto.setGoal(GOAL_DIET_MASS);
                     break;
 
 
                 case R.id.healthRadioButton:
                     changeIsDiabetOrHealth(false);
-                    userGoalDto.setHealth("ZDROWY");
+                    userGoalDto.setHealth(GOAL_HEALTH_HEALTH);
                     break;
                 case R.id.owerWeathTadioButton:
                     changeIsDiabetOrHealth(false);
-                    userGoalDto.setHealth("OTYLY");
+                    userGoalDto.setHealth(GOAL_HEALTH_OWER_WEIGHT);
                     break;
                 case R.id.diabetsRadioButton:
                     changeIsDiabetOrHealth(true);
-                    userGoalDto.setHealth("DIABETYK");
+                    userGoalDto.setHealth(GOAL_HEALTH_DIABETS);
                     break;
 
 
                 case R.id.typOneRadioButton:
-                    userGoalDto.setDiabetsType("ONE");
+                    userGoalDto.setDiabetsType(GOAL_TYPE_DIABETS_ONE);
                     break;
                 case R.id.typTwoRadioButton:
-                    userGoalDto.setDiabetsType("TWO");
+                    userGoalDto.setDiabetsType(GOAL_TYPE_DIABETS_TWO);
                     break;
 
 
                 case R.id.carboDietRadioButton:
-                    userGoalDto.setTypeDiet("WEGLOWODANY");
+                    userGoalDto.setTypeDiet(GOAL_TYPE_DIETS_CARBOHYDRATE);
                     break;
                 case R.id.stabileDietRadioButton:
-                    userGoalDto.setTypeDiet("ZROWNOWAZONA");
+                    userGoalDto.setTypeDiet(GOAL_TYPE_DIETS_STABILE);
                     break;
                 case R.id.proteinDietRadioButton:
-                    userGoalDto.setTypeDiet("BIALKOWA");
+                    userGoalDto.setTypeDiet(GOAL_TYPE_DIETS_PROTEIN);
                     break;
                 case R.id.fatDietRadioButton:
-                    userGoalDto.setTypeDiet("TLUSZCZOWA");
+                    userGoalDto.setTypeDiet(GOAL_TYPE_DIETS_FAT);
                     break;
             }
         }

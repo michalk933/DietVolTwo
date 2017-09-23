@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.BtwDto;
@@ -28,6 +29,17 @@ import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 
 import io.realm.Realm;
+
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_DIET_KEEP;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_DIET_MASS;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_DIET_REDUCTION;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_CARBOHYDRATE;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_FAT;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_PROTEIN;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_STABILE;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_HEIGHT;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_LOW;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_MEDIUM;
 
 public class DataUserActivity extends AppCompatActivity {
 
@@ -100,8 +112,6 @@ public class DataUserActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("FINISH TEST", age + " / " + lvlActivity + " / " + weight + " / " + height + " / " + goal + " / " + typeDiet);
-
                 userGoalRealm.beginTransaction();
                 userGoalDto.setTypeDiet(typeDiet);
                 userGoalDto.setGoal(goal);
@@ -113,7 +123,6 @@ public class DataUserActivity extends AppCompatActivity {
                 userDto = new UserDto();
                 userDto.setUserGoalDto(userGoalDto);
                 userDto.setUserParametrsDto(userParametrsDto);
-
 
                 new Handler().post(new Runnable() {
                     @Override
@@ -133,7 +142,7 @@ public class DataUserActivity extends AppCompatActivity {
                             BtwServiceImpl.getInstance().save(btwDto);
 
                             GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
-                            mealsDto = generateBtwMeal.createMeal(userDto,btwDto);
+                            mealsDto = generateBtwMeal.createMeal(userDto, btwDto);
                             MealServideImpl.getInstance().save(mealsDto);
 
                         } finally {
@@ -144,7 +153,7 @@ public class DataUserActivity extends AppCompatActivity {
                         }
                     }
                 });
-
+                Toast.makeText(DataUserActivity.this, "Zmieniono dane użytkownika", Toast.LENGTH_SHORT).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -187,34 +196,34 @@ public class DataUserActivity extends AppCompatActivity {
     }
 
     private void checkTypeDiet() {
-        if (typeDiet.equals("WEGLOWODANY")) {
+        if (typeDiet.equals(GOAL_TYPE_DIETS_CARBOHYDRATE)) {
             dietTypeFragmentRadioGrup.check(R.id.carbo_diet_data_user_radio_button);
-        } else if (typeDiet.equals("ZROWNOWAZONA")) {
+        } else if (typeDiet.equals(GOAL_TYPE_DIETS_STABILE)) {
             dietTypeFragmentRadioGrup.check(R.id.stabile_diet_data_user_radio_button);
-        } else if (typeDiet.equals("BIALKOWA")) {
+        } else if (typeDiet.equals(GOAL_TYPE_DIETS_PROTEIN)) {
             dietTypeFragmentRadioGrup.check(R.id.protein_diet_data_user_radio_button);
-        } else {
+        } else if (typeDiet.equals(GOAL_TYPE_DIETS_FAT)) {
             dietTypeFragmentRadioGrup.check(R.id.fat_diet_data_user_radio_button);
         }
 
     }
 
     private void checkGoal() {
-        if (goal.equals("REDUKCJA")) {
+        if (goal.equals(GOAL_DIET_REDUCTION)) {
             golRadioGroup.check(R.id.reduction_data_user_goal_radio_button);
-        } else if (goal.equals("TRZYMANIE")) {
+        } else if (goal.equals(GOAL_DIET_KEEP)) {
             golRadioGroup.check(R.id.state_data_user_goal_radio_button);
-        } else {
+        } else if (goal.equals(GOAL_DIET_MASS)) {
             golRadioGroup.check(R.id.mass_data_user_goal_radio_button);
         }
     }
 
     private void checkLvlActivity() {
-        if (lvlActivity == 30) {
+        if (lvlActivity == PARAMETER_LVL_ACTIVITY_LOW) {
             lvlActivityFragmentRadioGrup.check(R.id.lvl_low_activity_data_user_radio_button);
-        } else if (lvlActivity == 35) {
+        } else if (lvlActivity == PARAMETER_LVL_ACTIVITY_MEDIUM) {
             lvlActivityFragmentRadioGrup.check(R.id.lvl_medium_data_user_radio_button);
-        } else {
+        } else if (lvlActivity == PARAMETER_LVL_ACTIVITY_HEIGHT) {
             lvlActivityFragmentRadioGrup.check(R.id.lvl_height_data_user_radio_button);
         }
     }
@@ -224,38 +233,38 @@ public class DataUserActivity extends AppCompatActivity {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.reduction_data_user_goal_radio_button:
-                    goal = "REDUKCJA";
+                    goal = GOAL_DIET_REDUCTION;
                     break;
                 case R.id.state_data_user_goal_radio_button:
-                    goal = "TRZYMANIE";
+                    goal = GOAL_DIET_KEEP;
                     break;
                 case R.id.mass_data_user_goal_radio_button:
-                    goal = "MASSA";
+                    goal = GOAL_DIET_MASS;
                     break;
 
 
                 case R.id.lvl_low_activity_data_user_radio_button:
-                    lvlActivity = 30;
+                    lvlActivity = PARAMETER_LVL_ACTIVITY_LOW;
                     break;
                 case R.id.lvl_medium_data_user_radio_button:
-                    lvlActivity = 35;
+                    lvlActivity = PARAMETER_LVL_ACTIVITY_MEDIUM;
                     break;
                 case R.id.lvl_height_data_user_radio_button:
-                    lvlActivity = 40;
+                    lvlActivity = PARAMETER_LVL_ACTIVITY_HEIGHT;
                     break;
 
 
                 case R.id.carbo_diet_data_user_radio_button:
-                    typeDiet = "WEGLOWODANY";
+                    typeDiet = GOAL_TYPE_DIETS_CARBOHYDRATE;
                     break;
                 case R.id.stabile_diet_data_user_radio_button:
-                    typeDiet = "ZROWNOWAZONA";
+                    typeDiet = GOAL_TYPE_DIETS_STABILE;
                     break;
                 case R.id.protein_diet_data_user_radio_button:
-                    typeDiet = "BIALKOWA";
+                    typeDiet = GOAL_TYPE_DIETS_PROTEIN;
                     break;
                 case R.id.fat_diet_data_user_radio_button:
-                    typeDiet = "TLUSZCZOWA";
+                    typeDiet = GOAL_TYPE_DIETS_FAT;
                     break;
             }
         }

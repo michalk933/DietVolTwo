@@ -4,6 +4,11 @@ package com.example.michal.dietvoltwo.service.totalBtw;
 import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_CARBOHYDRATE;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_FAT;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_PROTEIN;
+import static com.example.michal.dietvoltwo.util.Constant.GOAL_TYPE_DIETS_STABILE;
+
 public class GenerateBTW {
 
     private UserDto userDto;
@@ -16,16 +21,16 @@ public class GenerateBTW {
         BtwDto btwDto = new BtwDto();
 
         switch (userDto.getUserGoalDto().getTypeDiet()){
-            case "WEGLOWODANY":
+            case GOAL_TYPE_DIETS_CARBOHYDRATE:
                 btwDto = Carbohydrate.createBtwSustainable(kcal);
                 break;
-            case "ZROWNOWAZONA":
+            case GOAL_TYPE_DIETS_STABILE:
                 btwDto = Sustainable.createBtwSustainable(kcal);
                 break;
-            case "BIALKOWA":
+            case GOAL_TYPE_DIETS_PROTEIN:
                 btwDto = Protein.createBtwProtein(kcal);
                 break;
-            case "TLUSZCZOWA":
+            case GOAL_TYPE_DIETS_FAT:
                 btwDto = Fat.createBtwFat(kcal);
                 break;
         }

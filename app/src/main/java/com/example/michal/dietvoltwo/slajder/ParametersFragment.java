@@ -36,12 +36,18 @@ import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.repository.UserParametersServiceImpl;
 import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
+import com.example.michal.dietvoltwo.util.Constant;
 
 
 import io.realm.Realm;
 
 
 import static android.widget.SeekBar.OnSeekBarChangeListener;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_HEIGHT;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_LOW;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_MEDIUM;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_SEX_MAN;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_SEX_WOMAN;
 
 public class ParametersFragment extends Fragment {
     public static final String TAG = "Kondycja organizmu";
@@ -65,8 +71,8 @@ public class ParametersFragment extends Fragment {
     private int age = 25;
     private int weight = 75;
     private int height = 178;
-    private String sex = "K";
-    private int lvlActivity = 35;
+    private String sex = PARAMETER_SEX_WOMAN;
+    private int lvlActivity = PARAMETER_LVL_ACTIVITY_MEDIUM;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -206,25 +212,25 @@ public class ParametersFragment extends Fragment {
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             switch (i) {
                 case R.id.famle_radio_button:
-                    sex = "K";
+                    sex = PARAMETER_SEX_WOMAN;
                     userParametrsDto.setSex(sex);
                     break;
                 case R.id.male_radio_button:
-                    sex = "M";
+                    sex = PARAMETER_SEX_MAN;
                     userParametrsDto.setSex(sex);
                     break;
 
 
                 case R.id.lvl_low_activity_radio_button:
-                    lvlActivity = 30;
+                    lvlActivity = PARAMETER_LVL_ACTIVITY_HEIGHT;
                     userParametrsDto.setLvlActivity(lvlActivity);
                     break;
                 case R.id.lvl_medium_radio_button:
-                    lvlActivity = 35;
+                    lvlActivity = PARAMETER_LVL_ACTIVITY_MEDIUM;
                     userParametrsDto.setLvlActivity(lvlActivity);
                     break;
                 case R.id.lvl_height_radio_button:
-                    lvlActivity = 40;
+                    lvlActivity = PARAMETER_LVL_ACTIVITY_LOW;
                     userParametrsDto.setLvlActivity(lvlActivity);
                     break;
             }

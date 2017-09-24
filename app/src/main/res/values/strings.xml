@@ -82,6 +82,7 @@
     <string name="meal_data_main_carbohydrate">Węglowodany: </string>
     <string name="meal_data_main_changecarbo">Wymiennik węglowodanowy: </string>
     <string name="title_activity_plan_diet">PlanDietActivity</string>
+    <string name="title_activity_description_meal">DescriptionMealActivity</string>
 
 
 </resources>

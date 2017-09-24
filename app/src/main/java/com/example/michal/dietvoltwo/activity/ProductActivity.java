@@ -62,8 +62,7 @@ public class ProductActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), NewProductActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getBaseContext(), NewProductActivity.class));
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

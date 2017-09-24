@@ -76,6 +76,11 @@ public class ProductServiceImpl implements RealmBasisService<ProductDto> {
         return realm.where(ProductDto.class).equalTo("id", id).findFirst();
     }
 
+    public RealmResults<ProductDto> findForName(String name1,String name2,String name3) {
+        log.error("ProductServiceImpl : findOne(int id) : find record in data base");
+        return realm.where(ProductDto.class).equalTo("name", name1).or().equalTo("name", name2).or().equalTo("name", name3).findAll();
+    }
+
     @Override
     public RealmResults<ProductDto> findAll() {
         log.error("ProductServiceImpl : findAll() : find all records in data base");
@@ -87,7 +92,6 @@ public class ProductServiceImpl implements RealmBasisService<ProductDto> {
         log.error("ProductServiceImpl : save(ProductDto addProductDto) : save new object {}" + addProductDto);
         realm.beginTransaction();
         ProductDto productDto = realm.createObject(ProductDto.class);
-//(int) (4 + System.currentTimeMillis())
         productDto.setId((int) System.currentTimeMillis());
         productDto.setName(addProductDto.getName());
         productDto.setProducent(addProductDto.getProducent());

@@ -54,8 +54,7 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, PlanDietActivity.class);
-                context.startActivity(intent);
+                context.startActivity(new Intent(context, PlanDietActivity.class));
             }
         });
     }

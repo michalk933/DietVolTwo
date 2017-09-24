@@ -139,24 +139,19 @@ public class MealActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent = null;
                 switch (item.getItemId()) {
                     case R.id.navigation_main_menu:
                         Toast.makeText(MealActivity.this, "Meanu główne", Toast.LENGTH_SHORT).show();
                         Log.d("MOJE LOGI", "Meanu główne");
-//                        finish();
-//                        startActivity(getIntent());
                         break;
                     case R.id.navigation_list_product:
                         Toast.makeText(MealActivity.this, "Lista produktów", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(getApplicationContext(), ProductActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(getApplicationContext(), ProductActivity.class));
                         break;
                     case R.id.navigation_me_data:
                         Toast.makeText(MealActivity.this, "Moje dane", Toast.LENGTH_SHORT).show();
                         Log.d("MOJE LOGI", "Moje dane");
-                        intent = new Intent(MealActivity.this, DataUserActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(MealActivity.this, DataUserActivity.class));
                         break;
                     case R.id.navigation_about:
                         Toast.makeText(MealActivity.this, "O aplikacji", Toast.LENGTH_SHORT).show();

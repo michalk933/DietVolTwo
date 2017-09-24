@@ -202,8 +202,10 @@ public class ParametersFragment extends Fragment {
                 }
             });
 
-            Intent intent = new Intent(getActivity(),MealActivity.class);
-            startActivity(intent);
+            //TODO
+            //ADD VALIDATION !!!!
+
+            startActivity(new Intent(getActivity(),MealActivity.class));
         }
     };
 

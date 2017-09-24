@@ -89,7 +89,7 @@ public class ProductActivity extends AppCompatActivity {
         ArrayList<ProductDto> products = new ArrayList<>();
 
         ProductDto product = new ProductDto();
-        product.setName("test1");
+        product.setName("Ziemniaki");
         product.setProducent("test1");
         product.setProductTyp(PROTEIN_TYPE);
         product.setTimeOfDay("test1");
@@ -105,7 +105,7 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product);
 
         ProductDto product1 = new ProductDto();
-        product1.setName("test2");
+        product1.setName("Losoś");
         product1.setProducent("test2");
         product1.setProductTyp(FAT_TYPE);
         product1.setTimeOfDay("test2");
@@ -121,7 +121,7 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product1);
 
         ProductDto product2 = new ProductDto();
-        product2.setName("test3");
+        product2.setName("Dzem");
         product2.setProducent("test3");
         product2.setProductTyp(PROTEIN_TYPE);
         product2.setTimeOfDay("test3");
@@ -137,7 +137,7 @@ public class ProductActivity extends AppCompatActivity {
         products.add(product2);
 
         ProductDto product3 = new ProductDto();
-        product3.setName("test4");
+        product3.setName("Kasza jaglana");
         product3.setProducent("test4");
         product3.setProductTyp(CARBOHYDRATE_TYPE);
         product3.setTimeOfDay("test4");

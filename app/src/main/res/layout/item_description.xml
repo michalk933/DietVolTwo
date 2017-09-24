@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="1"
-                android:text="name"
                 android:textSize="52px" />
 
             <TextView
@@ -47,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_row="1"
-                android:text="kcal"
                 android:textSize="52px" />
 
             <TextView
@@ -56,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="2"
-                android:text="ig"
                 android:textSize="52px" />
 
             <TextView
@@ -65,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_row="2"
-                android:text="Ww"
                 android:textSize="52px" />
 
             <TextView
@@ -74,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="3"
-                android:text="B"
                 android:textSize="52px" />
 
             <TextView
@@ -83,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_row="3"
-                android:text="T"
                 android:textSize="52px" />
         </GridLayout>
 

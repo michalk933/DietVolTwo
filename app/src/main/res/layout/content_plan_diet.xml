@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/recycler_view_product_activity"
+        android:id="@+id/recycler_view_diet_plan_activity"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:clipChildren="false"

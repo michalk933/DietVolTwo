@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:text="1234"
                 android:textSize="10dp" />
 
             <TextView
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:text="1234"
                 android:textSize="10dp" />
 
             <TextView
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:text="1234"
                 android:textSize="10dp" />
 
 

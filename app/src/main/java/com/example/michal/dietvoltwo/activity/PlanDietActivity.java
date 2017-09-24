@@ -4,13 +4,15 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+
 
 import com.example.michal.dietvoltwo.R;
+import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.ProductInMealsAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.dto.ProductInMeal;
@@ -26,7 +28,7 @@ import io.realm.RealmResults;
 public class PlanDietActivity extends AppCompatActivity {
 
     private Realm realm;
-    private ListView listView;
+    private RecyclerView recyclerView;
     private ProductInMealsAdapter adapter;
     List<ProductInMeal> productInMeals;
 
@@ -38,28 +40,21 @@ public class PlanDietActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //TODO
-        //wrzucenie danych do adaptera
-        //adapter dynamiczny ???
-
-        listView = (ListView)findViewById(R.id.drow_layout_product_in_meal_activity);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_diet_plan_activity);
+        recyclerView.setHasFixedSize(true);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         this.realm = ProductServiceImpl.with(this).getRealm();
         RealmResults<ProductDto> products = ProductServiceImpl.getInstance().findAll();
-//        CreatePlanDietWithProduct createPlanDietWithProduct = new CreatePlanDietWithProduct();
         productInMeals = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             productInMeals.add(createPlanDietWithProduct.create(products, i));
         }
 
-        adapter = new ProductInMealsAdapter(getApplicationContext(),productInMeals);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(PlanDietActivity.this, "CLICK", Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter = new ProductInMealsAdapter(productInMeals, this);
+        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,5 +72,4 @@ public class PlanDietActivity extends AppCompatActivity {
         super.onDestroy();
         realm.close();
     }
-
 }

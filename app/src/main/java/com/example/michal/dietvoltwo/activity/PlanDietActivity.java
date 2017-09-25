@@ -49,7 +49,7 @@ public class PlanDietActivity extends AppCompatActivity {
         this.realm = ProductServiceImpl.with(this).getRealm();
         RealmResults<ProductDto> products = ProductServiceImpl.getInstance().findAll();
         productInMeals = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i <= 4; i++) {
             productInMeals.add(createPlanDietWithProduct.create(products, i));
         }
 

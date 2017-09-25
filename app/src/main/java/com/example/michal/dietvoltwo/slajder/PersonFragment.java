@@ -1,7 +1,6 @@
 package com.example.michal.dietvoltwo.slajder;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
@@ -21,6 +19,7 @@ public class PersonFragment extends Fragment {
 
     private EditText nameEditText, passwordEditText, rePasswordEditText, mailEditText;
     public static UserPersonalDto userPersonalDto;
+    private String login, password, rePasword, email = "";
 
     @Nullable
     @Override
@@ -33,6 +32,11 @@ public class PersonFragment extends Fragment {
         mailEditText = (EditText) view.findViewById(R.id.mailEditText);
 
         userPersonalDto = UserPersonalDto.createUserPersonalDto();
+
+        userPersonalDto.setLogin(login);
+        userPersonalDto.setPassword(password);
+        userPersonalDto.setRePassword(rePasword);
+        userPersonalDto.seteMail(email);
 
         nameEditText.addTextChangedListener(new GenericTextWatcher(nameEditText));
         passwordEditText.addTextChangedListener(new GenericTextWatcher(passwordEditText));
@@ -59,50 +63,27 @@ public class PersonFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            String message = editable.toString();
             switch (view.getId()) {
                 case R.id.nameEditText:
-                    userPersonalDto.setLogin(editable.toString());
+                    login = editable.toString();
+                    userPersonalDto.setLogin(login);
                     break;
 
                 case R.id.passEditText:
-                    userPersonalDto.setPassword(editable.toString());
+                    password = editable.toString();
+                    userPersonalDto.setPassword(password);
                     break;
 
                 case R.id.rePassEditText:
-                    if (isPasswordEqualRePassword(userPersonalDto.getPassword(), editable.toString()))
-                        userPersonalDto.setRePassword(editable.toString());
-                    else {
-                        Toast.makeText(getContext(), getResources().getString(R.string.person_fragment_message_password), Toast.LENGTH_SHORT).show();
-//                        view.setBackgroundColor(Color.RED);
-                    }
+                    rePasword = editable.toString();
+                    userPersonalDto.setRePassword(rePasword);
                     break;
 
                 case R.id.mailEditText:
-                    if (isValidEmailAddress(editable.toString()))
-                        userPersonalDto.seteMail(editable.toString());
-                    else {
-                        Toast.makeText(getContext(), getResources().getString(R.string.person_fragment_message_email), Toast.LENGTH_SHORT).show();
-//                        view.setBackgroundColor(0xFFFFFFFF);
-                    }
+                    email = editable.toString();
+                    userPersonalDto.seteMail(email);
                     break;
             }
-
         }
-
-        private boolean isValidEmailAddress(String email) {
-            String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-            java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-            java.util.regex.Matcher m = p.matcher(email);
-            return m.matches();
-        }
-
-        private boolean isPasswordEqualRePassword(String password, String rePassword) {
-            return password.equals(rePassword) ? true : false;
-        }
-
-
     }
-
-
 }

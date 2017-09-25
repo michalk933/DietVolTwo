@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/test"
-    android:layout_width="350dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:useDefaultMargins="true"
-    card_view:cardBackgroundColor="#E8F5F9"
-    card_view:cardCornerRadius="8dp"
-    card_view:contentPadding="5dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/age_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="35px"
-            android:text="@string/age_text_view" />
+            android:text="@string/age_text_view"
+            android:textColor="@color/cardview_light_background" />
 
         <SeekBar
             android:id="@+id/age_seek_bar"
@@ -36,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15px"
-            android:text="@string/weight_text_view" />
+            android:text="@string/weight_text_view"
+            android:textColor="@color/cardview_light_background" />
 
         <SeekBar
             android:id="@+id/weight_seek_bar"
@@ -49,7 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15px"
-            android:text="@string/height_text_view" />
+            android:text="@string/height_text_view"
+            android:textColor="@color/cardview_light_background" />
 
         <SeekBar
             android:id="@+id/height_seek_bar"
@@ -62,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="35px"
-            android:text="@string/sex_text_view" />
+            android:text="@string/sex_text_view"
+            android:textColor="@color/cardview_light_background" />
 
         <RadioGroup
             android:id="@+id/sex_fragment_radio_grup"
@@ -74,13 +76,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/famle_text_view" />
+                android:text="@string/famle_text_view"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/male_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/male_text_view" />
+                android:text="@string/male_text_view"
+                android:textColor="@color/cardview_light_background" />
 
         </RadioGroup>
 
@@ -89,7 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="35px"
-            android:text="@string/lvl_activity_text_view" />
+            android:text="@string/lvl_activity_text_view"
+            android:textColor="@color/cardview_light_background" />
 
         <RadioGroup
             android:id="@+id/lvl_activity_fragment_radioGrup"
@@ -100,20 +105,23 @@
                 android:id="@+id/lvl_low_activity_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/low_lvl_text_view" />
+                android:text="@string/low_lvl_text_view"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/lvl_medium_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/midium_lvl_text_view" />
+                android:text="@string/midium_lvl_text_view"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/lvl_height_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/height_lvl_text_view" />
+                android:text="@string/height_lvl_text_view"
+                android:textColor="@color/cardview_light_background" />
         </RadioGroup>
 
         <Button
@@ -123,6 +131,7 @@
             android:layout_gravity="end|right"
             android:background="@color/colorAccent"
             android:text=">"
-            android:textSize="60px"/>
+            android:textColor="@color/cardview_light_background"
+            android:textSize="60px" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

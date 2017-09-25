@@ -38,6 +38,7 @@ import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 import com.example.michal.dietvoltwo.util.Constant;
 import com.example.michal.dietvoltwo.util.SetSharedPreferences;
+import com.example.michal.dietvoltwo.util.ValidationRegister;
 
 
 import io.realm.Realm;
@@ -74,6 +75,10 @@ public class ParametersFragment extends Fragment {
     private int height = 178;
     private String sex = PARAMETER_SEX_WOMAN;
     private int lvlActivity = PARAMETER_LVL_ACTIVITY_MEDIUM;
+
+
+    UserPersonalDto userPersonalDto ;
+    UserGoalDto userGoalDto ;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -146,73 +151,77 @@ public class ParametersFragment extends Fragment {
 
         userDto = new UserDto();
 
+        userPersonalDto = UserPersonalDto.createUserPersonalDto();
+        userGoalDto = UserGoalDto.getUserPersonalDto();
+
+
         return view;
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            UserPersonalDto userPersonalDto = UserPersonalDto.createUserPersonalDto();
-            final UserGoalDto userGoalDto = UserGoalDto.getUserPersonalDto();
-            try {
-                userDto.setUserPersonalDto(userPersonalDto);
-                userDto.setUserGoalDto(userGoalDto);
-                userDto.setUserParametrsDto(userParametrsDto);
-            } catch (NullPointerException e) {
-                Log.d("NULL", e.getLocalizedMessage());
-            }
+            if(ValidationRegister.isValidEmailAddress(userPersonalDto.geteMail()) && ValidationRegister.isPasswordEqualRePassword(userPersonalDto.getPassword(),userPersonalDto.getRePassword())) {
+//            UserPersonalDto userPersonalDto = UserPersonalDto.createUserPersonalDto();
+//            final UserGoalDto userGoalDto = UserGoalDto.getUserPersonalDto();
+                try {
+                    userDto.setUserPersonalDto(userPersonalDto);
+                    userDto.setUserGoalDto(userGoalDto);
+                    userDto.setUserParametrsDto(userParametrsDto);
+                } catch (NullPointerException e) {
+                    Log.d("NULL", e.getLocalizedMessage());
+                }
 
 
-            userParametrsDto.setId((int) System.currentTimeMillis());
-            UserParametersServiceImpl.getInstance().save(userParametrsDto);
+                userParametrsDto.setId((int) System.currentTimeMillis());
+                UserParametersServiceImpl.getInstance().save(userParametrsDto);
 
-            userGoalDto.setId((int) System.currentTimeMillis());
-            UserGoalServiceImpl.getInstance().save(userGoalDto);
+                userGoalDto.setId((int) System.currentTimeMillis());
+                UserGoalServiceImpl.getInstance().save(userGoalDto);
 
-            userPersonalDto.setId((int) System.currentTimeMillis());
-            UserPersonalServiceImpl.getInstance().save(userPersonalDto);
+                userPersonalDto.setId((int) System.currentTimeMillis());
+                UserPersonalServiceImpl.getInstance().save(userPersonalDto);
 
 
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        DietGenerateService dietGenerateService = new DietGenerateService();
-                        int dietForUser = dietGenerateService.createDietForUser(userDto);
-                        GenerateBTW generateBTW = new GenerateBTW(userDto);
-                        BtwDto btw = generateBTW.createBtw(dietForUser);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            DietGenerateService dietGenerateService = new DietGenerateService();
+                            int dietForUser = dietGenerateService.createDietForUser(userDto);
+                            GenerateBTW generateBTW = new GenerateBTW(userDto);
+                            BtwDto btw = generateBTW.createBtw(dietForUser);
 
-                        btwDto.setKcal(dietForUser);
-                        btwDto.setB(btw.getB());
-                        btwDto.setT(btw.getT());
-                        btwDto.setW(btw.getW());
-                        btwDto.setId((int) System.currentTimeMillis());
+                            btwDto.setKcal(dietForUser);
+                            btwDto.setB(btw.getB());
+                            btwDto.setT(btw.getT());
+                            btwDto.setW(btw.getW());
+                            btwDto.setId((int) System.currentTimeMillis());
 
-                        BtwServiceImpl.getInstance().save(btwDto);
+                            BtwServiceImpl.getInstance().save(btwDto);
 
-                        GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
-                        mealsDto = generateBtwMeal.createMeal(userDto, btwDto);
-                        MealServideImpl.getInstance().save(mealsDto);
+                            GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
+                            mealsDto = generateBtwMeal.createMeal(userDto, btwDto);
+                            MealServideImpl.getInstance().save(mealsDto);
 
-                    } finally {
-                        if (realmBtw != null && realmMeal != null) {
-                            realmBtw.close();
-                            realmMeal.close();
+                        } finally {
+                            if (realmBtw != null && realmMeal != null) {
+                                realmBtw.close();
+                                realmMeal.close();
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            //TODO
-            //ADD VALIDATION !!!!
-            if (userPersonalDto.geteMail() != null && !userPersonalDto.geteMail().isEmpty())
-                SetSharedPreferences.setEmailSharedPreferences(userPersonalDto.geteMail(), getContext());
-            if (userPersonalDto.getLogin() != null && !userPersonalDto.getLogin().isEmpty())
-                SetSharedPreferences.setNameSharedPreferences(userPersonalDto.getLogin(), getContext());
-            if (userPersonalDto.getPassword() != null && !userPersonalDto.getPassword().isEmpty())
-                SetSharedPreferences.setPasswordSharedPreferences(userPersonalDto.getPassword(), getContext());
+                if (userPersonalDto.geteMail() != null && !userPersonalDto.geteMail().isEmpty())
+                    SetSharedPreferences.setEmailSharedPreferences(userPersonalDto.geteMail(), getContext());
+                if (userPersonalDto.getLogin() != null && !userPersonalDto.getLogin().isEmpty())
+                    SetSharedPreferences.setNameSharedPreferences(userPersonalDto.getLogin(), getContext());
+                if (userPersonalDto.getPassword() != null && !userPersonalDto.getPassword().isEmpty())
+                    SetSharedPreferences.setPasswordSharedPreferences(userPersonalDto.getPassword(), getContext());
 
-            startActivity(new Intent(getActivity(), MealActivity.class));
+                startActivity(new Intent(getActivity(), MealActivity.class));
+            }
         }
     };
 

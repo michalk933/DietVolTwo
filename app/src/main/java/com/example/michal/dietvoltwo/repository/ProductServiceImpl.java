@@ -76,7 +76,7 @@ public class ProductServiceImpl implements RealmBasisService<ProductDto> {
         return realm.where(ProductDto.class).equalTo("id", id).findFirst();
     }
 
-    public RealmResults<ProductDto> findForName(String name1,String name2,String name3) {
+    public RealmResults<ProductDto> findForName(String name1, String name2, String name3) {
         log.error("ProductServiceImpl : findOne(int id) : find record in data base");
         return realm.where(ProductDto.class).equalTo("name", name1).or().equalTo("name", name2).or().equalTo("name", name3).findAll();
     }

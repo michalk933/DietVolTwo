@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } finally {
-                    if(realm != null) {
+                    if (realm != null) {
                         realm.close();
                     }
                 }

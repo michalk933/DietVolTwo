@@ -77,5 +77,8 @@ public class Constant {
     public static final double PROPORCION_FAT_IN_DIET_SUSTAINBLE = 0.30;
     public static final double PROPORCION_CARBOHYDRATE_IN_DIET_SUSTAINBLE = 0.50;
 
+    public static final String KEY_SHAREPREFERENCES_NAME ="name";
+    public static final String KEY_SHAREPREFERENCES_EMAIL ="email";
+    public static final String KEY_SHAREPREFERENCES_PASSWORD ="password";
 
 }

@@ -11,7 +11,10 @@ import android.widget.Toast;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.RealmProductAdapter;
+import com.example.michal.dietvoltwo.dto.BtwDto;
 import com.example.michal.dietvoltwo.dto.ProductDto;
+import com.example.michal.dietvoltwo.repository.BtwServiceImpl;
+import com.example.michal.dietvoltwo.repository.MealServideImpl;
 import com.example.michal.dietvoltwo.repository.ProductServiceImpl;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class DescriptionMealActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private Realm realm;
+    private Realm mealRealm;
     private ProductAdapter adapter;
     private RealmResults<ProductDto> produts;
 
@@ -53,6 +57,20 @@ public class DescriptionMealActivity extends AppCompatActivity {
         setupRecycler();
         ProductServiceImpl.with(this).refresh();
         setRealmAdapter(ProductServiceImpl.getInstance().findForName(proteinProduct,carbohydrateProduct,fatProduct));
+
+
+
+
+
+        this.mealRealm = MealServideImpl.with(this).getRealm();
+        MealServideImpl.with(this).refresh();
+        MealServideImpl.with(this).findAll();
+
+
+
+
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

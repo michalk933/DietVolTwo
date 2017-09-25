@@ -1,5 +1,6 @@
 package com.example.michal.dietvoltwo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import com.example.michal.dietvoltwo.slajder.GolFragment;
 import com.example.michal.dietvoltwo.slajder.ParametersFragment;
 import com.example.michal.dietvoltwo.slajder.PersonFragment;
 import com.example.michal.dietvoltwo.slajder.SectionPageAdapter;
+import com.example.michal.dietvoltwo.util.SetSharedPreferences;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -24,12 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
         sectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.container);
-        setViewPager(viewPager);
-
+        if (SetSharedPreferences.getEmailSharedPreferences(getApplicationContext()) != null && !SetSharedPreferences.getEmailSharedPreferences(getApplicationContext()).isEmpty()) {
+            startActivity(new Intent(this, MealActivity.class));
+        } else {
+            setViewPager(viewPager);
+        }
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-
     }
 
     private void setViewPager(ViewPager viewPager) {

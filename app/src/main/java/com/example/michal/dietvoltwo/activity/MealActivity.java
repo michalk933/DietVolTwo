@@ -1,6 +1,7 @@
 package com.example.michal.dietvoltwo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,7 @@ import com.example.michal.dietvoltwo.dto.MealDto;
 import com.example.michal.dietvoltwo.repository.BtwServiceImpl;
 import com.example.michal.dietvoltwo.repository.MealServideImpl;
 import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
+import com.example.michal.dietvoltwo.util.SetSharedPreferences;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -103,8 +105,7 @@ public class MealActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                SetSharedPreferences.setEmailSharedPreferences("",getApplicationContext());
             }
         });
     }

@@ -2,6 +2,7 @@ package com.example.michal.dietvoltwo.slajder;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -17,7 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 
 
 import com.example.michal.dietvoltwo.R;
@@ -37,6 +37,7 @@ import com.example.michal.dietvoltwo.repository.UserParametersServiceImpl;
 import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
 import com.example.michal.dietvoltwo.util.Constant;
+import com.example.michal.dietvoltwo.util.SetSharedPreferences;
 
 
 import io.realm.Realm;
@@ -190,7 +191,7 @@ public class ParametersFragment extends Fragment {
                         BtwServiceImpl.getInstance().save(btwDto);
 
                         GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
-                        mealsDto = generateBtwMeal.createMeal(userDto,btwDto);
+                        mealsDto = generateBtwMeal.createMeal(userDto, btwDto);
                         MealServideImpl.getInstance().save(mealsDto);
 
                     } finally {
@@ -204,8 +205,14 @@ public class ParametersFragment extends Fragment {
 
             //TODO
             //ADD VALIDATION !!!!
+            if (userPersonalDto.geteMail() != null && !userPersonalDto.geteMail().isEmpty())
+                SetSharedPreferences.setEmailSharedPreferences(userPersonalDto.geteMail(), getContext());
+            if (userPersonalDto.getLogin() != null && !userPersonalDto.getLogin().isEmpty())
+                SetSharedPreferences.setNameSharedPreferences(userPersonalDto.getLogin(), getContext());
+            if (userPersonalDto.getPassword() != null && !userPersonalDto.getPassword().isEmpty())
+                SetSharedPreferences.setPasswordSharedPreferences(userPersonalDto.getPassword(), getContext());
 
-            startActivity(new Intent(getActivity(),MealActivity.class));
+            startActivity(new Intent(getActivity(), MealActivity.class));
         }
     };
 

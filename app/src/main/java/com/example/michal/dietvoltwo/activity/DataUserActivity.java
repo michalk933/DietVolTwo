@@ -6,7 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 
 import android.widget.RadioGroup;
@@ -16,17 +16,16 @@ import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.BtwDto;
-import com.example.michal.dietvoltwo.dto.MealsDto;
+import com.example.michal.dietvoltwo.dto.MealDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
-import com.example.michal.dietvoltwo.repository.BtwServiceImpl;
-import com.example.michal.dietvoltwo.repository.MealServideImpl;
-import com.example.michal.dietvoltwo.repository.UserGoalServiceImpl;
-import com.example.michal.dietvoltwo.repository.UserParametersServiceImpl;
+
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
 import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
+
+import java.util.List;
 
 import io.realm.Realm;
 
@@ -56,19 +55,13 @@ public class DataUserActivity extends AppCompatActivity {
     private String goal;
     private String typeDiet;
 
-    //Realm
-    private Realm userGoalRealm;
-    private Realm userParametrsRealm;
-
     //Object to change
     private UserGoalDto userGoalDto;
     private UserParametrsDto userParametrsDto;
 
-    private BtwDto btwDto;
     private UserDto userDto;
-    private MealsDto mealsDto;
-    private Realm realmBtw;
-    private Realm realmMeal;
+
+    private Realm realm;
 
 
     @Override
@@ -77,22 +70,11 @@ public class DataUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        //Get realm instance
-        userGoalRealm = UserGoalServiceImpl.with(this).getRealm();
-        UserGoalServiceImpl.with(this).refresh();
-        userParametrsRealm = UserParametersServiceImpl.with(this).getRealm();
-        UserParametersServiceImpl.with(this).refresh();
-
-        realmBtw = BtwServiceImpl.with(this).getRealm();
-        BtwServiceImpl.with(this).refresh();
-        realmMeal = MealServideImpl.with(this).getRealm();
-        MealServideImpl.with(this).refresh();
+        realm = Realm.getDefaultInstance();
 
         //inicialize object
-        userGoalDto = UserGoalServiceImpl.getInstance().findAll().get(0);
-        userParametrsDto = UserParametersServiceImpl.getInstance().findAll().get(0);
+        userGoalDto = realm.where(UserGoalDto.class).findFirst();
+        userParametrsDto = realm.where(UserParametrsDto.class).findFirst();
 
         //get currency value
         age = userParametrsDto.getAge();
@@ -105,21 +87,20 @@ public class DataUserActivity extends AppCompatActivity {
         //Create view
         createView();
 
-        btwDto = new BtwDto();
 
         //floatButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userGoalRealm.beginTransaction();
+                realm.beginTransaction();
                 userGoalDto.setTypeDiet(typeDiet);
                 userGoalDto.setGoal(goal);
                 userParametrsDto.setAge(age);
                 userParametrsDto.setLvlActivity(lvlActivity);
                 userParametrsDto.setHeight(height);
                 userParametrsDto.setWeight(weight);
-                userGoalRealm.commitTransaction();
+                realm.commitTransaction();
                 userDto = new UserDto();
                 userDto.setUserGoalDto(userGoalDto);
                 userDto.setUserParametrsDto(userParametrsDto);
@@ -127,30 +108,31 @@ public class DataUserActivity extends AppCompatActivity {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            DietGenerateService dietGenerateService = new DietGenerateService();
-                            int dietForUser = dietGenerateService.createDietForUser(userDto);
-                            GenerateBTW generateBTW = new GenerateBTW(userDto);
-                            BtwDto btw = generateBTW.createBtw(dietForUser);
 
-                            btwDto.setKcal(dietForUser);
-                            btwDto.setB(btw.getB());
-                            btwDto.setT(btw.getT());
-                            btwDto.setW(btw.getW());
-                            btwDto.setId((int) System.currentTimeMillis());
+                        DietGenerateService dietGenerateService = new DietGenerateService();
+                        int dietForUser = dietGenerateService.createDietForUser(userDto);
+                        GenerateBTW generateBTW = new GenerateBTW(userDto);
 
-                            BtwServiceImpl.getInstance().save(btwDto);
+                        BtwDto btw = generateBTW.createBtw(dietForUser);
+                        realm.beginTransaction();
+                        BtwDto newBtwDto = realm.createObject(BtwDto.class);
+                        newBtwDto.setKcal(dietForUser);
+                        newBtwDto.setB(btw.getB());
+                        newBtwDto.setT(btw.getT());
+                        newBtwDto.setW(btw.getW());
+                        newBtwDto.setId((int) System.currentTimeMillis());
 
-                            GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
-                            mealsDto = generateBtwMeal.createMeal(userDto, btwDto);
-                            MealServideImpl.getInstance().save(mealsDto);
-
-                        } finally {
-                            if (realmBtw != null && realmMeal != null) {
-                                realmBtw.close();
-                                realmMeal.close();
-                            }
+                        GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
+                        List<MealDto> mealDtoList = generateBtwMeal.createMeal(userDto, btw).getMealDtos();
+                        for (MealDto meal : mealDtoList) {
+                            MealDto mealDto = realm.createObject(MealDto.class);
+                            mealDto.setB(meal.getB());
+                            mealDto.setKcalForMeal(meal.getKcalForMeal());
+                            mealDto.setNumberMeal(meal.getNumberMeal());
+                            mealDto.setT(meal.getT());
+                            mealDto.setW(meal.getW());
                         }
+                        realm.commitTransaction();
                     }
                 });
                 Toast.makeText(DataUserActivity.this, "Zmieniono dane użytkownika", Toast.LENGTH_SHORT).show();
@@ -307,7 +289,6 @@ public class DataUserActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        userGoalRealm.close();
-        userParametrsRealm.close();
+        realm.close();
     }
 }

@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
-import com.example.michal.dietvoltwo.repository.ProductServiceImpl;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -24,7 +23,6 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
 
     private Context context;
     private Realm realm;
-    private LayoutInflater layoutInflater;
 
     public ProductAdapter(Context context) {
         this.context = context;
@@ -38,9 +36,10 @@ public class ProductAdapter extends RealmRecyclerViewAdapter<ProductDto> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        realm = ProductServiceImpl.getInstance().getRealm();
         final ProductDto productDto = getItem(position);
         final CardViewHolder holder = (CardViewHolder) viewHolder;
+
+        realm = Realm.getDefaultInstance();
 
         holder.image.setImageBitmap(convertByteToBitmap(productDto.getImage()));
         holder.bProduct.setText("Białko: " + productDto.getB());

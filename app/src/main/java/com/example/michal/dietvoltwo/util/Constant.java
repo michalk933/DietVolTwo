@@ -29,6 +29,10 @@ public class Constant {
     public static final String PARAMETER_SEX_WOMAN = "K";
     public static final String PARAMETER_SEX_MAN = "M";
 
+    public static final int PARAMETER_DEAFOULT_WEIGHT = 75;
+    public static final int PARAMETER_DEAFOULT_HEIGHT = 178;
+    public static final int PARAMETER_DEAFOULT_AGE = 25;
+
     public static final int PARAMETER_LVL_ACTIVITY_HEIGHT = 40;
     public static final int PARAMETER_LVL_ACTIVITY_MEDIUM = 35;
     public static final int PARAMETER_LVL_ACTIVITY_LOW = 30;

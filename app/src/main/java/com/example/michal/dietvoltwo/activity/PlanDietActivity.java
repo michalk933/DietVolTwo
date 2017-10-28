@@ -1,22 +1,15 @@
 package com.example.michal.dietvoltwo.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ListView;
-
 
 import com.example.michal.dietvoltwo.R;
-import com.example.michal.dietvoltwo.adapter.ProductAdapter;
 import com.example.michal.dietvoltwo.adapter.ProductInMealsAdapter;
 import com.example.michal.dietvoltwo.dto.ProductDto;
 import com.example.michal.dietvoltwo.dto.ProductInMeal;
-import com.example.michal.dietvoltwo.repository.ProductServiceImpl;
 import com.example.michal.dietvoltwo.service.planDietService.createPlanDietWithProduct;
 
 import java.util.ArrayList;
@@ -39,6 +32,7 @@ public class PlanDietActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plan_diet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        realm = Realm.getDefaultInstance();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_diet_plan_activity);
         recyclerView.setHasFixedSize(true);
@@ -46,8 +40,7 @@ public class PlanDietActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        this.realm = ProductServiceImpl.with(this).getRealm();
-        RealmResults<ProductDto> products = ProductServiceImpl.getInstance().findAll();
+        RealmResults<ProductDto> products = realm.where(ProductDto.class).findAll();
         productInMeals = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
             productInMeals.add(createPlanDietWithProduct.create(products, i));

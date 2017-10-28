@@ -1,17 +1,18 @@
 package com.example.michal.dietvoltwo.dto;
 
-
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor(suppressConstructorProperties = true)
+@NoArgsConstructor
+@Builder
 public class MealsDto {
-
     private List<MealDto> mealDtos;
-
-    public List<MealDto> getMealDtos() {
-        return mealDtos;
-    }
-
-    public void setMealDtos(List<MealDto> mealDtos) {
-        this.mealDtos = mealDtos;
-    }
 }

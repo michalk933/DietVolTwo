@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.dto.ProductDto;
-import com.example.michal.dietvoltwo.repository.ProductServiceImpl;
 import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
 
 import java.io.ByteArrayOutputStream;
@@ -45,7 +44,7 @@ public class NewProductActivity extends AppCompatActivity {
     private String[] elementy = {CARBOHYDRATE_TYPE, PROTEIN_TYPE, FAT_TYPE};
     private String typProduct = CARBOHYDRATE_TYPE;
 
-    private Realm realmProduct;
+    private Realm realm;
     private byte[] image;
 
     @Override
@@ -54,17 +53,16 @@ public class NewProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_product);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        realm = Realm.getDefaultInstance();
 
         createView();
-
-        this.realmProduct = ProductServiceImpl.with(this).getRealm();
-        ProductServiceImpl.with(this).refresh();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductDto newProduct = new ProductDto();
+                realm.beginTransaction();
+                ProductDto newProduct = realm.createObject(ProductDto.class);
                 newProduct.setName(nameEditText.getText().toString());
                 newProduct.setProducent(producentEditText.getText().toString());
                 newProduct.setProductTyp(typeMacroEditText.getText().toString());
@@ -73,14 +71,13 @@ public class NewProductActivity extends AppCompatActivity {
                 newProduct.setB(Integer.parseInt(proteinEditText.getText().toString()));
                 newProduct.setT(Integer.parseInt(fatEditText.getText().toString()));
                 newProduct.setW(Integer.parseInt(carboEditText.getText().toString()));
-                newProduct.setwW(ConvertCarbohydratoToCarboChange.convert(Integer.parseInt(carboEditText.getText().toString())));
+                newProduct.setWW(ConvertCarbohydratoToCarboChange.convert(Integer.parseInt(carboEditText.getText().toString())));
                 newProduct.setIg(Integer.parseInt(igEditText.getText().toString()));
                 newProduct.setForDiabets(forDiabedtEditText.getText().toString().equals("TAK") ? 1 : 0);
                 newProduct.setCreate(new Date());
                 newProduct.setImage(image);
-                ProductServiceImpl.getInstance().save(newProduct);
+                realm.commitTransaction();
 
-                ProductServiceImpl.getInstance().refresh();
                 Toast.makeText(NewProductActivity.this, "DODANO NOWY PRODUKT", Toast.LENGTH_SHORT).show();
             }
         });
@@ -175,7 +172,7 @@ public class NewProductActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realmProduct.close();
+        realm.close();
     }
 
 }

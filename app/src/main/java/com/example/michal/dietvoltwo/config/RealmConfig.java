@@ -1,6 +1,5 @@
 package com.example.michal.dietvoltwo.config;
 
-
 import android.app.Application;
 
 import io.realm.Realm;
@@ -11,10 +10,12 @@ public class RealmConfig extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
-                .name("paramert.reaml")
-                .build();
-        Realm.setDefaultConfiguration(realmConfiguration);
-
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .schemaVersion(1L)
+                .name("diet.realm").build();
+        Realm.setDefaultConfiguration(config);
     }
 }

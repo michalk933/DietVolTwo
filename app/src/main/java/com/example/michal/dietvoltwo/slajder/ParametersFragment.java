@@ -1,8 +1,7 @@
 package com.example.michal.dietvoltwo.slajder;
 
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -19,32 +18,29 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.activity.MealActivity;
 import com.example.michal.dietvoltwo.dto.BtwDto;
-import com.example.michal.dietvoltwo.dto.MealsDto;
+import com.example.michal.dietvoltwo.dto.MealDto;
 import com.example.michal.dietvoltwo.dto.UserDto;
 import com.example.michal.dietvoltwo.dto.UserGoalDto;
 import com.example.michal.dietvoltwo.dto.UserParametrsDto;
 import com.example.michal.dietvoltwo.dto.UserPersonalDto;
-import com.example.michal.dietvoltwo.repository.BtwServiceImpl;
-import com.example.michal.dietvoltwo.repository.MealServideImpl;
-import com.example.michal.dietvoltwo.repository.UserGoalServiceImpl;
-import com.example.michal.dietvoltwo.repository.UserPersonalServiceImpl;
 import com.example.michal.dietvoltwo.service.diet.DietGenerateService;
-import com.example.michal.dietvoltwo.repository.UserParametersServiceImpl;
 import com.example.michal.dietvoltwo.service.mealBtw.GenerateBtwMeal;
 import com.example.michal.dietvoltwo.service.totalBtw.GenerateBTW;
-import com.example.michal.dietvoltwo.util.Constant;
 import com.example.michal.dietvoltwo.util.SetSharedPreferences;
 import com.example.michal.dietvoltwo.util.ValidationRegister;
 
+import java.util.List;
 
 import io.realm.Realm;
 
 
 import static android.widget.SeekBar.OnSeekBarChangeListener;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_DEAFOULT_AGE;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_DEAFOULT_HEIGHT;
+import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_DEAFOULT_WEIGHT;
 import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_HEIGHT;
 import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_LOW;
 import static com.example.michal.dietvoltwo.util.Constant.PARAMETER_LVL_ACTIVITY_MEDIUM;
@@ -59,50 +55,27 @@ public class ParametersFragment extends Fragment {
     private TextView ageTextView, weightTextView, heightTextView;
     private Button buttonNext;
 
-    private UserParametrsDto userParametrsDto;
-    private UserDto userDto;
-    private BtwDto btwDto;
-    private MealsDto mealsDto;
-
-    private Realm realm;
-    private Realm realmUserGoal;
-    private Realm realmUserPersonal;
-    private Realm realmBtw;
-    private Realm realmMeal;
-
-    private int age = 25;
-    private int weight = 75;
-    private int height = 178;
+    private int age = PARAMETER_DEAFOULT_AGE;
+    private int weight = PARAMETER_DEAFOULT_WEIGHT;
+    private int height = PARAMETER_DEAFOULT_HEIGHT;
     private String sex = PARAMETER_SEX_WOMAN;
     private int lvlActivity = PARAMETER_LVL_ACTIVITY_MEDIUM;
 
+    private UserParametrsDto userParametrsDto;
+    UserPersonalDto userPersonalDto;
+    UserGoalDto userGoalDto;
 
-    UserPersonalDto userPersonalDto ;
-    UserGoalDto userGoalDto ;
+    UserDto userDto;
+
+    private Realm realm;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        this.realm = UserParametersServiceImpl.with(this).getRealm();
-        UserParametersServiceImpl.with(this).refresh();
-
-        this.realmUserPersonal = UserPersonalServiceImpl.with(this).getRealm();
-        UserPersonalServiceImpl.with(this).refresh();
-
-        this.realmUserGoal = UserGoalServiceImpl.with(this).getRealm();
-        UserGoalServiceImpl.with(this).refresh();
-
-        this.realmBtw = BtwServiceImpl.with(getActivity()).getRealm();
-        BtwServiceImpl.with(getActivity()).refresh();
-
-        this.realmMeal = MealServideImpl.with(this).getRealm();
-        MealServideImpl.with(this).refresh();
-
-        btwDto = new BtwDto();
-
+        realm = Realm.getDefaultInstance();
     }
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -149,11 +122,8 @@ public class ParametersFragment extends Fragment {
         userParametrsDto.setHeight(height);
         userParametrsDto.setAge(age);
 
-        userDto = new UserDto();
-
         userPersonalDto = UserPersonalDto.createUserPersonalDto();
         userGoalDto = UserGoalDto.getUserPersonalDto();
-
 
         return view;
     }
@@ -161,9 +131,10 @@ public class ParametersFragment extends Fragment {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(ValidationRegister.isValidEmailAddress(userPersonalDto.geteMail()) && ValidationRegister.isPasswordEqualRePassword(userPersonalDto.getPassword(),userPersonalDto.getRePassword())) {
-//            UserPersonalDto userPersonalDto = UserPersonalDto.createUserPersonalDto();
-//            final UserGoalDto userGoalDto = UserGoalDto.getUserPersonalDto();
+            if (ValidationRegister.isValidEmailAddress(userPersonalDto.geteMail()) &&
+                    ValidationRegister.isPasswordEqualRePassword(userPersonalDto.getPassword(), userPersonalDto.getRePassword())) {
+
+                userDto = new UserDto();
                 try {
                     userDto.setUserPersonalDto(userPersonalDto);
                     userDto.setUserGoalDto(userGoalDto);
@@ -172,44 +143,57 @@ public class ParametersFragment extends Fragment {
                     Log.d("NULL", e.getLocalizedMessage());
                 }
 
+                realm.beginTransaction();
+                UserParametrsDto newUserParametrsDto = realm.createObject(UserParametrsDto.class);
+                newUserParametrsDto.setAge(userParametrsDto.getAge());
+                newUserParametrsDto.setHeight(userParametrsDto.getHeight());
+                newUserParametrsDto.setId(userParametrsDto.getId());
+                newUserParametrsDto.setLvlActivity(userParametrsDto.getLvlActivity());
+                newUserParametrsDto.setSex(userParametrsDto.getSex());
+                newUserParametrsDto.setWeight(userParametrsDto.getWeight());
 
-                userParametrsDto.setId((int) System.currentTimeMillis());
-                UserParametersServiceImpl.getInstance().save(userParametrsDto);
+                UserGoalDto newUserGoalDto = realm.createObject(UserGoalDto.class);
+                newUserGoalDto.setDiabetsType(userGoalDto.getDiabetsType());
+                newUserGoalDto.setGoal(userGoalDto.getGoal());
+                newUserGoalDto.setHealth(userGoalDto.getHealth());
+                newUserGoalDto.setId(userGoalDto.getId());
+                newUserGoalDto.setTypeDiet(userGoalDto.getTypeDiet());
 
-                userGoalDto.setId((int) System.currentTimeMillis());
-                UserGoalServiceImpl.getInstance().save(userGoalDto);
-
-                userPersonalDto.setId((int) System.currentTimeMillis());
-                UserPersonalServiceImpl.getInstance().save(userPersonalDto);
-
+                UserPersonalDto newUserPersonalDto = realm.createObject(UserPersonalDto.class);
+                newUserPersonalDto.seteMail(userPersonalDto.geteMail());
+                newUserPersonalDto.setId(userPersonalDto.getId());
+                newUserPersonalDto.setLogin(userPersonalDto.getLogin());
+                newUserPersonalDto.setPassword(userPersonalDto.getPassword());
+                newUserPersonalDto.setRePassword(userPersonalDto.getRePassword());
+                realm.commitTransaction();
 
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            DietGenerateService dietGenerateService = new DietGenerateService();
-                            int dietForUser = dietGenerateService.createDietForUser(userDto);
-                            GenerateBTW generateBTW = new GenerateBTW(userDto);
-                            BtwDto btw = generateBTW.createBtw(dietForUser);
+                        DietGenerateService dietGenerateService = new DietGenerateService();
+                        int dietForUser = dietGenerateService.createDietForUser(userDto);
+                        GenerateBTW generateBTW = new GenerateBTW(userDto);
 
-                            btwDto.setKcal(dietForUser);
-                            btwDto.setB(btw.getB());
-                            btwDto.setT(btw.getT());
-                            btwDto.setW(btw.getW());
-                            btwDto.setId((int) System.currentTimeMillis());
+                        BtwDto btw = generateBTW.createBtw(dietForUser);
+                        BtwDto btwDto = realm.createObject(BtwDto.class);
+                        realm.beginTransaction();
+                        btwDto.setKcal(dietForUser);
+                        btwDto.setB(btw.getB());
+                        btwDto.setT(btw.getT());
+                        btwDto.setW(btw.getW());
+                        btwDto.setId((int) System.currentTimeMillis());
 
-                            BtwServiceImpl.getInstance().save(btwDto);
-
-                            GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
-                            mealsDto = generateBtwMeal.createMeal(userDto, btwDto);
-                            MealServideImpl.getInstance().save(mealsDto);
-
-                        } finally {
-                            if (realmBtw != null && realmMeal != null) {
-                                realmBtw.close();
-                                realmMeal.close();
-                            }
+                        GenerateBtwMeal generateBtwMeal = new GenerateBtwMeal();
+                        List<MealDto> mealDtoList = generateBtwMeal.createMeal(userDto, btwDto).getMealDtos();
+                        for (MealDto meal : mealDtoList) {
+                            MealDto mealDto = realm.createObject(MealDto.class);
+                            mealDto.setB(meal.getB());
+                            mealDto.setKcalForMeal(meal.getKcalForMeal());
+                            mealDto.setNumberMeal(meal.getNumberMeal());
+                            mealDto.setT(meal.getT());
+                            mealDto.setW(meal.getW());
                         }
+                        realm.commitTransaction();
                     }
                 });
 
@@ -296,7 +280,5 @@ public class ParametersFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         realm.close();
-        realmUserGoal.close();
-        realmUserPersonal.close();
     }
 }

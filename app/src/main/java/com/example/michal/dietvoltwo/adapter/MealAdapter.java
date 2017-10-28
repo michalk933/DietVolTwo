@@ -13,16 +13,13 @@ import android.widget.TextView;
 import com.example.michal.dietvoltwo.R;
 import com.example.michal.dietvoltwo.activity.PlanDietActivity;
 import com.example.michal.dietvoltwo.dto.MealDto;
-import com.example.michal.dietvoltwo.repository.MealServideImpl;
 import com.example.michal.dietvoltwo.util.ConvertCarbohydratoToCarboChange;
 
 
-import io.realm.Realm;
 
 public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
 
     final Context context;
-    private Realm realm;
     private LayoutInflater layoutInflater;
 
     public MealAdapter(Context context) {
@@ -38,8 +35,6 @@ public class MealAdapter extends RealmRecyclerViewAdapter<MealDto> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        realm = MealServideImpl.getInstance().getRealm();
-
         final MealDto mealDto = getItem(position);
         final CardViewHolder holder = (CardViewHolder) viewHolder;
 
